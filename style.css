@@ -1,0 +1,377 @@
+/* ==========================================================================
+   NusaTrip — Real Travel Platform Design System
+   Inspired by Traveloka, Airbnb, Wanderlog, and Klook
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Brand Colors (Travel Ocean Blue & Warm Coral Accent) */
+  --travel-blue: #0284c7;
+  --travel-blue-hover: #0369a1;
+  --travel-blue-dark: #0c4a6e;
+  --travel-blue-50: #f0f9ff;
+  --travel-blue-100: #e0f2fe;
+
+  --travel-coral: #ff5a5f;
+  --travel-coral-hover: #e0484d;
+  --travel-orange: #f97316;
+  --travel-orange-50: #fff7ed;
+
+  --travel-teal: #0f766e;
+  --travel-teal-50: #f0fdfa;
+
+  /* Surfaces & Canvas */
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-muted: #f1f5f9;
+  --bg-subtle: #f8fafc;
+
+  /* Borders & Dividers */
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-focus: #0284c7;
+
+  /* Text Hierarchy */
+  --text-main: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-faint: #94a3b8;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadows (Natural, soft, authentic) */
+  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-card: 0 2px 8px -2px rgba(15, 23, 42, 0.06), 0 1px 4px -1px rgba(15, 23, 42, 0.04);
+  --shadow-elevated: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
+  --shadow-capsule: 0 14px 34px -6px rgba(15, 23, 42, 0.12), 0 6px 12px -2px rgba(15, 23, 42, 0.06);
+
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Base Travel Card */
+.travel-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: transform 200ms var(--ease-smooth), box-shadow 200ms var(--ease-smooth), border-color 200ms ease;
+}
+
+/* Hero Search Capsule (Airbnb & Traveloka Signature) */
+.search-capsule {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-capsule);
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.search-field-unit {
+  position: relative;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  border-radius: var(--radius-lg);
+}
+
+.search-field-unit:hover {
+  background-color: #f8fafc;
+}
+
+.search-field-unit:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background-color: var(--border-light);
+}
+
+@media (max-width: 768px) {
+  .search-capsule {
+    border-radius: var(--radius-lg);
+  }
+  .search-field-unit:not(:last-child)::after {
+    display: none;
+  }
+  .search-field-unit {
+    border-bottom: 1px solid var(--border-light);
+    padding: 10px 14px;
+  }
+}
+
+/* Travel Category Pill Filter */
+.travel-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 150ms var(--ease-smooth);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.travel-cat-pill:hover {
+  border-color: var(--border-medium);
+  background: var(--bg-muted);
+  color: var(--text-main);
+}
+
+.travel-cat-pill.active {
+  background: var(--travel-blue-50);
+  border-color: var(--travel-blue);
+  color: var(--travel-blue-dark);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.15);
+}
+
+/* Island Showcase Card */
+.island-showcase-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  min-width: 200px;
+  height: 230px;
+  background: #0f172a;
+  box-shadow: var(--shadow-card);
+  transition: transform 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.island-showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms var(--ease-smooth);
+}
+
+.island-showcase-card:hover img {
+  transform: scale(1.06);
+}
+
+.island-showcase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.island-showcase-card .scrim-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.05) 0%, rgba(15, 23, 42, 0.4) 45%, rgba(15, 23, 42, 0.88) 100%);
+}
+
+.island-showcase-card.active {
+  box-shadow: 0 0 0 3px var(--travel-blue), var(--shadow-elevated);
+}
+
+/* Day Tabs Bar (Airbnb / Wanderlog style) */
+.day-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 160ms var(--ease-smooth);
+  white-space: nowrap;
+}
+
+.day-tab-btn:hover {
+  border-color: var(--border-medium);
+  color: var(--text-main);
+  background: var(--bg-muted);
+}
+
+.day-tab-btn.active {
+  background: var(--travel-blue);
+  border-color: var(--travel-blue);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+}
+
+/* Itinerary Spot Card (Wanderlog / Klook style) */
+.travel-spot-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform 200ms var(--ease-smooth), box-shadow 200ms var(--ease-smooth), border-color 200ms ease;
+}
+
+.travel-spot-card:hover {
+  transform: translateY(-2px);
+  border-color: #93c5fd;
+  box-shadow: var(--shadow-elevated);
+}
+
+.travel-spot-card.highlighted-spot {
+  border-color: var(--travel-blue) !important;
+  box-shadow: 0 0 0 2px var(--travel-blue), var(--shadow-elevated) !important;
+}
+
+.spot-img-container {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-muted);
+}
+
+.spot-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 400ms var(--ease-smooth);
+}
+
+.travel-spot-card:hover .spot-img-container img {
+  transform: scale(1.05);
+}
+
+/* Transit Waypoint Strip */
+.transit-route-connector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 10px 0 10px 24px;
+  padding: 8px 16px;
+  background: #f8fafc;
+  border-left: 2px dashed var(--travel-blue);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Custom Leaflet Map Pin */
+.travel-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--travel-blue);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 13px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  transition: transform 180ms ease;
+  cursor: pointer;
+}
+
+.travel-map-pin:hover {
+  transform: scale(1.18);
+  background: var(--travel-blue-dark);
+}
+
+.travel-map-pin.pin-active {
+  transform: scale(1.25);
+  background: var(--travel-coral) !important;
+  border-color: #ffffff;
+  box-shadow: 0 4px 14px rgba(255, 90, 95, 0.5);
+  z-index: 1000 !important;
+}
+
+/* Mobile Segmented Toggle Control */
+.mobile-segment-toggle {
+  display: flex;
+  background: #e2e8f0;
+  border-radius: var(--radius-pill);
+  padding: 4px;
+}
+
+.mobile-segment-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+
+.mobile-segment-btn.active {
+  background: #ffffff;
+  color: var(--travel-blue);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Clean Print Optimization */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print, header, .search-capsule, #mobileSegmentToggle, aside, footer {
+    display: none !important;
+  }
+  .travel-card, .travel-spot-card {
+    box-shadow: none !important;
+    border: 1px solid #d1d5db !important;
+    break-inside: avoid;
+  }
+}

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>NusaTrip — Rencanakan Liburan Impian di Kepulauan Indonesia</title>
+  <meta name="description" content="Platform perencana itinerary perjalanan kepulauan Indonesia nomor satu. Rute terkurasi, estimasi biaya transparan, dan jadwal harian siap jalan." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Leaflet CSS & JS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Travel Styles -->
+  <link rel="stylesheet" href="style.css?v=20261023_08" />
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen pb-20 lg:pb-0">
+
+  <!-- Top Navigation Bar (Traveloka / Airbnb Inspired) -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <!-- Logo & Brand -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-sky-600 text-white flex items-center justify-center shadow-md group-hover:bg-sky-700 transition">
+          <i data-lucide="plane-takeoff" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-xl tracking-tight text-slate-900">NusaTrip</span>
+            <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200 hidden sm:inline">Indonesia</span>
+          </div>
+          <p class="text-[11px] text-slate-500 font-medium">Platform Perencana Liburan Nusantara</p>
+        </div>
+      </a>
+
+      <!-- Navigation Links (Desktop) -->
+      <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+        <a href="#sectionDestinations" class="hover:text-sky-600 transition flex items-center gap-1.5">
+          <i data-lucide="compass" class="w-4 h-4 text-sky-600"></i>
+          <span>Destinasi</span>
+        </a>
+        <a href="#sectionItinerary" class="hover:text-sky-600 transition flex items-center gap-1.5">
+          <i data-lucide="calendar" class="w-4 h-4 text-sky-600"></i>
+          <span>Itinerary</span>
+        </a>
+        <a href="#colMap" class="hover:text-sky-600 transition flex items-center gap-1.5">
+          <i data-lucide="map" class="w-4 h-4 text-sky-600"></i>
+          <span>Peta Rute</span>
+        </a>
+        <a href="#budgetCard" class="hover:text-sky-600 transition flex items-center gap-1.5">
+          <i data-lucide="receipt" class="w-4 h-4 text-sky-600"></i>
+          <span>Estimasi Biaya</span>
+        </a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <div class="hidden lg:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-100 text-xs font-semibold text-slate-600 border border-slate-200">
+          <span>🇮🇩 IDR (Rp)</span>
+        </div>
+
+        <button id="btnCopyWa" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 transition shadow-sm" title="Bagikan jadwal ke WhatsApp">
+          <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Bagikan ke WhatsApp</span>
+        </button>
+
+        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition border border-slate-200">
+          <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Cetak PDF</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section with Travel Search Capsule -->
+  <section class="relative bg-gradient-to-b from-sky-900 via-sky-800 to-sky-950 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden no-print">
+    <!-- Subtle Background Scrim -->
+    <div class="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    
+    <div class="relative max-w-6xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-sky-200">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i>
+        <span>Rute Terkurasi 100% Realistis & Searah</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        Rencanakan Liburan Impian di Nusantara
+      </h1>
+      
+      <p class="max-w-2xl mx-auto text-xs sm:text-base text-sky-100 font-normal leading-relaxed">
+        Pilih destinasi pulau, tentukan tanggal liburan, dan nikmati panduan perjalanan harian lengkap dengan navigasi peta searah serta perkiraan biaya all-in.
+      </p>
+
+      <!-- Floating Travel Search Capsule (Traveloka / Airbnb Style) -->
+      <div class="mt-8 text-left max-w-5xl mx-auto">
+        <div class="search-capsule p-2 sm:p-3 grid grid-cols-1 md:grid-cols-12 gap-2 text-slate-800 items-center">
+          
+          <!-- 1. Destinasi Tujuan (4 cols) -->
+          <div class="search-field-unit md:col-span-4" id="unitDestination">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Destinasi Liburan</span>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4 text-sky-600 shrink-0"></i>
+                <select id="selectRegion" class="w-full bg-transparent font-bold text-sm text-slate-900 outline-none cursor-pointer">
+                  <option value="bali">Pulau Bali</option>
+                  <option value="labuan_bajo">Labuan Bajo & Komodo</option>
+                  <option value="lombok">Pulau Lombok & Gili</option>
+                  <option value="jogja">DI Yogyakarta</option>
+                  <option value="belitung">Kepulauan Belitung</option>
+                  <option value="raja_ampat">Kepulauan Raja Ampat</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Durasi / Tanggal (3 cols) -->
+          <div class="search-field-unit md:col-span-3" id="unitDates">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Tanggal & Durasi</span>
+            <div class="flex items-center gap-2">
+              <i data-lucide="calendar" class="w-4 h-4 text-sky-600 shrink-0"></i>
+              <div class="flex items-center gap-1 text-xs font-bold text-slate-900">
+                <input type="date" id="inputStartDate" class="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer" />
+                <span>–</span>
+                <input type="date" id="inputEndDate" class="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Tipe Wisatawan & Budget (3 cols) -->
+          <div class="search-field-unit md:col-span-3" id="unitTravelers">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Profil & Gaya Budget</span>
+            <div class="flex items-center gap-2">
+              <i data-lucide="users" class="w-4 h-4 text-sky-600 shrink-0"></i>
+              <select id="selectTravelerType" class="bg-transparent font-bold text-xs text-slate-900 outline-none cursor-pointer">
+                <option value="couple">Pasangan</option>
+                <option value="family" selected>Keluarga</option>
+                <option value="friends">Grup Teman</option>
+                <option value="solo">Solo Traveler</option>
+              </select>
+              <span class="text-slate-300">|</span>
+              <select id="selectBudgetTier" class="bg-transparent font-bold text-xs text-slate-900 outline-none cursor-pointer">
+                <option value="budget">Hemat</option>
+                <option value="comfort" selected>Nyaman</option>
+                <option value="luxury">Sultan</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 4. Tombol Cari (2 cols) -->
+          <div class="md:col-span-2 p-1">
+            <button id="btnGenerate" class="w-full py-3.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md transition">
+              <i data-lucide="search" class="w-4 h-4"></i>
+              <span>Cari Rute</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Quick Duration Filter Pills -->
+        <div class="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold text-white/90">
+          <span class="text-xs text-sky-200 font-medium mr-1.5">Pilihan Durasi:</span>
+          <button type="button" data-days="1" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">1 Hari</button>
+          <button type="button" data-days="2" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">2 Hari</button>
+          <button type="button" data-days="3" class="day-pill active px-3 py-1 rounded-full bg-white text-sky-900 font-bold transition shadow-xs">3 Hari</button>
+          <button type="button" data-days="4" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">4 Hari</button>
+          <button type="button" data-days="5" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">5 Hari</button>
+          <button type="button" data-days="7" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">7 Hari</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Category Filter Bar (Airbnb Category Navigation Style) -->
+  <section class="bg-white border-b border-slate-200 sticky top-18 z-40 shadow-2xs no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="interestTags">
+        <button type="button" data-interest="pantai" class="travel-cat-pill active">
+          <span>🏖️ Pantai & Bahari</span>
+        </button>
+        <button type="button" data-interest="alam" class="travel-cat-pill active">
+          <span>🌋 Alam & Gunung</span>
+        </button>
+        <button type="button" data-interest="budaya" class="travel-cat-pill active">
+          <span>🏛️ Candi & Budaya</span>
+        </button>
+        <button type="button" data-interest="kuliner" class="travel-cat-pill active">
+          <span>🍜 Kuliner Khas</span>
+        </button>
+        <button type="button" data-interest="relaksasi" class="travel-cat-pill">
+          <span>🌅 Sunset & Santai</span>
+        </button>
+        <button type="button" data-interest="petualangan" class="travel-cat-pill">
+          <span>🧗 Trekking & Snorkeling</span>
+        </button>
+      </div>
+
+      <!-- Pace Selector (Santai / Seimbang / Padat) -->
+      <div class="hidden sm:flex items-center gap-2 shrink-0">
+        <span class="text-xs text-slate-500 font-medium">Ritme:</span>
+        <select id="selectPace" class="text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 rounded-lg px-2.5 py-1 outline-none">
+          <option value="relaxed">Santai (3 spot/hari)</option>
+          <option value="balanced" selected>Seimbang (4 spot/hari)</option>
+          <option value="packed">Padat (5 spot/hari)</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- 1. Featured Island Destinations (Klook / Traveloka Island Grid) -->
+    <section id="sectionDestinations" class="space-y-3 no-print">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Destinasi Kepulauan Terpopuler</h2>
+          <p class="text-xs text-slate-500">Pilih pulau untuk langsung memperbarui rencana perjalanan dan peta rute</p>
+        </div>
+        <span class="text-xs font-semibold text-sky-600 hidden sm:inline">6 Wilayah Terkurasi Lengkap</span>
+      </div>
+
+      <!-- Island Cards Container (Populated by JS) -->
+      <div class="flex items-center gap-3.5 overflow-x-auto pb-3 pt-1 no-scrollbar" id="islandGallery">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- 2. Active Trip Overview Banner (Wanderlog Style) -->
+    <section class="travel-card p-5 sm:p-6 bg-gradient-to-r from-sky-50 via-white to-blue-50 border-sky-200">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-600 text-white uppercase tracking-wider">Itinerary Aktif</span>
+            <span class="text-xs font-semibold text-slate-500" id="badgeDuration">3 Hari (2 Malam)</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900" id="activeTripTitle">
+            Liburan Pulau Bali
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl" id="islandHeaderDesc">
+            Memuat ringkasan destinasi...
+          </p>
+        </div>
+
+        <!-- Quick Trip Stats Bar -->
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            <span class="text-[10px] font-semibold text-slate-400 block uppercase">Total Tempat</span>
+            <span class="text-sm font-bold text-slate-900" id="statTotalSpots">12 Destinasi</span>
+          </div>
+          <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            <span class="text-[10px] font-semibold text-slate-400 block uppercase">Total Rute</span>
+            <span class="text-sm font-bold text-sky-700" id="statTotalDistance">84.5 km</span>
+          </div>
+          <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            <span class="text-[10px] font-semibold text-slate-400 block uppercase">Estimasi Biaya</span>
+            <span class="text-sm font-bold text-emerald-700" id="statTotalCost">Rp 2.450.000</span>
+          </div>
+          <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
+            <span class="text-[10px] font-semibold text-slate-400 block uppercase">Musim Terbaik</span>
+            <span class="text-sm font-bold text-amber-700" id="statBestSeason">Apr – Okt</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Mobile Segmented View Control -->
+    <div class="lg:hidden mobile-segment-toggle no-print" id="mobileSegmentToggle">
+      <button type="button" class="mobile-segment-btn active" id="btnViewTimeline">
+        <i data-lucide="calendar" class="w-4 h-4"></i>
+        <span>Jadwal Rute</span>
+      </button>
+      <button type="button" class="mobile-segment-btn" id="btnViewMap">
+        <i data-lucide="map" class="w-4 h-4"></i>
+        <span>Peta & Biaya</span>
+      </button>
+    </div>
+
+    <!-- 3. Main Workspace: Itinerary Feed (Left) & Sticky Map / Budget (Right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="sectionItinerary">
+
+      <!-- Left Column: Day-by-Day Timeline (7 cols) -->
+      <div class="lg:col-span-7 space-y-5" id="colTimeline">
+
+        <!-- Day Filter Tabs Bar -->
+        <div class="travel-card p-2.5 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar no-print">
+          <div class="flex items-center gap-1.5 flex-nowrap shrink-0" id="dayFilterTabs">
+            <!-- Populated by JS -->
+          </div>
+          <button id="btnAddSpotModal" class="text-xs px-3.5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold border border-sky-200 flex items-center gap-1.5 shrink-0 whitespace-nowrap transition">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i>
+            <span>Tambah Spot</span>
+          </button>
+        </div>
+
+        <!-- Itinerary Cards Feed (Populated dynamically with Wanderlog-style cards) -->
+        <div id="itineraryContainer" class="space-y-5">
+          <!-- Populated by JS -->
+        </div>
+
+      </div>
+
+      <!-- Right Column: Sticky Leaflet Map & Transparent Pricing (5 cols) -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24" id="colMap">
+
+        <!-- Interactive Map Card -->
+        <div class="travel-card overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="map" class="w-4 h-4 text-sky-600"></i>
+                <span>Peta Rute Alur Searah</span>
+              </h3>
+              <p class="text-xs text-slate-500">Klik marker untuk melihat detail dan urutan destinasi</p>
+            </div>
+            <button id="btnResetMapBounds" class="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition font-semibold">
+              Reset Zoom
+            </button>
+          </div>
+
+          <!-- Leaflet Map Container -->
+          <div id="map" class="w-full h-[340px] sm:h-[400px] bg-slate-100 z-10"></div>
+          
+          <div id="mapLegend" class="p-3 bg-white border-t border-slate-100 flex flex-wrap gap-2 text-xs text-slate-700">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Transparent Cost Breakdown Card (Traveloka Style) -->
+        <div class="travel-card p-5 space-y-4" id="budgetCard">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h3 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="receipt" class="w-4 h-4 text-emerald-600"></i>
+                <span>Estimasi Biaya Transparan</span>
+              </h3>
+              <p class="text-xs text-slate-500">Perkiraan all-in per orang selama perjalanan</p>
+            </div>
+            <span id="budgetTierBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">Tier: Nyaman</span>
+          </div>
+
+          <div id="budgetBreakdownList" class="space-y-2.5 text-xs text-slate-700">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-600">Total Perkiraan Trip</span>
+            <span id="budgetTotalBottom" class="text-base sm:text-lg font-extrabold text-emerald-700">Rp 0</span>
+          </div>
+        </div>
+
+        <!-- Field Guide & Practical Local Tips -->
+        <div class="travel-card p-5 space-y-3">
+          <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5 pb-2 border-b border-slate-100">
+            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i>
+            <span>Tips Praktis & Rekomendasi Lokal</span>
+          </h3>
+          <ul id="regionTipsList" class="space-y-2 text-xs text-slate-600 list-disc list-inside leading-relaxed">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Sticky Mobile Bottom Bar -->
+  <aside class="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between z-40 shadow-lg no-print" aria-label="Ringkasan Itinerari Mobile">
+    <div>
+      <span class="text-[11px] text-slate-500 block font-medium" id="mobSummaryDays">3 Hari • 12 Destinasi</span>
+      <span class="text-sm font-bold text-emerald-700" id="mobSummaryCost">Rp 2.450.000</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-xs px-3 py-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 font-semibold">
+        Ubah Destinasi
+      </button>
+      <button id="btnMobileCopy" class="text-xs px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center gap-1.5 shadow-sm">
+        <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
+        <span>Bagikan WA</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Modal: Tambah Spot Manual -->
+  <div id="modalSpotPicker" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="travel-card max-w-xl w-full p-5 space-y-4 shadow-2xl bg-white border border-slate-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 id="modalSpotTitle" class="text-base font-bold text-slate-900">Tambah Destinasi Wisata</h3>
+          <p class="text-xs text-slate-500">Pilih dari destinasi cadangan terverifikasi untuk wilayah ini</p>
+        </div>
+        <button id="btnCloseSpotPicker" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="flex items-center gap-2">
+        <label class="text-xs font-semibold text-slate-700">Masukkan ke Hari:</label>
+        <select id="selectTargetDay" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-bold outline-none"></select>
+      </div>
+      <div id="availableSpotsList" class="space-y-2.5 max-h-[50vh] overflow-y-auto pr-1">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Real Travel Platform Comprehensive Footer (Traveloka / Tiket.com style) -->
+  <footer class="bg-slate-900 text-slate-400 pt-12 pb-8 border-t border-slate-800 mt-16 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <!-- Top Columns -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        
+        <!-- Col 1: About Brand -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2 text-white font-extrabold text-lg">
+            <div class="w-8 h-8 rounded-lg bg-sky-600 flex items-center justify-center text-white">
+              <i data-lucide="plane" class="w-4 h-4"></i>
+            </div>
+            <span>NusaTrip Indonesia</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Platform kurasi rencana perjalanan nomor satu untuk kepulauan Indonesia. Menyusun rute searah bebas macet, estimasi biaya akurat, dan rekomendasi lokal terpercaya.
+          </p>
+          <div class="flex items-center gap-3 text-slate-400 pt-1">
+            <span class="text-xs">Partner Wisata: Wonderful Indonesia</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Destinasi Populer -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-bold text-white text-sm">Destinasi Unggulan</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li><a href="#" class="hover:text-white transition">Paket Wisata Pulau Bali (3H2M)</a></li>
+            <li><a href="#" class="hover:text-white transition">Jelajah Labuan Bajo & Komodo</a></li>
+            <li><a href="#" class="hover:text-white transition">Eksplorasi Pulau Lombok & Gili</a></li>
+            <li><a href="#" class="hover:text-white transition">Wisata Budaya DI Yogyakarta</a></li>
+            <li><a href="#" class="hover:text-white transition">Kepulauan Belitung & Geopark</a></li>
+            <li><a href="#" class="hover:text-white transition">Surga Bahari Raja Ampat</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Keunggulan Layanan -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-bold text-white text-sm">Standar Kualitas</h4>
+          <ul class="space-y-1.5 text-slate-400">
+            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-sky-400"></i> Rute Searah Minim Bolak-balik</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-sky-400"></i> Tiket & Retribusi Terverifikasi</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-sky-400"></i> Rekomendasi Waktu Terbaik (Sunset/Pagi)</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-sky-400"></i> 100% Bebas Biaya Tersembunyi</li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Pembayaran & Legalitas -->
+        <div class="space-y-2 text-xs">
+          <h4 class="font-bold text-white text-sm">Dukungan Transaksi</h4>
+          <p class="text-slate-400">Mendukung estimasi pembayaran melalui metode nasional:</p>
+          <div class="flex flex-wrap gap-2 pt-1 font-mono text-[10px] font-bold text-slate-300">
+            <span class="px-2 py-1 bg-slate-800 rounded border border-slate-700">QRIS</span>
+            <span class="px-2 py-1 bg-slate-800 rounded border border-slate-700">BCA</span>
+            <span class="px-2 py-1 bg-slate-800 rounded border border-slate-700">Mandiri</span>
+            <span class="px-2 py-1 bg-slate-800 rounded border border-slate-700">BRI</span>
+            <span class="px-2 py-1 bg-slate-800 rounded border border-slate-700">Visa / Mastercard</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <p>© 2026 PT NusaTrip Wisata Indonesia. Hak Cipta Dilindungi Undang-Undang.</p>
+        <p>Dirancang dengan standar Traveloka, Airbnb, dan Wanderlog.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="data.js?v=20261023_08"></script>
+  <script src="app.js?v=20261023_08"></script>
+</body>
+</html>
