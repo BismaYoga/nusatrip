@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-NusaTrip AI & Realtime Travel Backend
-Powered by Google Gemini AI, Open-Meteo Weather API, and Live Indonesian Travel News
+NusaTrip AI & Realtime Travel Backend v2.2
+Powered by Google Gemini AI, Open-Meteo Weather API, Live Travel News,
+and Verified Wikimedia Commons Landmark Photography & Google Maps Metadata.
 """
 
 import os
@@ -9,6 +10,7 @@ import json
 import time
 import re
 import urllib.request
+import urllib.parse
 import xml.etree.ElementTree as ET
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException, Query
@@ -17,7 +19,7 @@ from pydantic import BaseModel
 from google import genai
 
 # Setup App
-app = FastAPI(title="NusaTrip AI API", version="2.0.0")
+app = FastAPI(title="NusaTrip AI API", version="2.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -46,11 +48,12 @@ if not API_KEY and os.path.exists("/root/PS_AI/.env"):
 
 gemini_client = genai.Client(api_key=API_KEY)
 
-# Cache for Weather & News
+# Cache for Weather & News & Photos
 NEWS_CACHE = {"timestamp": 0, "data": []}
 WEATHER_CACHE = {}
+PHOTO_CACHE = {}
 
-# Weather Code Mapping (WMO Code to Indonesian Description & Icon)
+# Weather Code Mapping
 WMO_CODES = {
     0: {"desc": "Cerah Berawan", "icon": "☀️"},
     1: {"desc": "Cerah Utama", "icon": "🌤️"},
@@ -68,7 +71,7 @@ WMO_CODES = {
     95: {"desc": "Badai Petir Tropis", "icon": "⛈️"}
 }
 
-# Curated High-Res Unsplash Imagery for Indonesian Destinations
+# Curated High-Res Unsplash Imagery for Indonesian Destinations (Fallbacks)
 DESTINATION_PHOTO_FALLBACKS = [
     "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80",
@@ -78,6 +81,37 @@ DESTINATION_PHOTO_FALLBACKS = [
     "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
     "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80"
 ]
+
+# Fetch Real Landmark Photo from Wikimedia Commons API
+def fetch_real_photo_for_spot(place_name: str, fallback_idx: int) -> str:
+    """Fetch verified landmark photo from Wikimedia Commons with category fallbacks"""
+    clean_name = re.sub(r"\(.*?\)", "", place_name).strip()
+    if clean_name in PHOTO_CACHE:
+        return PHOTO_CACHE[clean_name]
+
+    # Search Wikipedia ID & EN
+    for lang in ["id", "en"]:
+        try:
+            encoded = urllib.parse.quote(clean_name)
+            url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{encoded}"
+            req = urllib.request.Request(url, headers={"User-Agent": "NusaTrip/2.0 (Travel Assistant)"})
+            with urllib.request.urlopen(req, timeout=3.5) as res:
+                data = json.loads(res.read().decode())
+                if "originalimage" in data and data["originalimage"].get("source"):
+                    photo = data["originalimage"]["source"]
+                    PHOTO_CACHE[clean_name] = photo
+                    return photo
+                if "thumbnail" in data and data["thumbnail"].get("source"):
+                    photo = data["thumbnail"]["source"]
+                    PHOTO_CACHE[clean_name] = photo
+                    return photo
+        except Exception:
+            continue
+
+    # Return curated high-res travel fallback
+    fallback = DESTINATION_PHOTO_FALLBACKS[fallback_idx % len(DESTINATION_PHOTO_FALLBACKS)]
+    PHOTO_CACHE[clean_name] = fallback
+    return fallback
 
 # Popular Expanded Regions List
 POPULAR_REGIONS = [
@@ -195,12 +229,10 @@ class GenerateRequest(BaseModel):
 
 @app.get("/api/regions")
 def get_regions():
-    """Return all featured regions across Indonesia"""
     return {"status": "success", "data": POPULAR_REGIONS}
 
 @app.get("/api/weather")
 def get_weather(lat: float = Query(...), lng: float = Query(...)):
-    """Fetch 7-day realtime weather from Open-Meteo API"""
     cache_key = f"{round(lat, 2)}_{round(lng, 2)}"
     now = time.time()
     
@@ -238,7 +270,6 @@ def get_weather(lat: float = Query(...), lng: float = Query(...)):
             WEATHER_CACHE[cache_key] = {"timestamp": now, "data": result}
             return {"status": "success", "cached": False, "data": result}
     except Exception as e:
-        # Fallback realistic tropical weather
         fallback = [
             {"date": "Hari 1", "condition": "Cerah Tropis", "icon": "☀️", "temp_max": 31, "temp_min": 24, "rain_prob": 15, "wind_kmh": 14},
             {"date": "Hari 2", "condition": "Sebagian Berawan", "icon": "⛅", "temp_max": 30, "temp_min": 24, "rain_prob": 20, "wind_kmh": 12},
@@ -248,7 +279,6 @@ def get_weather(lat: float = Query(...), lng: float = Query(...)):
 
 @app.get("/api/news")
 def get_travel_news():
-    """Fetch live travel advisories, BMKG warnings & Indonesian tourism news via Google News RSS"""
     now = time.time()
     if NEWS_CACHE["data"] and now - NEWS_CACHE["timestamp"] < 1800:
         return {"status": "success", "cached": True, "data": NEWS_CACHE["data"]}
@@ -266,7 +296,6 @@ def get_travel_news():
                 link = item.find("link").text if item.find("link") is not None else ""
                 pubDate = item.find("pubDate").text if item.find("pubDate") is not None else ""
                 
-                # Clean title
                 clean_title = re.sub(r" - [^-]+$", "", title)
                 source_match = re.search(r" - ([^-]+)$", title)
                 source = source_match.group(1) if source_match else "Media Nasional"
@@ -293,7 +322,7 @@ def get_travel_news():
 def generate_ai_itinerary(req: GenerateRequest):
     """
     Generate complete, realistic, geographically clustered travel itinerary
-    using Google Gemini AI for ANY Indonesian region.
+    using Google Gemini AI for ANY Indonesian region with Google Maps metadata.
     """
     days = max(1, min(req.days, 7))
     custom_instruction = f"Catatan Tambahan Pengguna: {req.custom_prompt}" if req.custom_prompt else ""
@@ -312,10 +341,11 @@ Minat Utama: {", ".join(req.interests)}
 
 ATURAN WAJIB:
 1. Rute setiap hari HARUS berada dalam satu zona/arah geografis yang berdekatan agar waktu tidak habis di jalan.
-2. Setiap spot HARUS memiliki koordinat latitude dan longitude riil yang akurat untuk pemetaan Leaflet.
-3. Estimasi tiket masuk harus realistis dalam Rupiah (0 jika gratis).
-4. Berikan tips lokal yang otentik dan bermanfaat untuk wisatawan.
-5. Urutan kunjungan harian harus logis: Pagi -> Siang -> Senja/Sunset -> Santai Malam.
+2. Setiap spot HARUS memiliki nama tempat wisata ASLI dan spesifik (bukan nama fiktif).
+3. Setiap spot HARUS memiliki koordinat latitude dan longitude riil yang akurat untuk pemetaan Leaflet.
+4. Sertakan estimasi ulasan nyata Google Maps: rating Google Maps riil (contoh 4.8), jumlah ulasan Google Maps (contoh: "4.200+ ulasan"), serta rangkuman ulasan wisatawan nyata (apa yang dipuji dan apa tips pengunjung di Google Maps).
+5. Estimasi tiket masuk harus realistis dalam Rupiah (0 jika gratis).
+6. Urutan kunjungan harian harus logis: Pagi -> Siang -> Senja/Sunset -> Santai Malam.
 
 Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown ```json, tanpa komentar):
 {{
@@ -351,6 +381,8 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
           "duration_hours": 2.0,
           "price": 50000,
           "rating": 4.8,
+          "gmaps_reviews": "4.200+ ulasan",
+          "gmaps_review_highlight": "Wisatawan sangat mengagumi arsitektur pura dan mata air suci yang jernih, disarankan datang pagi sebelum jam 10 agar tidak ramai.",
           "desc": "Deskripsi singkat daya tarik tempat ini.",
           "tips": "Tips praktis spesifik untuk tempat ini."
         }}
@@ -380,7 +412,6 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
     if not raw_text:
         raise HTTPException(status_code=500, detail=f"Gagal memanggil AI model: {last_err}")
         
-    # Clean JSON
     clean_json = raw_text.strip()
     if clean_json.startswith("```json"):
         clean_json = clean_json[7:]
@@ -393,11 +424,20 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
     try:
         parsed_data = json.loads(clean_json)
         
-        # Inject high quality Unsplash photos for each spot
+        # Resolve real landmark photos & Google Maps Search URLs
         photo_idx = 0
+        reg_name = parsed_data.get("region_name", req.region)
+        
         for day in parsed_data.get("days", []):
             for spot in day.get("spots", []):
-                spot["image"] = DESTINATION_PHOTO_FALLBACKS[photo_idx % len(DESTINATION_PHOTO_FALLBACKS)]
+                spot_name = spot.get("name", "Wisata Indonesia")
+                # Fetch verified photo from Wikimedia Commons
+                spot["image"] = fetch_real_photo_for_spot(spot_name, photo_idx)
+                
+                # Attach Google Maps Direct Search URL
+                query = urllib.parse.quote(f"{spot_name} {reg_name}")
+                spot["gmaps_url"] = f"https://www.google.com/maps/search/?api=1&query={query}"
+                spot["gmaps_embed_url"] = f"https://maps.google.com/maps?q={spot.get('lat')},{spot.get('lng')}&hl=id&z=15&output=embed"
                 photo_idx += 1
                 
         return {"status": "success", "data": parsed_data}

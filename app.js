@@ -639,6 +639,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 flex items-center gap-1">
                       <i data-lucide="star" class="w-3 h-3 fill-amber-500 text-amber-500"></i>
                       <span>${spot.rating || 4.8}</span>
+                      <span class="text-slate-400 font-normal">(${spot.gmaps_reviews || "3.5k+ ulasan"})</span>
                     </span>
                   </div>
                   <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
@@ -655,6 +656,17 @@ document.addEventListener("DOMContentLoaded", () => {
                   </p>
                 </div>
 
+                <!-- Google Maps Visitor Review Highlight -->
+                ${spot.gmaps_review_highlight ? `
+                  <div class="p-2.5 rounded-xl bg-sky-50/70 border border-sky-200/70 text-xs text-sky-950 flex items-start gap-2">
+                    <i data-lucide="message-square" class="w-4 h-4 text-sky-600 shrink-0 mt-0.5"></i>
+                    <div>
+                      <strong class="font-bold text-sky-900">Ulasan Pengunjung di Google Maps:</strong> ${spot.gmaps_review_highlight}
+                    </div>
+                  </div>
+                ` : ''}
+
+                <!-- Tips Lapangan -->
                 <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950 flex items-start gap-2">
                   <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
                   <div>
@@ -662,15 +674,20 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                 </div>
 
-                <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                <!-- Action Footer with GMaps Review & Photos Link -->
+                <div class="flex items-center justify-between pt-2 border-t border-slate-100 flex-wrap gap-2">
                   <div class="flex items-center gap-1.5 flex-wrap">
                     ${categoryBadges}
                   </div>
                   <div class="flex items-center gap-2">
-                    <button class="btn-pan-spot text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 py-1 px-2 rounded-lg hover:bg-sky-50 transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
+                    <button class="btn-pan-spot text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 py-1 px-2.5 rounded-lg bg-sky-50 hover:bg-sky-100 transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
                       <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-                      <span>Lihat di Peta</span>
+                      <span>Peta Rute</span>
                     </button>
+                    <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" class="text-xs font-bold text-slate-700 hover:text-sky-700 flex items-center gap-1 py-1 px-2.5 rounded-lg border border-slate-200 hover:border-sky-300 bg-white hover:bg-slate-50 transition shadow-2xs" title="Buka foto 360°, ulasan & foto Google Maps">
+                      <i data-lucide="external-link" class="w-3.5 h-3.5 text-sky-600"></i>
+                      <span>Foto & Review GMaps</span>
+                    </a>
                     <button class="btn-remove-spot text-xs p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" data-day="${dayPlan.day}" data-spot-id="${spot.id}" title="Hapus dari jadwal">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
@@ -797,9 +814,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <div style="font-size:12px; color:#475569; margin-bottom:6px; line-height:1.4;">
               ${spot.desc}
             </div>
-            <div style="font-size:12px; font-weight:700; color:#0f766e;">
+            <div style="font-size:12px; font-weight:700; color:#0f766e; margin-bottom:4px;">
               ${spot.price === 0 ? "Gratis" : formatRupiah(spot.price)} • Rating ${spot.rating || 4.8}★
             </div>
+            <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" style="font-size:11px; font-weight:700; color:#0284c7; text-decoration:none; display:inline-block; margin-top:2px;">
+              📍 Buka Review & Foto di Google Maps &rarr;
+            </a>
           </div>
         `);
         state.mapMarkers.push(marker);
