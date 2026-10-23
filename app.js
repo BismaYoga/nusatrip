@@ -1,25 +1,30 @@
 // ==========================================================================
-// NusaTrip — Real Travel Platform Experience (Airbnb / Wanderlog / Traveloka)
+// NusaTrip — Realtime AI Travel Intelligence Engine v2.0
+// Powered by Google Gemini AI, BMKG/Open-Meteo Weather, & Live Travel News
 // ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
   // App State
   const state = {
     regionId: "bali",
+    regionName: "Pulau Bali",
     startDate: "",
     endDate: "",
     totalDays: 3,
-    travelerType: "family", // couple, family, friends, solo
-    pace: "balanced", // relaxed, balanced, packed
-    budgetTier: "comfort", // budget, comfort, luxury
+    travelerType: "family",
+    pace: "balanced",
+    budgetTier: "comfort",
     interests: new Set(["pantai", "alam", "budaya", "kuliner"]),
-    itinerary: [], // Array of days: [{ day: 1, date: "...", zone: "...", spots: [...], totalDistanceKm: 0 }]
+    itinerary: [],
     selectedDayFilter: "all",
+    weatherForecast: [],
     map: null,
     mapMarkers: [],
     mapPolylines: [],
     currentMobileTab: "timeline"
   };
+
+  const API_BASE = window.location.pathname.includes("/nusatrip") ? "/nusatrip/api" : "/api";
 
   // Curated Region Photos for Featured Island Cards
   const REGION_META = {
@@ -60,10 +65,38 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "raja_ampat": {
       cover: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80",
-      tagline: "Piaynemo, Gugusan Karst & Terumbu Dunia",
+      tagline: "Piaynemo & Gugusan Karst Dunia",
       rating: "5.0 (980 ulasan)",
       priceStart: "Mulai Rp 1.8jt/hari",
       badge: "👑 Surga Dunia"
+    },
+    "banyuwangi": {
+      cover: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80",
+      tagline: "Blue Fire Ijen, Baluran & Teluk Hijau",
+      rating: "4.8 (1.6k ulasan)",
+      priceStart: "Mulai Rp 350rb/hari",
+      badge: "🌋 Sunrise of Java"
+    },
+    "danau_toba": {
+      cover: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+      tagline: "Danau Vulkanik Terbesar & Budaya Batak",
+      rating: "4.8 (1.4k ulasan)",
+      priceStart: "Mulai Rp 390rb/hari",
+      badge: "⛰️ Geopark UNESCO"
+    },
+    "bromo_malang": {
+      cover: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80",
+      tagline: "Lautan Pasir Bromo & Kuliner Apel Malang",
+      rating: "4.9 (3.8k ulasan)",
+      priceStart: "Mulai Rp 420rb/hari",
+      badge: "❄️ Dingin & Indah"
+    },
+    "sumba": {
+      cover: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+      tagline: "Bukit Wairinding, Kampung Adat & Air Terjun",
+      rating: "4.9 (820 ulasan)",
+      priceStart: "Mulai Rp 750rb/hari",
+      badge: "🌾 Savana Eksotis"
     }
   };
 
@@ -78,7 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   // DOM Elements
-  const elSelectRegion = document.getElementById("selectRegion");
+  const elNewsTickerContent = document.getElementById("newsTickerContent");
+  const elInputCustomRegion = document.getElementById("inputCustomRegion");
+  const elInputAiPrompt = document.getElementById("inputAiPrompt");
+  const elBtnSubmitCustomWish = document.getElementById("btnSubmitCustomWish");
+  const elBtnGenerateAI = document.getElementById("btnGenerateAI");
+  const elModalAiLoading = document.getElementById("modalAiLoading");
+  const elAiLoadingTitle = document.getElementById("aiLoadingTitle");
+  const elAiLoadingDesc = document.getElementById("aiLoadingDesc");
   const elIslandGallery = document.getElementById("islandGallery");
   const elActiveTripTitle = document.getElementById("activeTripTitle");
   const elIslandHeaderDesc = document.getElementById("islandHeaderDesc");
@@ -89,9 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const elSelectBudgetTier = document.getElementById("selectBudgetTier");
   const elSelectPace = document.getElementById("selectPace");
   const elInterestChips = document.querySelectorAll(".travel-cat-pill");
-  const elBtnGenerate = document.getElementById("btnGenerate");
 
-  // Overview Stats
+  // Weather & Overview Stats
+  const elWeatherLiveBadge = document.getElementById("weatherLiveBadge");
+  const elWeatherIcon = document.getElementById("weatherIcon");
+  const elWeatherText = document.getElementById("weatherText");
   const elStatTotalSpots = document.getElementById("statTotalSpots");
   const elStatTotalDistance = document.getElementById("statTotalDistance");
   const elStatTotalCost = document.getElementById("statTotalCost");
@@ -158,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return date.toLocaleDateString('id-ID', options);
   }
 
-  // Initialize Dates (Default 3 days from tomorrow)
+  // Initialize Dates
   function initDates() {
     const today = new Date();
     today.setDate(today.getDate() + 1);
@@ -193,69 +235,220 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initialize Island Showcase Cards (Klook / Traveloka Style)
-  function initIslandGallery() {
+  // Fetch Live Travel News & BMKG Advisories
+  async function fetchLiveNews() {
+    try {
+      const res = await fetch(`${API_BASE}/news`);
+      const json = await res.json();
+      if (json.status === "success" && json.data && json.data.length > 0) {
+        elNewsTickerContent.innerHTML = json.data.map(item => {
+          return `
+            <a href="${item.link}" target="_blank" rel="noopener" class="hover:text-amber-300 transition flex items-center gap-1.5 shrink-0">
+              <span class="px-1.5 py-0.2 bg-slate-800 rounded text-[10px] text-sky-400 font-bold">${item.source}</span>
+              <span>${item.title}</span>
+            </a>
+          `;
+        }).join('<span class="text-slate-600">•</span>');
+      }
+    } catch (e) {
+      console.warn("Notice: Live news stream unavailable:", e);
+    }
+  }
+
+  // Fetch Real-time Weather for Current Coordinates
+  async function fetchRealtimeWeather(lat, lng) {
+    try {
+      if (elWeatherText) elWeatherText.textContent = "Mengecek prakiraan BMKG...";
+      const res = await fetch(`${API_BASE}/weather?lat=${lat}&lng=${lng}`);
+      const json = await res.json();
+      if (json.data && json.data.length > 0) {
+        state.weatherForecast = json.data;
+        const todayWeather = json.data[0];
+        if (elWeatherIcon) elWeatherIcon.textContent = todayWeather.icon;
+        if (elWeatherText) {
+          elWeatherText.textContent = `${todayWeather.temp_max}°C ${todayWeather.condition} • Peluang Hujan ${todayWeather.rain_prob}%`;
+        }
+        renderDayTabs();
+      }
+    } catch (e) {
+      console.warn("Weather API fallback:", e);
+      if (elWeatherText) elWeatherText.textContent = "Tropis Cerah • Suhu ~29°C";
+    }
+  }
+
+  // Initialize Island Gallery (With expanded 10+ regions)
+  async function initIslandGallery() {
     if (!elIslandGallery) return;
     elIslandGallery.innerHTML = "";
 
-    Object.keys(REGIONS_DATA).forEach(regKey => {
-      const reg = REGIONS_DATA[regKey];
-      const meta = REGION_META[regKey] || {
-        cover: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80",
-        tagline: "Destinasi Tropis Terpilih",
-        rating: "4.9 (1.5k ulasan)",
-        priceStart: "Mulai Rp 400rb/hari",
-        badge: "Pilihan Favorit"
-      };
+    let regionsToRender = [];
+    try {
+      const res = await fetch(`${API_BASE}/regions`);
+      const json = await res.json();
+      if (json.data && json.data.length > 0) {
+        regionsToRender = json.data;
+      }
+    } catch (e) {
+      // Fallback to local REGIONS_DATA
+      regionsToRender = Object.keys(REGIONS_DATA).map(k => {
+        const r = REGIONS_DATA[k];
+        const m = REGION_META[k] || {};
+        return {
+          id: r.id,
+          name: r.name,
+          tagline: m.tagline || r.quickDesc,
+          cover: m.cover || "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80",
+          rating: m.rating || "4.8 (1.2k)",
+          priceStart: m.priceStart || "Mulai Rp 400rb/hari",
+          badge: m.badge || "Pilihan",
+          lat: r.center[0],
+          lng: r.center[1]
+        };
+      });
+    }
 
-      const isSelected = reg.id === state.regionId;
+    regionsToRender.forEach(reg => {
+      const isSelected = reg.id === state.regionId || reg.name.toLowerCase().includes(state.regionName.toLowerCase());
       const card = document.createElement("div");
       card.className = `island-showcase-card ${isSelected ? 'active' : ''}`;
       card.innerHTML = `
-        <img src="${meta.cover}" alt="${reg.name}" loading="lazy" />
+        <img src="${reg.cover}" alt="${reg.name}" loading="lazy" />
         <div class="scrim-overlay"></div>
         <div class="absolute top-3 left-3 flex items-center gap-1.5">
-          <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/95 text-slate-800 shadow-sm">${meta.badge}</span>
+          <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/95 text-slate-800 shadow-sm">${reg.badge}</span>
         </div>
         ${isSelected ? '<div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs shadow-md"><i data-lucide="check" class="w-4 h-4"></i></div>' : ''}
         <div class="absolute bottom-3.5 inset-x-3.5 text-white space-y-1">
           <div class="text-[11px] text-amber-300 font-bold flex items-center gap-1">
             <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
-            <span>${meta.rating}</span>
+            <span>${reg.rating}</span>
           </div>
           <div class="text-base font-extrabold text-white leading-tight">${reg.name}</div>
-          <div class="text-xs text-sky-100 line-clamp-1">${meta.tagline}</div>
-          <div class="text-xs text-white/90 font-bold pt-0.5">${meta.priceStart}</div>
+          <div class="text-xs text-sky-100 line-clamp-1">${reg.tagline}</div>
+          <div class="text-xs text-white/90 font-bold pt-0.5">${reg.priceStart}</div>
         </div>
       `;
 
       card.addEventListener("click", () => {
-        selectRegion(reg.id);
+        if (elInputCustomRegion) elInputCustomRegion.value = reg.name;
+        state.regionName = reg.name;
+        state.regionId = reg.id;
+        triggerAIGeneration();
       });
 
       elIslandGallery.appendChild(card);
     });
 
-    updateRegionInfo();
+    lucide.createIcons();
   }
 
-  function selectRegion(regionId) {
-    state.regionId = regionId;
-    if (elSelectRegion) elSelectRegion.value = regionId;
+  // Trigger Dynamic AI Generation via Gemini Backend
+  async function triggerAIGeneration(customWish = null) {
+    const regionQuery = elInputCustomRegion ? elInputCustomRegion.value.trim() : state.regionName;
+    if (!regionQuery) return;
 
-    // Refresh island cards visual active state
-    initIslandGallery();
-    updateRegionInfo();
-    generateItinerary();
+    state.regionName = regionQuery;
+    if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${regionQuery}`;
+
+    // Show Loading Modal
+    if (elModalAiLoading) {
+      if (elAiLoadingTitle) elAiLoadingTitle.textContent = `Asisten AI Merancang Rute ${regionQuery}...`;
+      elModalAiLoading.classList.remove("hidden");
+    }
+
+    const payload = {
+      region: regionQuery,
+      days: state.totalDays,
+      traveler_type: state.travelerType,
+      pace: state.pace,
+      budget_tier: state.budgetTier,
+      interests: Array.from(state.interests),
+      custom_prompt: customWish || (elInputAiPrompt ? elInputAiPrompt.value.trim() : "")
+    };
+
+    try {
+      const res = await fetch(`${API_BASE}/ai/generate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const json = await res.json();
+      if (json.status === "success" && json.data) {
+        applyAIGeneratedItinerary(json.data);
+      } else {
+        throw new Error(json.detail || "Gagal mendapatkan respon AI");
+      }
+    } catch (err) {
+      console.warn("AI generation fallback to local heuristic:", err);
+      // Fallback to local heuristic engine if offline/network timeout
+      generateLocalHeuristic();
+    } finally {
+      if (elModalAiLoading) elModalAiLoading.classList.add("hidden");
+      // Smooth scroll to itinerary
+      const itSec = document.getElementById("sectionItinerary");
+      if (itSec) itSec.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
-  function updateRegionInfo() {
-    const reg = REGIONS_DATA[state.regionId];
+  // Apply Structured AI Output to Application State
+  function applyAIGeneratedItinerary(aiData) {
+    if (elIslandHeaderDesc) elIslandHeaderDesc.textContent = aiData.quick_desc || "";
+    if (elStatBestSeason) elStatBestSeason.textContent = aiData.best_season || "Apr - Okt • Musim Terbaik";
+
+    // Update Tips
+    if (elRegionTipsList && aiData.tips) {
+      elRegionTipsList.innerHTML = "";
+      aiData.tips.forEach(t => {
+        const li = document.createElement("li");
+        li.textContent = t;
+        elRegionTipsList.appendChild(li);
+      });
+    }
+
+    // Set Map Center
+    const center = [aiData.center_lat || -8.4095, aiData.center_lng || 115.1889];
+    const zoom = aiData.zoom || 10;
+    if (state.map) state.map.setView(center, zoom);
+
+    // Fetch Weather for this new region
+    fetchRealtimeWeather(center[0], center[1]);
+
+    // Build Days
+    const newItinerary = [];
+    aiData.days.forEach((d, idx) => {
+      const dayDate = addDays(state.startDate, idx);
+      let totalDist = 0;
+      for (let i = 0; i < d.spots.length - 1; i++) {
+        totalDist += getDistanceKm(d.spots[i].lat, d.spots[i].lng, d.spots[i + 1].lat, d.spots[i + 1].lng);
+      }
+      newItinerary.push({
+        day: d.day || (idx + 1),
+        date: dayDate,
+        zone: d.zone || `Zona Hari ${idx + 1}`,
+        spots: d.spots || [],
+        totalDistanceKm: Math.round(totalDist * 10) / 10
+      });
+    });
+
+    state.itinerary = newItinerary;
+    state.selectedDayFilter = "all";
+    renderAll();
+  }
+
+  // Fallback Local Heuristic Generator (if offline)
+  function generateLocalHeuristic() {
+    const regKey = Object.keys(REGIONS_DATA).find(k => 
+      REGIONS_DATA[k].name.toLowerCase().includes(state.regionName.toLowerCase()) ||
+      k === state.regionId
+    ) || "bali";
+
+    const reg = REGIONS_DATA[regKey];
     if (!reg) return;
 
-    if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${reg.name}`;
     if (elIslandHeaderDesc) elIslandHeaderDesc.textContent = reg.quickDesc;
     if (elStatBestSeason) elStatBestSeason.textContent = reg.bestSeason;
+    fetchRealtimeWeather(reg.center[0], reg.center[1]);
 
     if (elRegionTipsList) {
       elRegionTipsList.innerHTML = "";
@@ -265,151 +458,45 @@ document.addEventListener("DOMContentLoaded", () => {
         elRegionTipsList.appendChild(li);
       });
     }
-  }
-
-  // Initialize Clean Minimalist Leaflet Map
-  function initMap() {
-    const reg = REGIONS_DATA[state.regionId] || REGIONS_DATA["bali"];
-    state.map = L.map("map", {
-      zoomControl: true,
-      attributionControl: false
-    }).setView(reg.center, reg.zoom);
-
-    // OpenStreetMap Clean Tiles
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(state.map);
-  }
-
-  // Scoring Formula for Spot Matching
-  function scoreSpot(spot) {
-    let score = 0;
-
-    let matchCount = 0;
-    spot.categories.forEach(cat => {
-      if (state.interests.has(cat)) matchCount++;
-    });
-    const interestRatio = spot.categories.length > 0 ? (matchCount / spot.categories.length) : 0;
-    score += interestRatio * 45;
-
-    if (spot.suitableFor && spot.suitableFor.includes(state.travelerType)) {
-      score += 25;
-    } else {
-      score += 10;
-    }
-
-    score += (spot.rating / 5.0) * 20;
-
-    if (state.budgetTier === "budget") {
-      if (spot.price <= 50000) score += 10;
-      else if (spot.price <= 150000) score += 5;
-    } else if (state.budgetTier === "comfort") {
-      score += 8;
-    } else {
-      score += 10;
-    }
-
-    return score;
-  }
-
-  // Multi-Day Itinerary Generator with Realistic Clustering
-  function generateItinerary() {
-    const reg = REGIONS_DATA[state.regionId];
-    if (!reg) return;
-
-    let targetPerDay = 4;
-    if (state.pace === "relaxed") targetPerDay = 3;
-    if (state.pace === "packed") targetPerDay = 5;
 
     const spotsPool = JSON.parse(JSON.stringify(reg.spots));
-    spotsPool.forEach(s => s.score = scoreSpot(s));
-
-    const zoneGroups = {};
-    spotsPool.forEach(s => {
-      if (!zoneGroups[s.zone]) zoneGroups[s.zone] = [];
-      zoneGroups[s.zone].push(s);
-    });
-
-    Object.keys(zoneGroups).forEach(z => {
-      zoneGroups[z].sort((a, b) => b.score - a.score);
-    });
-
-    const sortedZones = Object.keys(zoneGroups).sort((a, b) => {
-      const avgA = zoneGroups[a].reduce((acc, c) => acc + c.score, 0) / zoneGroups[a].length;
-      const avgB = zoneGroups[b].reduce((acc, c) => acc + c.score, 0) / zoneGroups[b].length;
-      return avgB - avgA;
-    });
-
+    let targetPerDay = state.pace === "relaxed" ? 3 : (state.pace === "packed" ? 5 : 4);
     const newItinerary = [];
-    const usedSpotIds = new Set();
+    let spotIdx = 0;
 
     for (let day = 1; day <= state.totalDays; day++) {
-      const dayDate = addDays(state.startDate, day - 1);
-      const zoneIndex = (day - 1) % sortedZones.length;
-      const chosenZone = sortedZones[zoneIndex];
-      const zoneSpots = zoneGroups[chosenZone] || [];
-
-      const availableZoneSpots = zoneSpots.filter(s => !usedSpotIds.has(s.id));
       const daySpots = [];
-
-      for (let i = 0; i < Math.min(targetPerDay, availableZoneSpots.length); i++) {
-        daySpots.push(availableZoneSpots[i]);
-        usedSpotIds.add(availableZoneSpots[i].id);
+      for (let i = 0; i < targetPerDay; i++) {
+        daySpots.push(spotsPool[spotIdx % spotsPool.length]);
+        spotIdx++;
       }
-
-      if (daySpots.length < targetPerDay) {
-        const otherSpots = spotsPool
-          .filter(s => !usedSpotIds.has(s.id))
-          .sort((a, b) => b.score - a.score);
-
-        const needed = targetPerDay - daySpots.length;
-        for (let i = 0; i < Math.min(needed, otherSpots.length); i++) {
-          daySpots.push(otherSpots[i]);
-          usedSpotIds.add(otherSpots[i].id);
-        }
-      }
-
-      // Order spots: morning -> afternoon -> sunset -> night
-      daySpots.sort((a, b) => {
-        const order = { morning: 1, afternoon: 2, sunset: 3, night: 4 };
-        const oa = order[a.idealTime] || 2;
-        const ob = order[b.idealTime] || 2;
-        return oa - ob;
-      });
-
-      // Calculate total route distance
-      let totalDist = 0;
+      let dist = 0;
       for (let i = 0; i < daySpots.length - 1; i++) {
-        totalDist += getDistanceKm(daySpots[i].lat, daySpots[i].lng, daySpots[i + 1].lat, daySpots[i + 1].lng);
+        dist += getDistanceKm(daySpots[i].lat, daySpots[i].lng, daySpots[i + 1].lat, daySpots[i + 1].lng);
       }
-
       newItinerary.push({
         day: day,
-        date: dayDate,
-        zone: chosenZone,
+        date: addDays(state.startDate, day - 1),
+        zone: daySpots[0].zone || `Zona Wisata ${day}`,
         spots: daySpots,
-        totalDistanceKm: Math.round(totalDist * 10) / 10
+        totalDistanceKm: Math.round(dist * 10) / 10
       });
     }
 
     state.itinerary = newItinerary;
     state.selectedDayFilter = "all";
-
     renderAll();
   }
 
   function getTimeSlot(index, total, idealTime) {
     if (idealTime === "night") return "19:00 – 21:00 • Malam";
     if (idealTime === "sunset") return "16:30 – 18:30 • Senja / Sunset";
-
     const slots = [
       "08:30 – 10:30 • Pagi",
       "10:45 – 12:30 • Siang",
       "13:30 – 15:30 • Siang",
       "15:45 – 17:30 • Sore"
     ];
-
     if (index === 0) return slots[0];
     if (index === 1) return slots[1];
     if (index === 2) return slots[2];
@@ -417,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return "18:00 – 20:00 • Petang";
   }
 
-  // Render Day Filter Tabs
+  // Render Day Filter Tabs (With Weather Badges)
   function renderDayTabs() {
     if (!elDayFilterTabs) return;
     elDayFilterTabs.innerHTML = "";
@@ -433,11 +520,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     elDayFilterTabs.appendChild(allBtn);
 
-    state.itinerary.forEach(d => {
+    state.itinerary.forEach((d, idx) => {
       const isSelected = state.selectedDayFilter === d.day;
+      const weather = state.weatherForecast[idx] || { icon: "🌤️", temp_max: 29 };
       const btn = document.createElement("button");
       btn.className = `day-tab-btn ${isSelected ? "active" : ""}`;
-      btn.textContent = `Hari ${d.day}`;
+      btn.innerHTML = `
+        <span>Hari ${d.day}</span>
+        <span class="text-[11px] opacity-90">${weather.icon} ${weather.temp_max}°C</span>
+      `;
       btn.addEventListener("click", () => {
         state.selectedDayFilter = d.day;
         renderDayTabs();
@@ -466,11 +557,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    daysToRender.forEach(dayPlan => {
+    daysToRender.forEach((dayPlan, dayIdx) => {
+      const weather = state.weatherForecast[dayIdx] || { icon: "☀️", condition: "Cerah Tropis", temp_max: 30, rain_prob: 10 };
       const card = document.createElement("div");
       card.className = "travel-card overflow-hidden";
 
-      // Day Header
+      // Day Header with Weather
       const headerHtml = `
         <div class="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-3.5">
@@ -488,9 +580,11 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
           <div class="flex items-center gap-2 text-xs font-semibold">
-            <span class="px-3 py-1.5 rounded-xl bg-sky-50 text-sky-800 border border-sky-100 flex items-center gap-1.5">
-              <i data-lucide="navigation" class="w-3.5 h-3.5 text-sky-600"></i>
-              <span>~${dayPlan.totalDistanceKm} km Rute Searah</span>
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 border border-sky-100 flex items-center gap-1.5">
+              <span>${weather.icon} ${weather.condition} (~${weather.temp_max}°C)</span>
+            </span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 border border-slate-200">
+              🚗 ~${dayPlan.totalDistanceKm} km
             </span>
           </div>
         </div>
@@ -500,13 +594,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let spotsHtml = `<div class="p-4 sm:p-5 space-y-4">`;
 
       dayPlan.spots.forEach((spot, idx) => {
-        const timeSlotStr = getTimeSlot(idx, dayPlan.spots.length, spot.idealTime);
+        const timeSlotStr = getTimeSlot(idx, dayPlan.spots.length, spot.ideal_time || spot.idealTime);
         const prevSpot = idx > 0 ? dayPlan.spots[idx - 1] : null;
         let transitHtml = "";
 
         if (prevSpot) {
           const d = Math.round(getDistanceKm(prevSpot.lat, prevSpot.lng, spot.lat, spot.lng) * 10) / 10;
-          const mins = Math.max(10, Math.round((d / 32) * 60)); // ~32 km/h realistic driving
+          const mins = Math.max(10, Math.round((d / 32) * 60));
           transitHtml = `
             <div class="transit-route-connector">
               <i data-lucide="car" class="w-4 h-4 text-sky-600 shrink-0"></i>
@@ -515,7 +609,7 @@ document.addEventListener("DOMContentLoaded", () => {
           `;
         }
 
-        const categoryBadges = spot.categories.map(c => {
+        const categoryBadges = (spot.categories || ["wisata"]).map(c => {
           return `<span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 uppercase">${c}</span>`;
         }).join(" ");
 
@@ -525,18 +619,16 @@ document.addEventListener("DOMContentLoaded", () => {
           ${transitHtml}
           <div class="travel-spot-card" id="spotCard_${spot.id}" data-lat="${spot.lat}" data-lng="${spot.lng}">
             <div class="flex flex-col sm:flex-row">
-              <!-- Spot Photography Preview -->
               <div class="w-full sm:w-52 h-44 sm:h-auto shrink-0 spot-img-container">
                 <img src="${photoUrl}" alt="${spot.name}" loading="lazy" />
                 <div class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-lg bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1.5 shadow-md">
                   <span>Stop ${String(idx + 1).padStart(2, '0')}</span>
                 </div>
                 <div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-md text-slate-800 text-[11px] font-bold shadow-xs">
-                  ⏱️ ~${spot.durationHours} Jam
+                  ⏱️ ~${spot.duration_hours || spot.durationHours || 2} Jam
                 </div>
               </div>
 
-              <!-- Spot Content -->
               <div class="p-4 sm:p-5 flex-1 min-w-0 space-y-2.5">
                 <div class="flex flex-wrap items-center justify-between gap-2">
                   <div class="flex items-center gap-2">
@@ -546,7 +638,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </span>
                     <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200 flex items-center gap-1">
                       <i data-lucide="star" class="w-3 h-3 fill-amber-500 text-amber-500"></i>
-                      <span>${spot.rating}</span>
+                      <span>${spot.rating || 4.8}</span>
                     </span>
                   </div>
                   <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
@@ -563,7 +655,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   </p>
                 </div>
 
-                <!-- Traveler Tips Box -->
                 <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950 flex items-start gap-2">
                   <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5"></i>
                   <div>
@@ -571,7 +662,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                 </div>
 
-                <!-- Action Footer -->
                 <div class="flex items-center justify-between pt-2 border-t border-slate-100">
                   <div class="flex items-center gap-1.5 flex-wrap">
                     ${categoryBadges}
@@ -604,7 +694,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const lat = parseFloat(el.dataset.lat);
         const lng = parseFloat(el.dataset.lng);
         if (state.map && !isNaN(lat) && !isNaN(lng)) {
-          // If in mobile and on timeline, switch to map
           if (window.innerWidth < 1024 && elBtnViewMap) {
             elBtnViewMap.click();
           }
@@ -635,11 +724,24 @@ document.addEventListener("DOMContentLoaded", () => {
       dist += getDistanceKm(dayObj.spots[i].lat, dayObj.spots[i].lng, dayObj.spots[i + 1].lat, dayObj.spots[i + 1].lng);
     }
     dayObj.totalDistanceKm = Math.round(dist * 10) / 10;
-
     renderAll();
   }
 
-  // Render Map Markers & Route Lines
+  // Initialize Map
+  function initMap() {
+    const initialCenter = [-8.4095, 115.1889];
+    state.map = L.map("map", {
+      zoomControl: true,
+      attributionControl: false
+    }).setView(initialCenter, 10);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(state.map);
+  }
+
+  // Render Map Markers & Polylines
   function renderMap() {
     if (!state.map) return;
 
@@ -696,7 +798,7 @@ document.addEventListener("DOMContentLoaded", () => {
               ${spot.desc}
             </div>
             <div style="font-size:12px; font-weight:700; color:#0f766e;">
-              ${spot.price === 0 ? "Gratis" : formatRupiah(spot.price)} • Rating ${spot.rating}★
+              ${spot.price === 0 ? "Gratis" : formatRupiah(spot.price)} • Rating ${spot.rating || 4.8}★
             </div>
           </div>
         `);
@@ -716,20 +818,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (bounds.isValid()) {
       state.map.fitBounds(bounds, { padding: [40, 40] });
-    } else {
-      const reg = REGIONS_DATA[state.regionId];
-      if (reg) state.map.setView(reg.center, reg.zoom);
     }
   }
 
-  // Calculate & Render Budget Breakdown & KPIs
+  // Render Budget Breakdown & KPIs
   function renderBudgetAndStats() {
-    const reg = REGIONS_DATA[state.regionId];
-    if (!reg) return;
-
     const days = state.totalDays;
     const nights = Math.max(1, days - 1);
-    const costs = reg.baseCosts[state.budgetTier] || reg.baseCosts.comfort;
+    const tierRates = {
+      budget: { stay: 250000, transport: 150000, food: 120000, misc: 50000 },
+      comfort: { stay: 650000, transport: 450000, food: 250000, misc: 100000 },
+      luxury: { stay: 2200000, transport: 950000, food: 650000, misc: 250000 }
+    };
+    const costs = tierRates[state.budgetTier] || tierRates.comfort;
 
     let totalTicketCost = 0;
     let totalSpotsCount = 0;
@@ -738,7 +839,7 @@ document.addEventListener("DOMContentLoaded", () => {
     state.itinerary.forEach(d => {
       totalDistanceKm += d.totalDistanceKm;
       d.spots.forEach(s => {
-        totalTicketCost += s.price;
+        totalTicketCost += (s.price || 0);
         totalSpotsCount++;
       });
     });
@@ -749,17 +850,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const miscCost = days * costs.misc;
     const totalTripCost = stayCost + transportCost + foodCost + miscCost + totalTicketCost;
 
-    // Update KPI Facts
     if (elStatTotalSpots) elStatTotalSpots.textContent = `${totalSpotsCount} Destinasi`;
     if (elStatTotalDistance) elStatTotalDistance.textContent = `${Math.round(totalDistanceKm * 10) / 10} km`;
     if (elStatTotalCost) elStatTotalCost.textContent = formatRupiah(totalTripCost);
     if (elBudgetTotalBottom) elBudgetTotalBottom.textContent = formatRupiah(totalTripCost);
 
-    // Mobile Bottom Bar Sync
     if (elMobSummaryDays) elMobSummaryDays.textContent = `${days} Hari • ${totalSpotsCount} Destinasi (${Math.round(totalDistanceKm)} km)`;
     if (elMobSummaryCost) elMobSummaryCost.textContent = formatRupiah(totalTripCost);
 
-    // Tier badge
     const tierLabels = {
       budget: "Tier: Hemat (Hostel & Motor)",
       comfort: "Tier: Nyaman (Hotel 3-4★ & Mobil)",
@@ -767,7 +865,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     if (elBudgetTierBadge) elBudgetTierBadge.textContent = tierLabels[state.budgetTier] || "Tier: Nyaman";
 
-    // Itemized Budget Breakdown
     if (elBudgetBreakdownList) {
       elBudgetBreakdownList.innerHTML = `
         <div class="flex items-center justify-between py-2 border-b border-slate-100">
@@ -803,10 +900,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Copy Itinerary Text (Clean WhatsApp format)
   function copyWhatsAppItinerary() {
-    const reg = REGIONS_DATA[state.regionId];
-    let txt = `*JADWAL LIBURAN: ${reg.name.toUpperCase()}*\n`;
+    let txt = `*JADWAL LIBURAN: ${state.regionName.toUpperCase()}*\n`;
     txt += `📅 Durasi: ${state.totalDays} Hari (${formatIndoDate(state.startDate)} s/d ${formatIndoDate(state.endDate)})\n`;
-    txt += `👥 Tipe Traveler: ${state.travelerType.toUpperCase()} | Ritme: ${state.pace}\n`;
+    txt += `👥 Tipe: ${state.travelerType.toUpperCase()} | Ritme: ${state.pace}\n`;
     txt += `------------------------------------\n\n`;
 
     state.itinerary.forEach(d => {
@@ -818,7 +914,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     txt += `💰 *Total Estimasi Biaya:* ${elStatTotalCost ? elStatTotalCost.textContent : ''} / orang\n`;
-    txt += `🌐 Disusun otomatis dengan NusaTrip (Platform Liburan Nusantara)\n`;
+    txt += `🌐 Disusun otomatis dengan NusaTrip AI (Platform Liburan Nusantara)\n`;
 
     navigator.clipboard.writeText(txt).then(() => {
       alert("✅ Jadwal liburan lengkap berhasil disalin! Siap dikirim ke WhatsApp teman atau keluarga.");
@@ -827,67 +923,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Modal Spot Picker
-  function openSpotPickerModal() {
-    const reg = REGIONS_DATA[state.regionId];
-    if (!reg || !elModalSpotPicker) return;
-
-    elSelectTargetDay.innerHTML = "";
-    state.itinerary.forEach(d => {
-      const opt = document.createElement("option");
-      opt.value = d.day;
-      opt.textContent = `Hari ${d.day} (${d.zone})`;
-      elSelectTargetDay.appendChild(opt);
-    });
-
-    const usedIds = new Set();
-    state.itinerary.forEach(d => d.spots.forEach(s => usedIds.add(s.id)));
-
-    const unusedSpots = reg.spots.filter(s => !usedIds.has(s.id));
-    elAvailableSpotsList.innerHTML = "";
-
-    if (unusedSpots.length === 0) {
-      elAvailableSpotsList.innerHTML = `<p class="text-xs text-slate-500 p-4 text-center">Semua destinasi terverifikasi di pulau ini telah masuk ke jadwal.</p>`;
-    } else {
-      unusedSpots.forEach(s => {
-        const item = document.createElement("div");
-        item.className = "p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3";
-        item.innerHTML = `
-          <div>
-            <h5 class="text-xs sm:text-sm font-bold text-slate-900">${s.name}</h5>
-            <p class="text-xs text-slate-500">${s.zone} • ${s.price === 0 ? 'Gratis' : formatRupiah(s.price)} • Rating ${s.rating}★</p>
-          </div>
-          <button class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shrink-0">
-            Tambah
-          </button>
-        `;
-        item.querySelector("button").addEventListener("click", () => {
-          const targetDayNum = parseInt(elSelectTargetDay.value);
-          const dayObj = state.itinerary.find(d => d.day === targetDayNum);
-          if (dayObj) {
-            dayObj.spots.push(s);
-            let dist = 0;
-            for (let i = 0; i < dayObj.spots.length - 1; i++) {
-              dist += getDistanceKm(dayObj.spots[i].lat, dayObj.spots[i].lng, dayObj.spots[i + 1].lat, dayObj.spots[i + 1].lng);
-            }
-            dayObj.totalDistanceKm = Math.round(dist * 10) / 10;
-            renderAll();
-            elModalSpotPicker.classList.add("hidden");
-          }
-        });
-        elAvailableSpotsList.appendChild(item);
+  // Event Listeners Setup
+  function initEventListeners() {
+    // Generate AI Buttons
+    if (elBtnGenerateAI) elBtnGenerateAI.addEventListener("click", () => triggerAIGeneration());
+    if (elBtnSubmitCustomWish) {
+      elBtnSubmitCustomWish.addEventListener("click", () => {
+        const wish = elInputAiPrompt ? elInputAiPrompt.value.trim() : "";
+        triggerAIGeneration(wish);
       });
     }
 
-    elModalSpotPicker.classList.remove("hidden");
-  }
+    // Custom Region Input Enter Key
+    if (elInputCustomRegion) {
+      elInputCustomRegion.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") triggerAIGeneration();
+      });
+    }
 
-  // Event Listeners
-  function initEventListeners() {
-    // Select Region Dropdown
-    if (elSelectRegion) {
-      elSelectRegion.addEventListener("change", (e) => {
-        selectRegion(e.target.value);
+    if (elInputAiPrompt) {
+      elInputAiPrompt.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") triggerAIGeneration(elInputAiPrompt.value.trim());
       });
     }
 
@@ -898,7 +954,7 @@ document.addEventListener("DOMContentLoaded", () => {
         state.endDate = addDays(state.startDate, state.totalDays - 1);
         if (elEndDate) elEndDate.value = state.endDate;
         updateDurationBadge();
-        generateItinerary();
+        triggerAIGeneration();
       });
     }
 
@@ -906,7 +962,7 @@ document.addEventListener("DOMContentLoaded", () => {
       elEndDate.addEventListener("change", (e) => {
         state.endDate = e.target.value;
         updateDurationBadge();
-        generateItinerary();
+        triggerAIGeneration();
       });
     }
 
@@ -919,7 +975,7 @@ document.addEventListener("DOMContentLoaded", () => {
         state.endDate = addDays(state.startDate, days - 1);
         if (elEndDate) elEndDate.value = state.endDate;
         updateDurationBadge();
-        generateItinerary();
+        triggerAIGeneration();
       });
     });
 
@@ -927,7 +983,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elSelectTravelerType) {
       elSelectTravelerType.addEventListener("change", (e) => {
         state.travelerType = e.target.value;
-        generateItinerary();
+        triggerAIGeneration();
       });
     }
 
@@ -941,7 +997,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elSelectPace) {
       elSelectPace.addEventListener("change", (e) => {
         state.pace = e.target.value;
-        generateItinerary();
+        triggerAIGeneration();
       });
     }
 
@@ -958,28 +1014,16 @@ document.addEventListener("DOMContentLoaded", () => {
           state.interests.add(cat);
           chip.classList.add("active");
         }
-        generateItinerary();
+        triggerAIGeneration();
       });
     });
 
-    // Generate / Search Button
-    if (elBtnGenerate) {
-      elBtnGenerate.addEventListener("click", () => {
-        generateItinerary();
-        // Smooth scroll to itinerary
-        const itSec = document.getElementById("sectionItinerary");
-        if (itSec) itSec.scrollIntoView({ behavior: "smooth" });
-      });
-    }
-
     // Reset Map Zoom
     if (elBtnResetMapBounds) {
-      elBtnResetMapBounds.addEventListener("click", () => {
-        renderMap();
-      });
+      elBtnResetMapBounds.addEventListener("click", () => renderMap());
     }
 
-    // Copy WhatsApp
+    // WhatsApp Copy
     if (elBtnCopyWa) elBtnCopyWa.addEventListener("click", copyWhatsAppItinerary);
     if (elBtnMobileCopy) elBtnMobileCopy.addEventListener("click", copyWhatsAppItinerary);
 
@@ -999,9 +1043,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (elColTimeline) elColTimeline.classList.add("hidden");
         if (elColMap) elColMap.classList.remove("hidden");
         state.currentMobileTab = "map";
-        if (state.map) {
-          setTimeout(() => state.map.invalidateSize(), 150);
-        }
+        if (state.map) setTimeout(() => state.map.invalidateSize(), 150);
       });
     }
 
@@ -1022,15 +1064,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     window.addEventListener("resize", checkResponsiveView);
     checkResponsiveView();
-
-    // Modals
-    if (elBtnAddSpotModal) elBtnAddSpotModal.addEventListener("click", openSpotPickerModal);
-    if (elBtnCloseSpotPicker) elBtnCloseSpotPicker.addEventListener("click", () => elModalSpotPicker.classList.add("hidden"));
-    if (elModalSpotPicker) {
-      elModalSpotPicker.addEventListener("click", (e) => {
-        if (e.target === elModalSpotPicker) elModalSpotPicker.classList.add("hidden");
-      });
-    }
   }
 
   // Bootstrap Application
@@ -1038,6 +1071,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initIslandGallery();
   initMap();
   initEventListeners();
-  generateItinerary();
+  fetchLiveNews();
+  triggerAIGeneration();
   lucide.createIcons();
 });
