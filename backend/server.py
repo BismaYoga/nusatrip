@@ -19,7 +19,7 @@ from pydantic import BaseModel
 from google import genai
 
 # Setup App
-app = FastAPI(title="NusaTrip AI API", version="2.2.0")
+app = FastAPI(title="GasTrip AI API", version="2.2.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -94,7 +94,7 @@ def fetch_real_photo_for_spot(place_name: str, fallback_idx: int) -> str:
         try:
             encoded = urllib.parse.quote(clean_name)
             url = f"https://{lang}.wikipedia.org/api/rest_v1/page/summary/{encoded}"
-            req = urllib.request.Request(url, headers={"User-Agent": "NusaTrip/2.0 (Travel Assistant)"})
+            req = urllib.request.Request(url, headers={"User-Agent": "GasTrip/2.0 (Travel Assistant)"})
             with urllib.request.urlopen(req, timeout=3.5) as res:
                 data = json.loads(res.read().decode())
                 if "originalimage" in data and data["originalimage"].get("source"):
@@ -242,7 +242,7 @@ def get_weather(lat: float = Query(...), lng: float = Query(...)):
     url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lng}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max&timezone=Asia%2FJakarta&forecast_days=7"
     
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "NusaTrip/2.0"})
+        req = urllib.request.Request(url, headers={"User-Agent": "GasTrip/2.0"})
         with urllib.request.urlopen(req, timeout=8) as res:
             raw = json.loads(res.read().decode())
             daily = raw.get("daily", {})
@@ -285,7 +285,7 @@ def get_travel_news():
     
     url = "https://news.google.com/rss/search?q=wisata+indonesia+bmkg&hl=id&gl=ID&ceid=ID:id"
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (NusaTrip News Aggregator)"})
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (GasTrip News Aggregator)"})
         with urllib.request.urlopen(req, timeout=8) as res:
             root = ET.fromstring(res.read())
             items = root.findall(".//item")
@@ -328,7 +328,7 @@ def generate_ai_itinerary(req: GenerateRequest):
     custom_instruction = f"Catatan Tambahan Pengguna: {req.custom_prompt}" if req.custom_prompt else ""
     
     prompt = f"""
-Kamu adalah Kurator Perjalanan Indonesia paling ahli di NusaTrip (standar industri Traveloka & Airbnb).
+Kamu adalah Kurator Perjalanan Indonesia paling ahli di GasTrip (standar industri Traveloka & Wanderlog).
 Tugasmu adalah menyusun rencana liburan REALISTIS, SEARAH (tanpa bolak-balik geografis), dan SANGAT DETAIL untuk wilayah/daerah berikut:
 
 Tujuan: {req.region}

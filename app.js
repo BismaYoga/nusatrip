@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMobileTab: "timeline"
   };
 
-  const API_BASE = window.location.pathname.includes("/nusatrip") ? "/nusatrip/api" : "/api";
+  const API_BASE = window.location.pathname.includes("/gastrip")
+    ? "/gastrip/api"
+    : (window.location.pathname.includes("/nusatrip") ? "/nusatrip/api" : "/api");
 
   // Curated Region Photos for Featured Island Cards
   const REGION_META = {
@@ -934,7 +936,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     txt += `💰 *Total Estimasi Biaya:* ${elStatTotalCost ? elStatTotalCost.textContent : ''} / orang\n`;
-    txt += `🌐 Disusun otomatis dengan NusaTrip AI (Platform Liburan Nusantara)\n`;
+    txt += `🌐 Disusun otomatis dengan GasTrip AI (Platform Liburan Bebas & Cerdas)\n`;
 
     navigator.clipboard.writeText(txt).then(() => {
       alert("✅ Jadwal liburan lengkap berhasil disalin! Siap dikirim ke WhatsApp teman atau keluarga.");
