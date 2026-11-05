@@ -9,14 +9,16 @@ export default function Navbar({ currentRoute, setRoute }) {
         {/* Brand Logo */}
         <button 
           onClick={() => setRoute('home')} 
-          className="flex items-center gap-2 text-left group focus:outline-none"
+          className="flex items-center gap-2.5 text-left group focus:outline-none"
         >
-          <span className="text-xl sm:text-2xl font-serif font-bold tracking-tight text-[#ffffff] group-hover:text-[#fed988] transition">
-            NusaTrip
-          </span>
-          <span className="text-[10px] uppercase font-bold tracking-widest px-1.5 py-0.5 bg-[#18409f] text-[#fed988] rounded-none">
-            Indonesia
-          </span>
+          <div className="w-8 h-8 rounded-none bg-[#fed988] text-[#061e5a] flex items-center justify-center font-bold text-sm">
+            N
+          </div>
+          <div className="flex flex-col">
+            <span className="text-xl font-bold tracking-tight text-[#ffffff] font-serif">
+              NusaTrip
+            </span>
+          </div>
         </button>
 
         {/* Navigation Links */}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Compass, ShieldCheck, MapPin, Sparkles, Calendar, Users, Wallet, ArrowRight } from 'lucide-react';
 
 const HERO_SLIDES = [
   { name: 'Gunung Bromo — Jawa Timur', bg: 'assets/hero_bromo.jpg' },
@@ -11,7 +10,6 @@ const HERO_SLIDES = [
 
 export default function Home({ setRoute }) {
   const [slideIdx, setSlideIdx] = useState(0);
-  const [regionInput, setRegionInput] = useState('Pulau Bali');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -20,192 +18,249 @@ export default function Home({ setRoute }) {
     return () => clearInterval(timer);
   }, []);
 
-  function handleStartPlan() {
-    localStorage.setItem('gastrip_target_region', regionInput);
-    setRoute('itinerary');
-  }
-
   return (
     <div className="w-full flex flex-col">
       
-      {/* 1. Fullscreen Hero Section */}
-      <section className="relative w-full h-[88vh] min-h-[580px] max-h-[850px] overflow-hidden flex items-center justify-center bg-[#061e5a]">
+      {/* ========================================== */}
+      {/* 1. FULLSCREEN HERO WITH ROTATING BG SLIDES */}
+      {/* ========================================== */}
+      <section className="hero-slider-wrap" id="heroSection">
         
-        {/* Rotating Background Slides */}
+        {/* 5 Background Tourism Slides (100% Famous Indonesian Destinations) */}
         {HERO_SLIDES.map((slide, idx) => (
           <div
             key={idx}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out ${idx === slideIdx ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'}`}
+            className={`hero-slide-item ${idx === slideIdx ? 'active' : ''}`}
             style={{ backgroundImage: `url('${slide.bg}')` }}
           />
         ))}
 
-        {/* Deep Midnight Navy Gradient Scrim */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#061e5a] via-[#061e5a]/50 to-transparent"></div>
+        {/* Dark Tint Scrim Overlay */}
+        <div className="hero-overlay-dark"></div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6">
+        {/* Inner Hero Content Container */}
+        <div className="hero-content-wrap max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#061e5a]/80 backdrop-blur-md border border-[#fed988]/40 text-[#fed988] text-xs font-semibold uppercase tracking-wider rounded-none">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Platform Perencana Liburan Nusantara Cerdas</span>
-          </div>
+          {/* Top Spacer */}
+          <div></div>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold text-[#ffffff] leading-tight tracking-tight max-w-4xl mx-auto drop-shadow-md">
-            Jelajahi Kemegahan Indonesia dengan Rute Searah &amp; Terarah
-          </h1>
-
-          <p className="text-sm sm:text-base text-[#f8f8f8]/90 max-w-2xl mx-auto font-sans leading-relaxed drop-shadow-xs">
-            Optimasi rute perjalanan bebas macet, estimasi budget realistis, dan rekomendasi spot tersembunyi berdaya kecerdasan geospasial &amp; AI NusaBot.
-          </p>
-
-          {/* Search Box Card */}
-          <div className="max-w-3xl mx-auto bg-[#ffffff] p-3 sm:p-4 border border-[#ededed] shadow-2xl rounded-none text-left space-y-3">
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              
-              {/* Destination Input */}
-              <div className="sm:col-span-2 space-y-1">
-                <label className="text-[11px] font-bold text-[#061e5a] uppercase tracking-wider flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-[#061e5a]" />
-                  <span>Tujuan Liburan</span>
-                </label>
-                <input
-                  type="text"
-                  value={regionInput}
-                  onChange={(e) => setRegionInput(e.target.value)}
-                  placeholder="Ketik tujuan (cth: Bali, Jogja, Labuan Bajo, Bromo, Lombok)"
-                  className="w-full px-3 py-2 bg-[#f8f8f8] border border-[#ededed] font-semibold text-xs text-[#282828] focus:border-[#061e5a] outline-none rounded-none"
-                />
-              </div>
-
-              {/* Action Button */}
-              <div className="flex items-end">
-                <button
-                  type="button"
-                  onClick={handleStartPlan}
-                  className="w-full py-2.5 px-4 bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-bold text-xs uppercase tracking-wider transition rounded-none flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Search className="w-4 h-4 text-[#fed988]" />
-                  <span>Mulai Rancang</span>
-                </button>
-              </div>
-
-            </div>
-
-            {/* Quick Destination Tags */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 border-t border-[#ededed] text-[11px]">
-              <span className="text-[#595959] font-medium">Pilihan Populer:</span>
-              {['Pulau Bali', 'Labuan Bajo', 'DI Yogyakarta', 'Pulau Lombok', 'Bromo', 'Kepulauan Belitung'].map((reg, rIdx) => (
-                <button
-                  key={rIdx}
-                  type="button"
-                  onClick={() => {
-                    setRegionInput(reg);
-                    localStorage.setItem('gastrip_target_region', reg);
-                    setRoute('itinerary');
-                  }}
-                  className="px-2 py-0.5 bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition border border-[#ededed] rounded-none"
-                >
-                  {reg}
-                </button>
-              ))}
-            </div>
-
-          </div>
-
-          {/* Carousel Slide Indicators */}
-          <div className="pt-4 flex flex-col items-center gap-2">
-            <span className="text-xs font-semibold text-[#ffffff]/90 tracking-wide">
-              {HERO_SLIDES[slideIdx].name}
+          {/* Center Typography & Call to Action */}
+          <div className="max-w-3xl mx-auto text-center space-y-6">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#e7e5e4] block">
+              Platform Perencana Perjalanan Indonesia
             </span>
-            <div className="flex items-center gap-2">
-              {HERO_SLIDES.map((_, dotIdx) => (
+
+            <h1 className="text-4xl sm:text-5xl font-bold text-[#ffffff] font-serif tracking-tight leading-tight">
+              Jelajahi Nusantara <br className="hidden sm:inline" />Sesuai Rencanamu
+            </h1>
+
+            <p className="text-base text-[#d6d3d1] leading-relaxed max-w-2xl mx-auto">
+              Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
+            </p>
+
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={() => setRoute('itinerary')}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#fed988] hover:bg-[#fdd887] text-[#061e5a] font-bold text-sm transition shadow-md"
+              >
+                <span>Rancang Itinerary Sekarang</span>
+                <span>&rarr;</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setRoute('about')}
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-none bg-transparent hover:bg-[#ffffff]/10 text-[#ffffff] font-semibold text-sm border border-[#ffffff]/40 transition"
+              >
+                Pelajari Cara Kerja
+              </button>
+            </div>
+          </div>
+
+          {/* Bottom Status Bar & Slide Navigation (No Icon Bulat, No 1/5 Total Slide) */}
+          <div className="flex items-center justify-between gap-4 pt-6 border-t border-[#ffffff]/15 text-xs text-[#d6d3d1]">
+            
+            {/* Current Slide Location Label */}
+            <div className="flex flex-col">
+              <span className="text-[11px] uppercase tracking-widest text-[#fed988] font-bold">Destinasi</span>
+              <span id="heroSlideLocation" className="text-sm font-semibold text-[#ffffff] tracking-wide font-sans">
+                {HERO_SLIDES[slideIdx].name}
+              </span>
+            </div>
+
+            {/* Slide Indicator Bars (Sharp, Zero Radius) */}
+            <div className="flex items-center gap-2" id="heroSlideDots">
+              {HERO_SLIDES.map((slide, dotIdx) => (
                 <button
                   key={dotIdx}
+                  type="button"
                   onClick={() => setSlideIdx(dotIdx)}
-                  className={`h-[3px] transition-all rounded-none ${dotIdx === slideIdx ? 'w-8 bg-[#fed988]' : 'w-4 bg-[#ffffff]/40 hover:bg-[#ffffff]/70'}`}
-                  title={`Slide ${dotIdx + 1}`}
+                  className={`${dotIdx === slideIdx ? 'w-8 bg-[#fed988]' : 'w-4 bg-[#ffffff]/35 hover:bg-[#ffffff]/70'} h-[3px] rounded-none transition-all`}
+                  title={slide.name}
                 />
               ))}
             </div>
+
           </div>
 
         </div>
-
       </section>
 
-      {/* 2. Philosophy & Core Pillars */}
-      <section className="py-16 sm:py-24 bg-[#ffffff] border-b border-[#ededed]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12">
+      {/* ========================================== */}
+      {/* 2. VALUE PROPOSITION & 3 FEATURED CARDS     */}
+      {/* ========================================== */}
+      <section className="py-20 border-b border-[#ededed] bg-[#f8f8f8]" id="sectionPhilosophy">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto space-y-3">
             <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
-              Filosofi Perjalanan Kami
+              Filosofi Kami
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-[#061e5a]">
-              Liburan Nyaman Tanpa Terjebak Kemacetan
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
+              Kenapa NusaTrip Diciptakan?
             </h2>
-            <p className="text-xs sm:text-sm text-[#595959] leading-relaxed">
-              Kami menyusun setiap rute berdasarkan geospasial aktual pulau Indonesia, memastikan pergerakan selalu searah demi pengalaman liburan yang rileks dan bermakna.
+            <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
+              Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* 3 Featured Destination Cards (Wireframe Grid) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             
-            <div className="p-6 bg-[#f8f8f8] border border-[#ededed] space-y-3 rounded-none">
-              <div className="w-10 h-10 bg-[#061e5a] text-[#fed988] flex items-center justify-center rounded-none font-bold">
-                1
+            {/* Card 1: Karangasem Bali */}
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.setItem('gastrip_target_region', 'Karangasem');
+                setRoute('itinerary');
+              }}
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+            >
+              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
+                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
-              <h3 className="font-serif font-bold text-base text-[#061e5a]">Rute Searah Geospasial</h3>
-              <p className="text-xs text-[#595959] leading-relaxed">
-                Algoritma pengurutan cerdas yang meminimalkan waktu tempuh di jalan sehingga waktu Anda tercurah sepenuhnya untuk menikmati pesona destinasi.
-              </p>
-            </div>
+              <div className="p-5 space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Destinasi Budaya</span>
+                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pura Lempuyang</h3>
+                <p className="text-xs text-[#595959]">Karangasem, Bali</p>
+              </div>
+            </button>
 
-            <div className="p-6 bg-[#f8f8f8] border border-[#ededed] space-y-3 rounded-none">
-              <div className="w-10 h-10 bg-[#061e5a] text-[#fed988] flex items-center justify-center rounded-none font-bold">
-                2
+            {/* Card 2: Pantai Menganti Kebumen */}
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.setItem('gastrip_target_region', 'Kebumen');
+                setRoute('itinerary');
+              }}
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+            >
+              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
-              <h3 className="font-serif font-bold text-base text-[#061e5a]">Estimasi Budget Transparan</h3>
-              <p className="text-xs text-[#595959] leading-relaxed">
-                Kalkulasi biaya akurat per orang mencakup tiket masuk resmi, penginapan, transportasi, konsumsi lokal, dan cadangan logistik.
-              </p>
-            </div>
+              <div className="p-5 space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Wisata Pesisir</span>
+                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pantai Menganti</h3>
+                <p className="text-xs text-[#595959]">Kebumen, Jawa Tengah</p>
+              </div>
+            </button>
 
-            <div className="p-6 bg-[#f8f8f8] border border-[#ededed] space-y-3 rounded-none">
-              <div className="w-10 h-10 bg-[#061e5a] text-[#fed988] flex items-center justify-center rounded-none font-bold">
-                3
+            {/* Card 3: Labuan Bajo NTT */}
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.setItem('gastrip_target_region', 'Labuan Bajo & Komodo');
+                setRoute('itinerary');
+              }}
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+            >
+              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
+                <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
-              <h3 className="font-serif font-bold text-base text-[#061e5a]">Asisten AI NusaBot 24/7</h3>
-              <p className="text-xs text-[#595959] leading-relaxed">
-                Konsultasikan jadwal penyeberangan fastboat, rekomendasi kuliner halal autentik, hingga hidden gem air terjun kapan pun Anda butuhkan.
-              </p>
-            </div>
+              <div className="p-5 space-y-1">
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Taman Nasional Bahari</span>
+                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pulau Padar &amp; Komodo</h3>
+                <p className="text-xs text-[#595959]">Labuan Bajo, NTT</p>
+              </div>
+            </button>
 
           </div>
 
         </div>
       </section>
 
-      {/* 3. Call to Action Banner */}
-      <section className="py-16 bg-[#061e5a] text-[#ffffff] border-t border-[#18409f]/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-6">
-          <h2 className="text-2xl sm:text-4xl font-serif font-bold tracking-tight text-[#ffffff]">
-            Siap Memulai Petualangan Wisata Nusantara?
-          </h2>
-          <p className="text-xs sm:text-sm text-[#c8ccd7] max-w-xl mx-auto leading-relaxed">
-            Hanya butuh 3 detik untuk meracik panduan perjalanan lengkap dengan peta interaktif, susunan hari, dan estimasi biaya.
-          </p>
-          <div className="pt-2">
-            <button
-              onClick={() => setRoute('itinerary')}
-              className="px-8 py-3.5 bg-[#fed988] hover:bg-[#fdd887] text-[#061e5a] font-bold text-xs uppercase tracking-wider transition rounded-none shadow-lg inline-flex items-center gap-2"
-            >
-              <span>Rancang Itinerary Sekarang</span>
-              <ArrowRight className="w-4 h-4 text-[#061e5a]" />
-            </button>
+      {/* ========================================== */}
+      {/* 3. SECTION ABOUT US (RINGKAS DI HOME)      */}
+      {/* ========================================== */}
+      <section className="py-20 border-b border-[#ededed] bg-[#ffffff]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            {/* Left Column: Narasi About Us & Manfaat */}
+            <div className="lg:col-span-7 space-y-6">
+              <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
+                Tentang Kami
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
+                Kenapa NusaTrip Berbeda &amp; Layak Kamu Gunakan?
+              </h2>
+              <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
+                NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:
+              </p>
+              
+              <div className="space-y-4 pt-2">
+                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#061e5a]">Rute Searah Minim Bolak-Balik</h4>
+                  <p className="text-xs text-[#595959]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
+                </div>
+                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#061e5a]">Estimasi Biaya Transparan</h4>
+                  <p className="text-xs text-[#595959]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
+                </div>
+                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#061e5a]">Data Otentik 100% Nyata</h4>
+                  <p className="text-xs text-[#595959]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setRoute('about')}
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#061e5a] hover:text-[#18409f] transition"
+                >
+                  <span>Baca Selengkapnya Tentang Kami</span>
+                  <span>&rarr;</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Reviewer Card Testimonial */}
+            <div className="lg:col-span-5">
+              <div className="bg-[#f8f8f8] rounded-[6px] p-8 border border-[#ededed] space-y-5">
+                <div className="text-xs font-bold uppercase tracking-wider text-[#18409f]">
+                  Rating Wisatawan • 5.0 / 5.0
+                </div>
+
+                <blockquote className="text-sm text-[#282828] font-serif leading-relaxed italic">
+                  &ldquo;Itinerary NusaTrip bikin liburan keluarga kami di Bali dan Karangasem teratur banget. Rutenya searah gak ada bolak-balik, estimasi biaya tiketnya pas di kantong, dan kami nemu spot tersembunyi yang otentik!&rdquo;
+                </blockquote>
+
+                <div className="pt-4 border-t border-[#ededed] flex items-center justify-between text-xs">
+                  <div>
+                    <h4 className="font-bold text-[#061e5a]">Bisma Yoga &amp; Keluarga</h4>
+                    <p className="text-[#595959]">Wisatawan Terverifikasi • Jakarta</p>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-none bg-[#fed988] text-[#061e5a] font-bold text-[11px] border border-[#ebd080]">
+                    Terverifikasi
+                  </span>
+                </div>
+              </div>
+            </div>
+
           </div>
+
         </div>
       </section>
 
