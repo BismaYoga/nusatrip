@@ -101,35 +101,33 @@
     </div>
   </header>
 
-  <!-- Hero Section with Realtime AI Travel Capsule -->
-  <section class="relative bg-gradient-to-b from-sky-950 via-sky-900 to-sky-950 text-white pt-10 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden no-print">
-    <!-- Subtle Background Scrim -->
-    <div class="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+  <!-- Hero Section with Explorer.id Photographic Aesthetic -->
+  <section class="relative text-white pt-16 sm:pt-24 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden no-print" style="background: linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.55) 60%, rgba(248, 250, 252, 0.95) 92%, #f8fafc 100%), url('assets/indonesia_luxury_retreat.jpg') center/cover no-repeat;">
     
-    <div class="relative max-w-6xl mx-auto text-center space-y-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-sky-200">
-        <i data-lucide="cpu" class="w-3.5 h-3.5 text-amber-300"></i>
-        <span>Didukung Google Gemini AI & Prakiraan Cuaca Realtime</span>
+    <div class="relative max-w-5xl mx-auto text-center space-y-4">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-xs font-extrabold text-white shadow-sm tracking-wide">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>OPEN TRIP • PRIVATE TRIP • ITINERARY AI #AntiBosan</span>
       </div>
 
-      <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-        Rencanakan Liburan Bebas di Seluruh Indonesia
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
+        Kamu pusing? <br /> Yuk Healing!
       </h1>
       
-      <p class="max-w-2xl mx-auto text-xs sm:text-base text-sky-100 font-normal leading-relaxed">
-        Pilih dari destinasi populer atau ketik wilayah impianmu. AI akan menganalisis rute searah bebas macet, cuaca BMKG terkini, dan estimasi biaya transparan.
+      <p class="max-w-2xl mx-auto text-sm sm:text-base text-white/90 font-medium leading-relaxed drop-shadow-sm">
+        Jelajahi keindahan Indonesia bersama GasTrip AI. Rute searah bebas macet, rekomendasi tempat hits, dan estimasi biaya transparan.
       </p>
 
-      <!-- Floating Travel Search Capsule (Traveloka / Airbnb Style) -->
-      <div class="mt-8 text-left max-w-5xl mx-auto space-y-3">
-        <div class="search-capsule p-2 sm:p-3 grid grid-cols-1 md:grid-cols-12 gap-2 text-slate-800 items-center">
+      <!-- Floating Travel Search Capsule (Explorer.id Pill Style) -->
+      <div class="mt-8 text-left max-w-4xl mx-auto space-y-3">
+        <div class="search-capsule p-2 sm:p-2.5 grid grid-cols-1 md:grid-cols-12 gap-2 text-slate-800 items-center bg-white rounded-2xl md:rounded-full shadow-2xl border border-slate-200">
           
-          <!-- 1. Destinasi Tujuan (4 cols) -->
-          <div class="search-field-unit md:col-span-4" id="unitDestination">
-            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Destinasi / Wilayah</span>
+          <!-- 1. Destinasi Tujuan (5 cols) -->
+          <div class="search-field-unit md:col-span-5 md:pl-5" id="unitDestination">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Cari Destinasi Trip</span>
             <div class="flex items-center gap-2">
-              <i data-lucide="map-pin" class="w-4 h-4 text-sky-600 shrink-0"></i>
-              <input type="text" id="inputCustomRegion" list="regionsList" placeholder="Ketik kota/pulau (cth: Banyuwangi, Sumba, Bali)" class="w-full bg-transparent font-bold text-sm text-slate-900 outline-none placeholder:text-slate-400" value="Pulau Bali" />
+              <i data-lucide="search" class="w-4 h-4 text-sky-600 shrink-0"></i>
+              <input type="text" id="inputCustomRegion" list="regionsList" placeholder="Ketik destinasi (cth: Labuan Bajo, Bromo, Bali)" class="w-full bg-transparent font-extrabold text-sm text-slate-900 outline-none placeholder:text-slate-400 placeholder:font-medium" value="Pulau Bali" />
               <datalist id="regionsList">
                 <option value="Pulau Bali">
                 <option value="Labuan Bajo & Komodo">
@@ -150,29 +148,28 @@
 
           <!-- 2. Durasi / Tanggal (3 cols) -->
           <div class="search-field-unit md:col-span-3" id="unitDates">
-            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Tanggal & Durasi</span>
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Tanggal Liburan</span>
             <div class="flex items-center gap-2">
               <i data-lucide="calendar" class="w-4 h-4 text-sky-600 shrink-0"></i>
               <div class="flex items-center gap-1 text-xs font-bold text-slate-900">
-                <input type="date" id="inputStartDate" class="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer" />
+                <input type="date" id="inputStartDate" class="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer" />
                 <span>–</span>
-                <input type="date" id="inputEndDate" class="bg-transparent text-xs font-semibold text-slate-800 outline-none cursor-pointer" />
+                <input type="date" id="inputEndDate" class="bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer" />
               </div>
             </div>
           </div>
 
-          <!-- 3. Tipe Wisatawan & Budget (3 cols) -->
-          <div class="search-field-unit md:col-span-3" id="unitTravelers">
-            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Profil & Gaya Budget</span>
-            <div class="flex items-center gap-2">
-              <i data-lucide="users" class="w-4 h-4 text-sky-600 shrink-0"></i>
+          <!-- 3. Tipe Wisatawan & Budget (2 cols) -->
+          <div class="search-field-unit md:col-span-2" id="unitTravelers">
+            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-0.5">Tipe & Budget</span>
+            <div class="flex items-center gap-1.5">
               <select id="selectTravelerType" class="bg-transparent font-bold text-xs text-slate-900 outline-none cursor-pointer">
                 <option value="couple">Pasangan</option>
                 <option value="family" selected>Keluarga</option>
-                <option value="friends">Grup Teman</option>
-                <option value="solo">Solo Traveler</option>
+                <option value="friends">Grup</option>
+                <option value="solo">Solo</option>
               </select>
-              <span class="text-slate-300">|</span>
+              <span class="text-slate-300">/</span>
               <select id="selectBudgetTier" class="bg-transparent font-bold text-xs text-slate-900 outline-none cursor-pointer">
                 <option value="budget">Hemat</option>
                 <option value="comfort" selected>Nyaman</option>
@@ -183,7 +180,7 @@
 
           <!-- 4. Tombol Cari (2 cols) -->
           <div class="md:col-span-2 p-1">
-            <button id="btnGenerateAI" class="w-full py-3.5 px-4 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md transition">
+            <button id="btnGenerateAI" class="w-full py-3.5 px-4 rounded-xl md:rounded-full bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-md transition">
               <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
               <span>Susun AI</span>
             </button>
@@ -191,31 +188,42 @@
 
         </div>
 
+        <!-- Popular Destination Shortcuts (Explorer.id style) -->
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs text-slate-700">
+          <span class="font-extrabold text-slate-800">Populer:</span>
+          <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Labuan Bajo</button>
+          <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Bali</button>
+          <button type="button" onclick="selectQuickRegion('Bromo & Kota Malang')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Bromo</button>
+          <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Yogyakarta</button>
+          <button type="button" onclick="selectQuickRegion('Pulau Sumba')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Sumba</button>
+          <button type="button" onclick="selectQuickRegion('Kepulauan Raja Ampat')" class="px-3 py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 font-bold border border-slate-200 shadow-2xs transition">Raja Ampat</button>
+        </div>
+
         <!-- AI Custom Prompt Wish Strip -->
-        <div class="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-xl p-2 px-3 border border-white/20 text-xs">
-          <i data-lucide="message-square" class="w-4 h-4 text-amber-300 shrink-0"></i>
-          <input type="text" id="inputAiPrompt" placeholder="Instruksi Khusus ke AI: cth. Bawa bayi 1 tahun, mau pantai tenang tanpa ombak & cafe halal..." class="w-full bg-transparent text-white placeholder:text-sky-200 outline-none text-xs" />
-          <button id="btnSubmitCustomWish" class="text-[11px] font-bold px-3 py-1 rounded-lg bg-sky-500 hover:bg-sky-400 text-white shrink-0 transition">
+        <div class="flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-xl p-2 px-3 border border-slate-200 text-xs shadow-xs text-slate-800">
+          <i data-lucide="message-square" class="w-4 h-4 text-sky-600 shrink-0"></i>
+          <input type="text" id="inputAiPrompt" placeholder="Instruksi Khusus ke AI: cth. Bawa balita, mau sunset santai tanpa jalan jauh & kuliner halal..." class="w-full bg-transparent text-slate-900 placeholder:text-slate-400 outline-none text-xs font-medium" />
+          <button id="btnSubmitCustomWish" class="text-[11px] font-bold px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white shrink-0 transition">
             Terapkan
           </button>
         </div>
 
         <!-- Quick Duration Filter Pills -->
-        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold text-white/90">
-          <span class="text-xs text-sky-200 font-medium mr-1.5">Durasi Cepat:</span>
-          <button type="button" data-days="1" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">1 Hari</button>
-          <button type="button" data-days="2" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">2 Hari</button>
-          <button type="button" data-days="3" class="day-pill active px-3 py-1 rounded-full bg-white text-sky-900 font-bold transition shadow-xs">3 Hari</button>
-          <button type="button" data-days="4" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">4 Hari</button>
-          <button type="button" data-days="5" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">5 Hari</button>
-          <button type="button" data-days="7" class="day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition">7 Hari</button>
+        <div class="flex items-center justify-center gap-1.5 overflow-x-auto pb-1 no-scrollbar text-xs font-semibold text-slate-700">
+          <span class="text-xs text-slate-500 font-medium mr-1.5">Durasi Cepat:</span>
+          <button type="button" data-days="1" class="day-pill px-3 py-1 rounded-full bg-white/80 hover:bg-white border border-slate-200 text-slate-700 transition">1 Hari</button>
+          <button type="button" data-days="2" class="day-pill px-3 py-1 rounded-full bg-white/80 hover:bg-white border border-slate-200 text-slate-700 transition">2 Hari</button>
+          <button type="button" data-days="3" class="day-pill active px-3.5 py-1 rounded-full bg-sky-600 text-white font-extrabold transition shadow-xs">3 Hari</button>
+          <button type="button" data-days="4" class="day-pill px-3 py-1 rounded-full bg-white/80 hover:bg-white border border-slate-200 text-slate-700 transition">4 Hari</button>
+          <button type="button" data-days="5" class="day-pill px-3 py-1 rounded-full bg-white/80 hover:bg-white border border-slate-200 text-slate-700 transition">5 Hari</button>
+          <button type="button" data-days="7" class="day-pill px-3 py-1 rounded-full bg-white/80 hover:bg-white border border-slate-200 text-slate-700 transition">7 Hari</button>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- Category Filter Bar (Airbnb Category Navigation Style) -->
+  <!-- Category Filter Bar (Explorer.id Style) -->
   <section class="bg-white border-b border-slate-200 sticky top-18 z-40 shadow-2xs no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="interestTags">
@@ -254,18 +262,21 @@
   <!-- Main Content Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
 
-    <!-- 1. Featured Island & City Destinations (Expanded 10+ Regions) -->
-    <section id="sectionDestinations" class="space-y-3 no-print">
+    <!-- 1. Featured Island & City Destinations (Explorer.id Card Grid Style) -->
+    <section id="sectionDestinations" class="space-y-3.5 no-print">
       <div class="flex items-center justify-between">
         <div>
-          <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Koleksi Destinasi Nusantara Lengkap</h2>
-          <p class="text-xs text-slate-500">Pilih pulau atau kota untuk langsung melihat rute atau ketik wilayah kustom di atas</p>
+          <div class="flex items-center gap-2">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">Trip Pilihan Populer</h2>
+            <span class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-600 border border-rose-200">#AntiBosan</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-500 font-medium">Pasti Berangkat &amp; Paling Banyak Dikunjungi</p>
         </div>
-        <span class="text-xs font-semibold text-sky-600 hidden sm:inline" id="txtTotalRegionsLoaded">10+ Wilayah Siap AI</span>
+        <span class="text-xs font-bold text-sky-600 hidden sm:inline" id="txtTotalRegionsLoaded">10+ Pilihan Destinasi</span>
       </div>
 
       <!-- Island Cards Container (Populated dynamically) -->
-      <div class="flex items-center gap-3.5 overflow-x-auto pb-3 pt-1 no-scrollbar" id="islandGallery">
+      <div class="flex items-center gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar" id="islandGallery">
         <!-- Rendered dynamically -->
       </div>
     </section>

@@ -278,6 +278,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  window.selectQuickRegion = function(name) {
+    if (elInputCustomRegion) elInputCustomRegion.value = name;
+    state.regionName = name;
+    if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${name}`;
+    document.querySelectorAll(".explorer-trip-card").forEach(c => {
+      const match = c.textContent.toLowerCase().includes(name.toLowerCase());
+      c.classList.toggle("active", match);
+    });
+  };
+
   // Initialize Island Gallery (With expanded 10+ regions)
   async function initIslandGallery() {
     if (!elIslandGallery) return;
@@ -312,22 +322,33 @@ document.addEventListener("DOMContentLoaded", () => {
     regionsToRender.forEach(reg => {
       const isSelected = reg.id === state.regionId || reg.name.toLowerCase().includes(state.regionName.toLowerCase());
       const card = document.createElement("div");
-      card.className = `island-showcase-card ${isSelected ? 'active' : ''}`;
+      card.className = `explorer-trip-card ${isSelected ? 'active' : ''}`;
       card.innerHTML = `
-        <img src="${reg.cover}" alt="${reg.name}" loading="lazy" />
-        <div class="scrim-overlay"></div>
-        <div class="absolute top-3 left-3 flex items-center gap-1.5">
-          <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/95 text-slate-800 shadow-sm">${reg.badge}</span>
-        </div>
-        ${isSelected ? '<div class="absolute top-3 right-3 w-7 h-7 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs shadow-md"><i data-lucide="check" class="w-4 h-4"></i></div>' : ''}
-        <div class="absolute bottom-3.5 inset-x-3.5 text-white space-y-1">
-          <div class="text-[11px] text-amber-300 font-bold flex items-center gap-1">
-            <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+        <div class="relative w-full h-40 overflow-hidden bg-slate-100">
+          <img src="${reg.cover}" alt="${reg.name}" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+          <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+            <span class="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-emerald-600 text-white shadow-xs flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              ${reg.badge.includes('🔥') ? 'Best Seller' : 'Pasti Berangkat'}
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 right-2.5 bg-slate-900/80 backdrop-blur-xs text-amber-300 font-extrabold text-[11px] px-2 py-0.5 rounded-md flex items-center gap-1">
+            <span>⭐</span>
             <span>${reg.rating}</span>
           </div>
-          <div class="text-base font-extrabold text-white leading-tight">${reg.name}</div>
-          <div class="text-xs text-sky-100 line-clamp-1">${reg.tagline}</div>
-          <div class="text-xs text-white/90 font-bold pt-0.5">${reg.priceStart}</div>
+        </div>
+        <div class="p-3.5 space-y-1">
+          <h3 class="font-extrabold text-sm text-slate-900 leading-snug line-clamp-1">${reg.name}</h3>
+          <p class="text-xs text-slate-500 line-clamp-1 font-medium">${reg.tagline}</p>
+          <div class="pt-2 flex items-center justify-between border-t border-slate-100">
+            <div>
+              <span class="text-[9.5px] text-slate-400 block font-semibold leading-none">Mulai dari</span>
+              <span class="text-sm font-extrabold text-sky-700">${reg.priceStart}</span>
+            </div>
+            <button type="button" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-600 hover:text-white text-sky-700 border border-sky-200 transition">
+              Pilih &rarr;
+            </button>
+          </div>
         </div>
       `;
 
@@ -335,7 +356,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (elInputCustomRegion) elInputCustomRegion.value = reg.name;
         state.regionName = reg.name;
         state.regionId = reg.id;
-        triggerAIGeneration();
+        document.querySelectorAll(".explorer-trip-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${reg.name}`;
       });
 
       elIslandGallery.appendChild(card);

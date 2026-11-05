@@ -175,7 +175,35 @@ body {
   box-shadow: 0 1px 3px rgba(2, 132, 199, 0.15);
 }
 
-/* Island Showcase Card */
+/* Island Showcase Card & Explorer.id Trip Card */
+.explorer-trip-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  min-width: 250px;
+  max-width: 250px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.06);
+  transition: transform 220ms var(--ease-smooth), box-shadow 220ms var(--ease-smooth), border-color 220ms ease;
+  user-select: none;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.explorer-trip-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px -4px rgba(15, 23, 42, 0.12);
+  border-color: #0284c7;
+}
+
+.explorer-trip-card.active {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 2.5px #0284c7, 0 12px 24px -4px rgba(2, 132, 199, 0.25);
+}
+
 .island-showcase-card {
   position: relative;
   border-radius: var(--radius-lg);
