@@ -1124,6 +1124,122 @@ document.addEventListener("DOMContentLoaded", () => {
     checkResponsiveView();
   }
 
+  // ==========================================================================
+  // Foxico Interactive Hero Slider System
+  // ==========================================================================
+  const foxicoSlideData = [
+    {
+      country: "INDONESIA",
+      desc: "As the largest archipelagic country in the world, Indonesia is blessed with so many different people, cultures, customs, traditions, artworks, food, animals, plants, landscapes, and everything that made it almost like 100 (or even 200) countries melted beautifully into one.",
+      step: "1",
+      counter: "01/04",
+      faint: "Thailand",
+      bg: "assets/foxico_volcano_bg.jpg",
+      progressFill: "25%",
+      curNum: "01",
+      targetRegion: "Pulau Bali"
+    },
+    {
+      country: "BALI & NUSA",
+      desc: "Surga tropis dengan tebing karang dramatis Broken Beach di Nusa Penida, hamparan pantai pasir putih, sunset legendaris di Uluwatu, dan ketenangan spiritual pura air suci.",
+      step: "2",
+      counter: "02/04",
+      faint: "INDONESIA",
+      bg: "assets/foxico_broken_beach_bali.jpg",
+      progressFill: "50%",
+      curNum: "02",
+      targetRegion: "Pulau Bali"
+    },
+    {
+      country: "THAILAND & ASIA",
+      desc: "Pesona kuil suci megah berkilau emas, keanggunan refleksi air Ayutthaya, serta keramahan budaya dan keajaiban arsitektur timur yang memikat dunia.",
+      step: "3",
+      counter: "03/04",
+      faint: "KERALA",
+      bg: "assets/foxico_temple_thailand.jpg",
+      progressFill: "75%",
+      curNum: "03",
+      targetRegion: "DI Yogyakarta"
+    },
+    {
+      country: "LABUAN BAJO",
+      desc: "Habitat kadal purba terbesar di dunia dengan panorama spektakuler puncak Pulau Padar berteluk tricolor, pantai pasir pink lembut, dan titik diving manta ray kelas dunia.",
+      step: "4",
+      counter: "04/04",
+      faint: "BROMO",
+      bg: "assets/foxico_labuan_bajo.jpg",
+      progressFill: "100%",
+      curNum: "04",
+      targetRegion: "Labuan Bajo & Komodo"
+    },
+    {
+      country: "BROMO SEMERU",
+      desc: "Lautan pasir vulkanik eksotis dengan pemandangan mentari terbit keemasan di Penanjakan, kawah aktif bergemuruh magis, dan bukit savana hijau Teletubbies.",
+      step: "5",
+      counter: "05/05",
+      faint: "SUMBA",
+      bg: "assets/foxico_bromo.jpg",
+      progressFill: "100%",
+      curNum: "05",
+      targetRegion: "Bromo & Kota Malang"
+    }
+  ];
+
+  let currentFoxicoIndex = 0;
+
+  window.selectFoxicoCard = function(idx) {
+    if (idx < 0 || idx >= foxicoSlideData.length) return;
+    currentFoxicoIndex = idx;
+    const slide = foxicoSlideData[idx];
+
+    // Update Text & Meta
+    const elTitle = document.getElementById("foxicoMainTitle");
+    const elDesc = document.getElementById("foxicoMainDesc");
+    const elStep = document.getElementById("foxicoStepNum");
+    const elCounter = document.getElementById("foxicoSlideCounter");
+    const elFaint = document.getElementById("foxicoFaintLabel");
+    const elHero = document.getElementById("heroFoxico");
+    const elProgCur = document.getElementById("foxicoProgressCurrent");
+    const elProgFill = document.getElementById("foxicoProgressFill");
+
+    if (elTitle) elTitle.textContent = slide.country;
+    if (elDesc) elDesc.textContent = slide.desc;
+    if (elStep) elStep.textContent = slide.step;
+    if (elCounter) elCounter.textContent = slide.counter;
+    if (elFaint) elFaint.textContent = slide.faint;
+    if (elProgCur) elProgCur.textContent = slide.curNum;
+    if (elProgFill) elProgFill.style.width = slide.progressFill;
+    if (elHero) {
+      elHero.style.backgroundImage = `url('${slide.bg}')`;
+    }
+
+    // Update active card class
+    const cardItems = document.querySelectorAll(".foxico-card-item");
+    cardItems.forEach((c, cIdx) => {
+      if (cIdx === idx) {
+        c.classList.add("active-card");
+        c.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      } else {
+        c.classList.remove("active-card");
+      }
+    });
+
+    // Sync with planner destination input if target exists
+    if (slide.targetRegion && elInputCustomRegion) {
+      elInputCustomRegion.value = slide.targetRegion;
+    }
+  };
+
+  window.foxicoNextSlide = function() {
+    const nextIdx = (currentFoxicoIndex + 1) % foxicoSlideData.length;
+    window.selectFoxicoCard(nextIdx);
+  };
+
+  window.foxicoPrevSlide = function() {
+    const prevIdx = (currentFoxicoIndex - 1 + foxicoSlideData.length) % foxicoSlideData.length;
+    window.selectFoxicoCard(prevIdx);
+  };
+
   // Bootstrap Application
   initDates();
   initIslandGallery();
