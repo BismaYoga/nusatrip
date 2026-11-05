@@ -24,9 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
     currentMobileTab: "timeline"
   };
 
-  const API_BASE = window.location.pathname.includes("/gastrip")
-    ? "/gastrip/api"
-    : (window.location.pathname.includes("/nusatrip") ? "/nusatrip/api" : "/api");
+  const API_BASE = (() => {
+    if (typeof window === "undefined" || !window.location) return "/api";
+    if (window.location.protocol === "file:") return "http://127.0.0.1:8088/api";
+    const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    if (isLocal && window.location.port && window.location.port !== "8088") {
+      return "http://127.0.0.1:8088/api";
+    }
+    if (window.location.pathname.includes("/gastrip")) return "/gastrip/api";
+    if (window.location.pathname.includes("/nusatrip")) return "/nusatrip/api";
+    return "/api";
+  })();
 
   // Curated Region Photos for Featured Island Cards
   const REGION_META = {
@@ -1488,6 +1496,239 @@ document.addEventListener("DOMContentLoaded", () => {
     return { valid: true, clean: text };
   }
 
+  // Client-Side Intelligent Knowledge Engine (Offline Fallback for NusaBot)
+  function generateClientTravelResponse(rawQuery, contextRegion) {
+    let uq = (rawQuery || "").toLowerCase().replace(/^[^\w\s]+/, "").trim();
+    let ctx = (contextRegion || "").toLowerCase();
+
+    // 1. Destination Matching (User query priority over background context)
+    let dest = null;
+    if (["labuan bajo", "labua bajo", "labuabajo", "labuan", "bajo", "komodo", "padar", "rinca", "manta point", "pink beach", "kanawa", "flores"].some(k => uq.includes(k))) {
+      dest = "labuan_bajo";
+    } else if (["jogja", "jogjakarta", "yogyakarta", "yogya", "malioboro", "prambanan", "borobudur", "keraton", "tamansari", "kaliurang", "merapi", "gudeg", "wijilan"].some(k => uq.includes(k))) {
+      dest = "jogja";
+    } else if (["bali", "ubud", "kuta", "canggu", "seminyak", "uluwatu", "sanur", "nusa penida", "penida", "tanah lot", "kintamani", "bedugul", "denpasar", "jimbaran"].some(k => uq.includes(k))) {
+      dest = "bali";
+    } else if (["lombok", "gili", "trawangan", "meno", "gili air", "mandalika", "rinjani", "kuta lombok", "senggigi", "merese"].some(k => uq.includes(k))) {
+      dest = "lombok";
+    } else if (["belitung", "belitong", "lengkuas", "tanjung tinggi", "tanjung kelayang", "batu berlayar", "laskar pelangi"].some(k => uq.includes(k))) {
+      dest = "belitung";
+    } else if (["raja ampat", "rajaampat", "misool", "piaynemo", "wayag", "waisai", "sorong", "kabui"].some(k => uq.includes(k))) {
+      dest = "raja_ampat";
+    } else if (["bromo", "tengger", "penanjakan", "banyuwangi", "ijen", "kawah ijen", "baluran"].some(k => uq.includes(k))) {
+      dest = "bromo";
+    } else if (["toba", "danau toba", "samosir", "parapat"].some(k => uq.includes(k))) {
+      dest = "toba";
+    } else if (["sumba", "waingapu", "waikabubak", "weekuri", "ratenggaro", "walakiri"].some(k => uq.includes(k))) {
+      dest = "sumba";
+    }
+
+    if (!dest && ctx) {
+      if (["bajo", "komodo", "labuan", "flores"].some(k => ctx.includes(k))) dest = "labuan_bajo";
+      else if (["jogja", "yogyakarta"].some(k => ctx.includes(k))) dest = "jogja";
+      else if (ctx.includes("bali")) dest = "bali";
+      else if (["lombok", "gili"].some(k => ctx.includes(k))) dest = "lombok";
+      else if (ctx.includes("belitung")) dest = "belitung";
+      else if (["raja ampat", "ampat"].some(k => ctx.includes(k))) dest = "raja_ampat";
+      else if (["bromo", "banyuwangi", "ijen"].some(k => ctx.includes(k))) dest = "bromo";
+      else if (ctx.includes("toba")) dest = "toba";
+      else if (ctx.includes("sumba")) dest = "sumba";
+    }
+
+    // 2. Topic Matching
+    let topic = "itinerary";
+    if (["speedboat", "speed boat", "spidbot", "spid bot", "kapal", "boat", "perahu", "phinisi", "pinisi", "liveaboard", "open trip", "snorkeling", "snorkling", "diving", "hopping", "bahari"].some(k => uq.includes(k))) {
+      topic = "speedboat";
+    } else if (["kuliner", "makanan", "makan", "resto", "restoran", "kafe", "cafe", "warung", "kopi", "gudeg", "betutu", "seafood", "taliwang", "oleh-oleh", "sarapan", "dinner"].some(k => uq.includes(k))) {
+      topic = "kuliner";
+    } else if (["cuaca", "bmkg", "hujan", "gelombang", "angin", "musim", "ombak", "iklim", "suhu"].some(k => uq.includes(k))) {
+      topic = "cuaca";
+    } else if (["budget", "biaya", "harga", "tarif", "ongkos", "tiket", "estimasi", "murah", "hemat", "uang", "rp"].some(k => uq.includes(k))) {
+      topic = "budget";
+    } else if (["transport", "transportasi", "sewa", "rental", "motor", "mobil", "sopir", "driver", "ojek", "taksi"].some(k => uq.includes(k))) {
+      topic = "transport";
+    } else if (["hotel", "penginapan", "villa", "villas", "homestay", "resort", "hostel", "menginap", "staycation"].some(k => uq.includes(k))) {
+      topic = "hotel";
+    } else if (["itinerary", "jadwal", "rencana", "rute", "hari", "day", "liburan", "wisata"].some(k => uq.includes(k))) {
+      topic = "itinerary";
+    }
+
+    // Generate Content
+    if (dest === "labuan_bajo") {
+      if (topic === "speedboat") {
+        return (
+          "🚤 **Panduan Lengkap Speedboat & Tour Bahari Labuan Bajo (TN Komodo)**:\n\n" +
+          "• **Pilihan Paket Layanan Speedboat**:\n" +
+          "  - **Open Trip Speedboat (1 Hari Full Day)**: Pilihan paling hemat & efisien. Tarif berkisar **Rp 1.350.000 – Rp 1.550.000 / orang** (sudah termasuk makan siang box, air mineral, pelampung & alat snorkeling).\n" +
+          "  - **Private Speedboat Charter**: Tarif berkisar **Rp 8.000.000 – Rp 13.000.000 / kapal** (kapasitas 8–15 orang), rute & waktu lebih fleksibel.\n" +
+          "  - **Kapal Phinisi (Liveaboard 3D2N / 2D1N)**: Tarif **Rp 2.500.000 – Rp 5.500.000 / orang** untuk sensasi menginap di atas kapal kabin ber-AC.\n\n" +
+          "• **Rute Standar 1 Hari Speedboat (6 Spot Populer)**:\n" +
+          "  1. **Pulau Padar**: Trekking sunrise ke puncak panorama 3 lekuk teluk ikonik (818 anak tangga).\n" +
+          "  2. **Pink Beach**: Pasir merah muda eksotis & snorkeling terumbu karang dangkal.\n" +
+          "  3. **Pulau Komodo / Pulau Rinca**: Berjumpa satwa purba Komodo didampingi Ranger resmi TN Komodo.\n" +
+          "  4. **Taka Makassar**: Gosong pasir putih timbul berbentuk bulan sabit di tengah lautan toska.\n" +
+          "  5. **Manta Point**: Snorkeling berenang bersama kawanan ikan pari manta raksasa (*Manta Ray*).\n" +
+          "  6. **Pulau Kanawa**: Spot snorkeling santai air jernih sebelum kembali ke daratan.\n\n" +
+          "• **Tiket Masuk & Konservasi TN Komodo**:\n" +
+          "  - WNI: Sekitar **Rp 300.000 – Rp 400.000 / orang** (mencakup karcis masuk, ranger fee, & retribusi pemda).\n\n" +
+          "• **Jadwal & Lokasi Berangkat**:\n" +
+          "  - Berangkat: Pukul **06.00 – 06.30 WITA** dari Pelabuhan Marina Labuan Bajo / Dermaga KP3.\n" +
+          "  - Kembali: Tiba di pelabuhan sekitar pukul **16.30 – 17.00 WITA**.\n\n" +
+          "💡 **Tips GasTrip**: Kenakan sepatu bertapak karet gerigi untuk mendaki Pulau Padar, gunakan tabir surya aman terumbu karang (*reef-safe*), bawa *dry bag*, dan minum obat antimabuk 30 menit sebelum berlayar."
+        );
+      } else if (topic === "kuliner") {
+        return (
+          "🦞 **Rekomendasi Kuliner Khas & Seafood Segar Labuan Bajo**:\n\n" +
+          "• **Pusat Kuliner Seafood Kampung Ujung**:\n" +
+          "  - Tenda kuliner ikan kakap, kerapu bakar, cumi saus padang, dan lobster yang ditimbang hidup dengan harga bersahabat di tepi dermaga.\n" +
+          "• **Ikan Kuah Asam khas Flores**:\n" +
+          "  - Sup ikan bumbu kuning segar rempah belimbing wuluh di *RM Mai Ceng'go* atau *Artomoro*.\n" +
+          "• **Kopi Flores Bajawa & Manggarai**:\n" +
+          "  - Kopi arabika aroma cokelat-karamel di *Café In Hitam* (view laut) & *La Cecile Sunset Cafe*.\n\n" +
+          "💡 **Tips GasTrip**: Kunjungi Kampung Ujung sekitar jam 18.30 WITA saat hasil tangkapan nelayan baru disuplai."
+        );
+      } else if (topic === "cuaca") {
+        return (
+          "🌦️ **Info Cuaca & Gelombang Maritim Labuan Bajo (BMKG)**:\n\n" +
+          "• **Musim Terbaik**: Mei hingga Oktober (musim kemarau dengan laut paling tenang & jernih).\n" +
+          "• **Kondisi Suhu**: 26°C – 33°C dengan angin laut sejuk.\n" +
+          "• **Ombak Selat Sape**: Gelombang normal 0.5 – 1.25 meter (status aman untuk speedboat).\n\n" +
+          "💡 Operator kapal selalu berkoordinasi dengan KSOP Labuan Bajo sebelum menerbitkan izin berlayar setiap pagi."
+        );
+      } else if (topic === "budget") {
+        return (
+          "💰 **Estimasi Budget Liburan Labuan Bajo (3 Hari 2 Malam)**:\n\n" +
+          "• **Backpacker / Hemat**: Rp 2.800.000 – Rp 3.500.000 / orang (Homestay, open trip speedboat 1 hari, tiket TNK, sewa motor).\n" +
+          "• **Comfort / Keluarga**: Rp 5.500.000 – Rp 7.500.000 / orang (Hotel Bintang 4 view teluk, speedboat VIP / phinisi cabin, resto seafood).\n\n" +
+          "*(Di luar tiket pesawat terbang dari kota asal)*."
+        );
+      } else {
+        return (
+          "🌊 **Panduan Wisata Labuan Bajo & Kepulauan Komodo**:\n\n" +
+          "• **Hari 1**: Check-in hotel, sunset di Bukit Silvia / Puncak Waringin, makan malam seafood Kampung Ujung.\n" +
+          "• **Hari 2**: Island hopping Speedboat 1 Hari (Pulau Padar, Pink Beach, Pulau Komodo/Rinca, Taka Makassar, Manta Point, Kanawa).\n" +
+          "• **Hari 3**: Gua Batu Cermin / Gua Rangko, beli Kopi Flores sebelum ke Bandara Komodo."
+        );
+      }
+    } else if (dest === "jogja") {
+      if (topic === "kuliner") {
+        return (
+          "🍜 **Rekomendasi Kuliner Legendaris & Autentik DI Yogyakarta**:\n\n" +
+          "• **Gudeg Legendaris**:\n" +
+          "  - *Gudeg Yu Djum Wijilan*: Gudeg kering bercita rasa manis-gurih khas dengan ayam kampung empuk & krecek pedas.\n" +
+          "• **Santapan Syahdu Nuansa Alam**:\n" +
+          "  - *Kopi Klotok Pakem*: Menikmati Sayur Lodeh ndeso, Telur Krispi legendaris, dan Pisang Goreng hangat berlatar sawah Merapi.\n" +
+          "• **Kuliner Malam & Spesial**:\n" +
+          "  - *Sate Klathak Pak Pong*: Sate kambing muda tusuk jeruji besi sepeda di Jejeran Bantul.\n" +
+          "  - *Mangut Lele Mbah Marto*: Lele asap bumbu kuah pedas santan di Sewon.\n" +
+          "  - *Angkringan Kopi Jos Lik Man*: Kopi hitam dicelup bara arang menyala di dekat Stasiun Tugu.\n\n" +
+          "💡 **Tips GasTrip**: Datanglah ke Kopi Klotok sebelum pukul 08.00 pagi untuk menghindari antrean panjang."
+        );
+      } else {
+        return (
+          "🏛️ **Eksplorasi Budaya & Wisata Istimewa DI Yogyakarta**:\n\n" +
+          "• **Hari 1**: Keraton Jogja, Tamansari, Gudeg Wijilan, santai senja di pedestrian Malioboro.\n" +
+          "• **Hari 2**: Candi Prambanan / Borobudur, Lava Tour Jeep Merapi, santap sore di Kopi Klotok Pakem.\n" +
+          "• **Hari 3**: Tebing Breksi atau Hutan Pinus Mangunan, belanja Bakpia Kukus sebelum kepulangan."
+        );
+      }
+    } else if (dest === "bali") {
+      if (topic === "speedboat") {
+        return (
+          "🚤 **Panduan Speedboat / Fast Boat di Bali (Penyeberangan Pulau)**:\n\n" +
+          "• **Sanur ➔ Nusa Penida (Paling Populer)**:\n" +
+          "  - Tiket: **Rp 75.000 – Rp 100.000 / orang (WNI)** sekali jalan (35–45 menit).\n" +
+          "  - Berangkat dari Pelabuhan Baru Sanur dengan dermaga apung modern tanpa basah-basahan.\n" +
+          "• **Sanur ➔ Nusa Lembongan**: Tarif Rp 100.000 – Rp 130.000 / orang (30 menit).\n" +
+          "• **Padangbai ➔ Gili Trawangan**: Tarif Rp 350.000 – Rp 475.000 / orang (1.5 – 2 jam).\n\n" +
+          "💡 **Tips GasTrip**: Pesan tiket penyeberangan 1 hari sebelumnya dan siapkan sewa kendaraan saat tiba di pelabuhan Nusa Penida."
+        );
+      } else if (topic === "kuliner") {
+        return (
+          "🌴 **Rekomendasi Kuliner Khas Pulau Bali**:\n\n" +
+          "• *Ayam Betutu Khas Men Tempeh / Tuban*: Rempah bumbu base genep pedas meresap.\n" +
+          "• *Seafood Sunset Pantai Jimbaran*: Santap ikan kakap bakar & udang madu di atas pasir pantai.\n" +
+          "• *Bebek Bengil / Bebek Tepi Sawah Ubud*: Bebek crispy sambal matah berlatar sawah hijau.\n" +
+          "• *Nasi Campur Bali Men Weti*: Sarapan legendaris di Pantai Segara Sanur."
+        );
+      } else {
+        return (
+          "🌴 **Rekomendasi Liburan Pulau Bali (3 Hari Terarah)**:\n\n" +
+          "• **Hari 1 (Ubud & Kultur)**: Sacred Monkey Forest, Puri Saren Agung, Sawah Tegallalang, Sunset Campuhan Ridge Walk.\n" +
+          "• **Hari 2 (Pantai & Sunset Selatan)**: Pantai Melasti Ungasan, Blue Point Beach, Tari Kecak Sunset Uluwatu & dinner Jimbaran Seafood.\n" +
+          "• **Hari 3 (Bahari & Santai)**: Waterblow Nusa Dua atau eksplor kafe Seminyak sebelum transfer ke Bandara Ngurah Rai."
+        );
+      }
+    } else if (dest === "lombok") {
+      if (topic === "speedboat") {
+        return (
+          "🚤 **Panduan Boat & Island Hopping di Lombok & Gili**:\n\n" +
+          "• **Penyeberangan ke Gili (Trawangan, Meno, Air)**:\n" +
+          "  - Public Boat Pelabuhan Bangsal: Rp 20.000 – Rp 25.000 / orang (25–35 menit).\n" +
+          "  - Speedboat Teluk Nare: Rp 350.000 – Rp 500.000 / kapal charter (10–15 menit).\n" +
+          "• **Snorkeling 3 Gili**: Berenang bersama penyu liar di Gili Meno dan patung bawah laut (Rp 150rb - 200rb/orang)."
+        );
+      } else {
+        return (
+          "🌴 **Pesona Wisata Pulau Lombok & Kepulauan Gili**:\n\n" +
+          "• **Hari 1**: Desa Adat Sade, Pantai Tanjung Aan, sunset Bukit Merese & Sirkuit Mandalika.\n" +
+          "• **Hari 2**: Island hopping snorkeling di Gili Trawangan & Meno, santap malam Ayam Taliwang.\n" +
+          "• **Hari 3**: Air Terjun Sendang Gile & Tiu Kelep di kaki Gunung Rinjani sebelum ke Bandara LOP."
+        );
+      }
+    } else if (dest === "belitung") {
+      return (
+        "🏝️ **Wisata Pulau Belitung & Island Hopping Granit**:\n\n" +
+        "• **Sewa Perahu Tradisional Tanjung Kelayang**: Rp 500.000 – Rp 700.000 / perahu (kapasitas 8–10 orang).\n" +
+        "• **Rute Populer**: Mercusuar Pulau Lengkuas (1882), Pulau Pasir (foto bintang laut besar), Pulau Batu Berlayar, dan Pantai Tanjung Tinggi.\n" +
+        "• **Kuliner Wajib**: Mie Belitung Atep kuah udang kental dan Kopi Kong Djie Manggar."
+      );
+    } else if (dest === "raja_ampat") {
+      return (
+        "🐠 **Panduan Wisata Bahari Raja Ampat (Papua Barat Daya)**:\n\n" +
+        "• **Kapal Cepat Sorong ➔ Waisai**: Express Bahari dari Pelabuhan Rakyat (Rp 125rb - Rp 250rb, durasi 2 jam).\n" +
+        "• **Spot Utama**: Gugusan bukit karst Piaynemo, Wayag, Teluk Kabui, dan Laguna Ubur-ubur Misool.\n" +
+        "• Surga bawah laut dengan keanekaragaman hayati laut terkaya di dunia."
+      );
+    } else if (topic === "cuaca") {
+      return (
+        "🌦️ **Prakiraan Cuaca BMKG & Kondisi Maritim Nusantara**:\n\n" +
+        "• **Kondisi Umum**: Sebagian besar kawasan wisata kepulauan beriklim tropis cerah berawan (26°C - 32°C).\n" +
+        "• **Gelombang Laut BMKG**:\n" +
+        "  - Perairan Labuan Bajo / Komodo: 0.5 – 1.25 meter (Sangat aman untuk speedboat).\n" +
+        "  - Selat Badung (Sanur - Nusa Penida): 0.75 – 1.5 meter (Kondisi aman lancar).\n" +
+        "💡 Pantau selalu ticker cuaca terintegrasi di navigasi atas aplikasi GasTrip."
+      );
+    } else if (topic === "budget") {
+      return (
+        "💰 **Estimasi Rincian Budget Liburan Indonesia (Standar GasTrip)**:\n\n" +
+        "• **Kelas Hemat / Backpacker**: Rp 250.000 – Rp 400.000 / orang / hari (Homestay, sewa motor, kuliner lokal).\n" +
+        "• **Kelas Nyaman / Comfort**: Rp 650.000 – Rp 1.100.000 / orang / hari (Hotel Bintang 3-4, sewa mobil + sopir, resto pilihan).\n\n" +
+        "💡 Pilih pulau tujuan di bagian pencarian atas untuk mendapatkan kalkulasi biaya instan!"
+      );
+    } else if (topic === "speedboat") {
+      return (
+        "🚤 **Panduan Layanan Speedboat Wisata Populer Indonesia**:\n\n" +
+        "• **Labuan Bajo**: Open trip speedboat 1 hari ke 6 spot TN Komodo (Padar, Pink Beach, Manta Point) Rp 1.350.000/orang.\n" +
+        "• **Bali**: Fast boat Sanur ke Nusa Penida (Rp 75rb – 100rb, 35 menit).\n" +
+        "• **Lombok**: Speedboat Teluk Nare ke Gili Trawangan (Rp 350rb/boat, 15 menit).\n" +
+        "• **Belitung**: Perahu katir island hopping Pantai Tanjung Kelayang (Rp 500rb - 700rb/kapal).\n\n" +
+        "Sebutkan pulau tujuanmu untuk rincian jadwal dan dermaga keberangkatan!"
+      );
+    } else {
+      return (
+        "Halo! Saya **NusaBot**, asisten perjalanan resmi GasTrip.\n\n" +
+        "Saya siap membantu memberikan rekomendasi terbaik di seluruh kepulauan Indonesia:\n" +
+        "• **🚤 Tour Speedboat & Bahari**: Labuan Bajo, Nusa Penida, Gili, Belitung, Raja Ampat.\n" +
+        "• **🌴 Susunan Itinerary Searah**: Bali, Jogja, Lombok, Labuan Bajo, Bromo, Belitung.\n" +
+        "• **🍜 Wisata Kuliner Legendaris**: Makanan khas nusantara halal dan terverifikasi lezat.\n" +
+        "• **💰 Estimasi Biaya & Tiket**: Perhitungan budget realistis Backpacker hingga Sultan.\n" +
+        "• **🌦️ Info Cuaca BMKG**: Rekomendasi musim terbaik dan tinggi gelombang laut.\n\n" +
+        "Silakan tanyakan apa saja (misal: *'Speedboat di Labuan Bajo'*, *'Kuliner enak di Jogja'*, atau *'Wisata 3 hari di Bali'*)."
+      );
+    }
+  }
+
   // Send Message Handler
   async function handleSendMessage(messageText) {
     const check = inspectClientInput(messageText);
@@ -1593,10 +1834,20 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       }
     } catch (err) {
+      console.warn("Backend API not reachable, activating Smart Local Assistant:", err);
+      const localReply = generateClientTravelResponse(cleanMessage, state.regionName);
       appendBotMessage(
-        `<p class="text-rose-600 font-semibold">Gagal terhubung dengan server NusaBot.</p><p class="text-[11px] text-slate-500">Pastikan koneksi internet stabil dan server GasTrip aktif.</p>`,
-        { securityEvent: true, badgeText: "Koneksi Terputus" }
+        renderSafeMarkdown(localReply) +
+        `<div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+          <span class="flex items-center gap-1 text-slate-500">
+            <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i>
+            <span>Mode Pintar Lokal (Offline Engine)</span>
+          </span>
+          <span class="text-sky-600 font-semibold" title="Respons instan dari sistem pengetahuan lokal GasTrip">Siap 24/7</span>
+        </div>`,
+        { securityEvent: false, badgeText: "⚡ Smart Local Assistant" }
       );
+      if (window.lucide) lucide.createIcons();
     } finally {
       if (elChatTypingIndicator) elChatTypingIndicator.classList.add("hidden");
       if (elBtnSendChat) elBtnSendChat.disabled = false;
@@ -1664,7 +1915,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Quick chips click handler
+    // Quick chips click handler & event delegation for dynamic chips
     function attachChipListeners() {
       const chips = document.querySelectorAll(".chat-chip");
       chips.forEach((btn) => {
@@ -1675,6 +1926,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
     attachChipListeners();
+
+    if (elChatMessages) {
+      elChatMessages.addEventListener("click", (e) => {
+        const chip = e.target.closest(".chat-chip");
+        if (chip) {
+          e.preventDefault();
+          const text = chip.textContent.trim();
+          handleSendMessage(text);
+        }
+      });
+    }
   }
 
   // ==========================================================================
