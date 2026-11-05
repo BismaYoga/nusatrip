@@ -7,8 +7,8 @@
    Official Palette (from Realtime Colors):
    - Background: #f8f8f8
    - Text:       #282828
-   - Primary:    #061e5a
-   - Secondary:  #18409f
+   - Primary:    #070e1e
+   - Secondary:  #121d38
    - Accent:     #fed988
    - Border:     #ededed
    - Surface:    #ffffff
@@ -25,11 +25,11 @@
   --c-surface: #ffffff;   /* Pure White Card Surface */
   --c-border: #ededed;    /* Architectural Neutral Border */
   --c-text: #282828;      /* 2. Text: Deep Charcoal Ink */
-  --c-primary: #061e5a;   /* 3. Primary: Deep Midnight Navy */
-  --c-secondary: #18409f; /* 4. Secondary: Sapphire Vibrant Blue */
+  --c-primary: #070e1e;   /* 3. Primary: Deep Midnight Navy */
+  --c-secondary: #121d38; /* 4. Secondary: Sapphire Vibrant Blue */
   --c-accent: #fed988;    /* 5. Accent: Sunlit Gold / Warm Sand */
   
-  --c-dark: #061e5a;      /* Primary Navy Anchor */
+  --c-dark: #070e1e;      /* Primary Navy Anchor */
   --c-text-main: #282828;
   --c-text-muted: #595959;
   --c-text-subtle: #8c8c8c;
@@ -56,8 +56,8 @@
   --space-3xl: 64px;
 
   /* Shadows (Discreet, subtle) */
-  --shadow-subtle: 0 1px 3px rgba(6, 30, 90, 0.05);
-  --shadow-card: 0 2px 6px -1px rgba(6, 30, 90, 0.06), 0 1px 3px -1px rgba(6, 30, 90, 0.04);
+  --shadow-subtle: 0 1px 3px rgba(7, 14, 30, 0.05);
+  --shadow-card: 0 2px 6px -1px rgba(7, 14, 30, 0.06), 0 1px 3px -1px rgba(7, 14, 30, 0.04);
 }
 
 *, *::before, *::after {
@@ -82,7 +82,7 @@ body {
   height: calc(100vh - 72px);
   min-height: 560px;
   overflow: hidden;
-  background-color: var(--c-primary);
+  background-color: #000000;
 }
 
 .hero-slide-item {
@@ -105,7 +105,7 @@ body {
 .hero-overlay-dark {
   position: absolute;
   inset: 0;
-  background-color: rgba(6, 30, 90, 0.62);
+  background-color: rgba(0, 0, 0, 0.65);
   z-index: 5;
 }
 
@@ -407,7 +407,7 @@ textarea:focus {
   font-size: 12px;
   font-weight: 700;
   border: 2px solid #ffffff;
-  box-shadow: 0 2px 6px rgba(6, 30, 90, 0.35);
+  box-shadow: 0 2px 6px rgba(7, 14, 30, 0.35);
 }
 
 /* Scrollbar Cleanliness */
@@ -431,7 +431,7 @@ textarea:focus {
 
 /* Chatbot Custom Styles */
 .chat-bubble-user {
-  background-color: #061e5a;
+  background-color: #070e1e;
   color: #ffffff;
   padding: 10px 14px;
   border-radius: 0px;
@@ -453,7 +453,7 @@ textarea:focus {
 .chat-security-badge {
   font-size: 10px;
   font-weight: 600;
-  color: #18409f;
+  color: #121d38;
   background-color: #f0f4ff;
   border: 1px solid #d0deff;
   padding: 2px 6px;

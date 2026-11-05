@@ -424,16 +424,16 @@ export default function Itinerary() {
             <div style="font-size:10px; font-weight:700; color:${dayColor.hex}; margin-bottom:2px; text-transform:uppercase;">
               Hari ${dayPlan.day} • Titik ${idx + 1}
             </div>
-            <div style="font-weight:700; font-size:13px; color:#061e5a; margin-bottom:4px; font-family:'Libre Baskerville',serif;">
+            <div style="font-weight:700; font-size:13px; color:#070e1e; margin-bottom:4px; font-family:'Libre Baskerville',serif;">
               ${spot.name}
             </div>
             <div style="font-size:11px; color:#595959; margin-bottom:6px; line-height:1.4;">
               ${spot.desc || ''}
             </div>
-            <div style="font-size:11px; font-weight:700; color:#18409f; margin-bottom:4px;">
+            <div style="font-size:11px; font-weight:700; color:#121d38; margin-bottom:4px;">
               ${spot.price === 0 ? 'Gratis' : formatRupiah(spot.price)} • Rating ${spot.rating || 4.8}★
             </div>
-            <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + regionInput)}`}" target="_blank" rel="noopener" style="font-size:10px; font-weight:700; color:#061e5a; text-decoration:none;">
+            <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + regionInput)}`}" target="_blank" rel="noopener" style="font-size:10px; font-weight:700; color:#070e1e; text-decoration:none;">
               Buka Google Maps &rarr;
             </a>
           </div>
@@ -515,10 +515,10 @@ export default function Itinerary() {
           
           {/* Section Header */}
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#121d38] block">
               Formulir Perencanaan Perjalanan
             </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-[#061e5a] font-serif tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold text-[#070e1e] font-serif tracking-tight">
               Rancang Liburan yang Pas Buat Kamu
             </h1>
             <p className="text-sm sm:text-base text-[#595959] max-w-xl mx-auto">
@@ -533,7 +533,7 @@ export default function Itinerary() {
               
               {/* 1. Tujuan Wisata * (Dropdown Lokasi) */}
               <div className="space-y-1.5 md:col-span-2">
-                <label className="text-xs font-bold text-[#061e5a] flex items-center justify-between">
+                <label className="text-xs font-bold text-[#070e1e] flex items-center justify-between">
                   <span>Tujuan Wisata <span className="text-rose-500">*</span></span>
                   <span className="text-[11px] font-normal text-[#595959]">Pilih dari daftar atau ketik daerah apa saja</span>
                 </label>
@@ -544,7 +544,7 @@ export default function Itinerary() {
                     onChange={(e) => setRegionInput(e.target.value)}
                     list="regionsList" 
                     placeholder="Ketik atau pilih kota / daerah tujuan (cth: Bali, Pacitan, Kebumen, Bromo, Jogja, Sumba)" 
-                    className="w-full px-4 py-3 bg-[#ffffff] border border-[#ededed] rounded-none font-semibold text-sm text-[#282828] placeholder:text-[#8c8c8c] placeholder:font-normal focus:border-[#061e5a] outline-none transition" 
+                    className="w-full px-4 py-3 bg-[#ffffff] border border-[#ededed] rounded-none font-semibold text-sm text-[#282828] placeholder:text-[#8c8c8c] placeholder:font-normal focus:border-[#070e1e] outline-none transition" 
                   />
                   <datalist id="regionsList">
                     <option value="Pulau Bali" />
@@ -566,7 +566,7 @@ export default function Itinerary() {
 
                 {/* Quick Region Shortcuts */}
                 <div className="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-[#595959]">
-                  <span className="font-semibold text-[#061e5a]">Pilihan Populer:</span>
+                  <span className="font-semibold text-[#070e1e]">Pilihan Populer:</span>
                   {POPULAR_SHORTCUTS.map((item) => (
                     <button
                       key={item.label}
@@ -574,8 +574,8 @@ export default function Itinerary() {
                       onClick={() => handleQuickRegion(item.value)}
                       className={`px-2.5 py-1 rounded-none text-[11px] font-medium transition border ${
                         regionInput === item.value
-                          ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
-                          : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] border-[#ededed]'
+                          ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
+                          : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#070e1e] border-[#ededed]'
                       }`}
                     >
                       {item.label}
@@ -586,7 +586,7 @@ export default function Itinerary() {
 
               {/* 2. Tanggal * (Tanggal dari - Tanggal sampai) */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#061e5a]">
+                <label className="text-xs font-bold text-[#070e1e]">
                   Tanggal Perjalanan <span className="text-rose-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-2 bg-[#ffffff] border border-[#ededed] rounded-none p-1.5 items-center">
@@ -610,7 +610,7 @@ export default function Itinerary() {
 
               {/* 3. Jumlah Pax (Orang) * (Dropdown 1 - 20) */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#061e5a]">
+                <label className="text-xs font-bold text-[#070e1e]">
                   Jumlah Pax (Orang) <span className="text-rose-500">*</span>
                 </label>
                 <select 
@@ -634,7 +634,7 @@ export default function Itinerary() {
               {/* 4. Budget * (Budget Minimal - Budget Maksimal) */}
               <div className="space-y-1.5 md:col-span-2">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold text-[#061e5a]">
+                  <label className="text-xs font-bold text-[#070e1e]">
                     Rentang Budget Per Orang <span className="text-rose-500">*</span>
                   </label>
                   {/* Budget Tier Selection (Preset Buttons) */}
@@ -644,7 +644,7 @@ export default function Itinerary() {
                       onClick={() => handleSelectBudgetTier('budget')} 
                       className={`px-2.5 py-0.5 rounded-none text-[11px] font-semibold transition border ${
                         budgetTier === 'budget'
-                          ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                          ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                           : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                       }`}
                     >
@@ -655,7 +655,7 @@ export default function Itinerary() {
                       onClick={() => handleSelectBudgetTier('comfort')} 
                       className={`px-2.5 py-0.5 rounded-none text-[11px] font-semibold transition border ${
                         budgetTier === 'comfort'
-                          ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                          ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                           : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                       }`}
                     >
@@ -666,7 +666,7 @@ export default function Itinerary() {
                       onClick={() => handleSelectBudgetTier('luxury')} 
                       className={`px-2.5 py-0.5 rounded-none text-[11px] font-semibold transition border ${
                         budgetTier === 'luxury'
-                          ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                          ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                           : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                       }`}
                     >
@@ -700,7 +700,7 @@ export default function Itinerary() {
 
               {/* 5. Referensi Wisata (Opsional, bisa lebih dari 1) */}
               <div className="space-y-2 md:col-span-2">
-                <label className="text-xs font-bold text-[#061e5a] block">
+                <label className="text-xs font-bold text-[#070e1e] block">
                   Referensi Wisata <span className="text-[#595959] font-normal">(Opsional, bisa pilih lebih dari 1)</span>
                 </label>
                 <div className="flex flex-wrap items-center gap-2">
@@ -709,7 +709,7 @@ export default function Itinerary() {
                     onClick={() => toggleInterest('pantai')}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-none border transition ${
                       interests.includes('pantai')
-                        ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                        ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                         : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                     }`}
                   >
@@ -720,7 +720,7 @@ export default function Itinerary() {
                     onClick={() => toggleInterest('alam')}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-none border transition ${
                       interests.includes('alam')
-                        ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                        ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                         : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                     }`}
                   >
@@ -731,7 +731,7 @@ export default function Itinerary() {
                     onClick={() => toggleInterest('budaya')}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-none border transition ${
                       interests.includes('budaya')
-                        ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                        ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                         : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                     }`}
                   >
@@ -742,7 +742,7 @@ export default function Itinerary() {
                     onClick={() => toggleInterest('kuliner')}
                     className={`px-3 py-1.5 text-xs font-semibold rounded-none border transition ${
                       interests.includes('kuliner')
-                        ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                        ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                         : 'bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] border-[#ededed]'
                     }`}
                   >
@@ -753,7 +753,7 @@ export default function Itinerary() {
 
               {/* Catatan Khusus */}
               <div className="space-y-1.5 md:col-span-2 pt-1">
-                <label className="text-xs font-bold text-[#061e5a] block">
+                <label className="text-xs font-bold text-[#070e1e] block">
                   Catatan / Instruksi Khusus <span className="text-[#595959] font-normal">(Opsional)</span>
                 </label>
                 <div className="flex items-center gap-2 bg-[#ffffff] rounded-none p-1.5 border border-[#ededed]">
@@ -767,7 +767,7 @@ export default function Itinerary() {
                   <button 
                     type="button" 
                     onClick={handleAnalyze}
-                    className="text-[11px] font-semibold px-3 py-1.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] shrink-0 transition border border-[#ededed]"
+                    className="text-[11px] font-semibold px-3 py-1.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#070e1e] shrink-0 transition border border-[#ededed]"
                   >
                     Terapkan
                   </button>
@@ -782,7 +782,7 @@ export default function Itinerary() {
                 type="button" 
                 onClick={handleAnalyze}
                 disabled={isAnalyzing}
-                className="w-full py-4 px-6 rounded-none bg-[#061e5a] hover:bg-[#18409f] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition shadow-md disabled:opacity-75"
+                className="w-full py-4 px-6 rounded-none bg-[#070e1e] hover:bg-[#121d38] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition shadow-md disabled:opacity-75"
               >
                 <span>{isAnalyzing ? 'Menganalisis Rute...' : 'Analisis & Buat Rute'}</span>
                 <span>&rarr;</span>
@@ -803,7 +803,7 @@ export default function Itinerary() {
         <div className="space-y-2 border-b border-[#ededed] pb-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#070e1e] font-serif tracking-tight">
                 Kamu cocoknya kesini..
               </h2>
               <p className="text-sm text-[#595959] mt-1">
@@ -816,7 +816,7 @@ export default function Itinerary() {
               <button 
                 type="button"
                 onClick={handleCopyWhatsApp}
-                className="px-4 py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition flex items-center gap-1.5" 
+                className="px-4 py-2 rounded-none bg-[#070e1e] hover:bg-[#121d38] text-[#ffffff] font-semibold text-xs transition flex items-center gap-1.5" 
                 title="Bagikan jadwal ke WhatsApp"
               >
                 {copiedWa ? <Check className="w-3.5 h-3.5 text-[#fed988]" /> : <Share2 className="w-3.5 h-3.5" />}
@@ -825,7 +825,7 @@ export default function Itinerary() {
               <button 
                 type="button"
                 onClick={() => window.print()} 
-                className="px-3.5 py-2 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] font-semibold text-xs border border-[#ededed] transition flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#070e1e] font-semibold text-xs border border-[#ededed] transition flex items-center gap-1.5"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span>Cetak PDF</span>
@@ -839,18 +839,18 @@ export default function Itinerary() {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-none bg-[#fed988] text-[#061e5a] uppercase tracking-wider border border-[#ebd080]">
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-none bg-[#fed988] text-[#070e1e] uppercase tracking-wider border border-[#ebd080]">
                   Terverifikasi
                 </span>
                 <span className="text-xs text-[#595959]">
                   {calculatedDays} Hari ({nights} Malam)
                 </span>
-                <div className="px-2.5 py-0.5 bg-[#f8f8f8] text-[#061e5a] text-xs font-semibold border border-[#ededed] rounded-none flex items-center gap-1">
+                <div className="px-2.5 py-0.5 bg-[#f8f8f8] text-[#070e1e] text-xs font-semibold border border-[#ededed] rounded-none flex items-center gap-1">
                   <span>🌤️</span>
                   <span>Cuaca: Cerah Tropis 28°C</span>
                 </div>
               </div>
-              <h3 className="text-xl sm:text-2xl font-bold font-serif text-[#061e5a]">
+              <h3 className="text-xl sm:text-2xl font-bold font-serif text-[#070e1e]">
                 Liburan {regionInput}
               </h3>
               <p className="text-xs text-[#595959] mt-1 max-w-2xl leading-relaxed">
@@ -862,19 +862,19 @@ export default function Itinerary() {
             <div className="flex flex-wrap items-center gap-2">
               <div className="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
                 <span className="text-[10px] font-semibold text-[#595959] block uppercase">Destinasi</span>
-                <span className="text-xs font-bold text-[#061e5a]">{totalSpotsCount} Tempat</span>
+                <span className="text-xs font-bold text-[#070e1e]">{totalSpotsCount} Tempat</span>
               </div>
               <div className="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
                 <span className="text-[10px] font-semibold text-[#595959] block uppercase">Rute</span>
-                <span className="text-xs font-bold text-[#061e5a]">{Math.round(totalDistanceKm * 10) / 10} km</span>
+                <span className="text-xs font-bold text-[#070e1e]">{Math.round(totalDistanceKm * 10) / 10} km</span>
               </div>
               <div className="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
                 <span className="text-[10px] font-semibold text-[#595959] block uppercase">Total Biaya</span>
-                <span className="text-xs font-bold text-[#061e5a]">{formatRupiah(totalTripCost)}</span>
+                <span className="text-xs font-bold text-[#070e1e]">{formatRupiah(totalTripCost)}</span>
               </div>
               <div className="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
                 <span className="text-[10px] font-semibold text-[#595959] block uppercase">Musim</span>
-                <span className="text-xs font-bold text-[#061e5a]">{activeRegion.bestSeason || 'Apr – Okt'}</span>
+                <span className="text-xs font-bold text-[#070e1e]">{activeRegion.bestSeason || 'Apr – Okt'}</span>
               </div>
             </div>
           </div>
@@ -894,7 +894,7 @@ export default function Itinerary() {
                   onClick={() => setSelectedDayFilter('all')}
                   className={`text-xs px-3 py-1.5 rounded-none font-bold transition border ${
                     selectedDayFilter === 'all'
-                      ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                      ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                       : 'bg-[#f8f8f8] text-[#595959] hover:bg-[#ededed] border-[#ededed]'
                   }`}
                 >
@@ -907,7 +907,7 @@ export default function Itinerary() {
                     onClick={() => setSelectedDayFilter(d.day)}
                     className={`text-xs px-3 py-1.5 rounded-none font-bold transition border ${
                       selectedDayFilter === d.day
-                        ? 'bg-[#061e5a] text-[#ffffff] border-[#061e5a]'
+                        ? 'bg-[#070e1e] text-[#ffffff] border-[#070e1e]'
                         : 'bg-[#f8f8f8] text-[#595959] hover:bg-[#ededed] border-[#ededed]'
                     }`}
                   >
@@ -922,7 +922,7 @@ export default function Itinerary() {
                   setTargetAddDay(selectedDayFilter === 'all' ? 1 : Number(selectedDayFilter));
                   setShowAddSpotModal(true);
                 }}
-                className="text-xs px-3 py-1.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-semibold border border-[#ededed] flex items-center gap-1 shrink-0 transition"
+                className="text-xs px-3 py-1.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#070e1e] font-semibold border border-[#ededed] flex items-center gap-1 shrink-0 transition"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>Tambah Spot</span>
@@ -937,12 +937,12 @@ export default function Itinerary() {
                   {/* Day Header */}
                   <div className="p-4 sm:p-5 border-b border-[#ededed] bg-[#f8f8f8] flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-none bg-[#061e5a] text-[#ffffff] flex items-center justify-center font-bold text-xs">
+                      <div className="w-9 h-9 rounded-none bg-[#070e1e] text-[#ffffff] flex items-center justify-center font-bold text-xs">
                         H{dayPlan.day}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="text-sm sm:text-base font-bold font-serif text-[#061e5a]">
+                          <h3 className="text-sm sm:text-base font-bold font-serif text-[#070e1e]">
                             Hari ke-{dayPlan.day}: {dayPlan.zone}
                           </h3>
                           <span className="text-[11px] font-semibold px-2 py-0.5 rounded-none bg-[#ffffff] text-[#595959] border border-[#ededed]">
@@ -954,7 +954,7 @@ export default function Itinerary() {
                     </div>
 
                     <div className="flex items-center gap-2 text-xs font-semibold">
-                      <span className="px-2.5 py-1 rounded-none bg-[#ffffff] text-[#061e5a] border border-[#ededed]">
+                      <span className="px-2.5 py-1 rounded-none bg-[#ffffff] text-[#070e1e] border border-[#ededed]">
                         ~{dayPlan.totalDistanceKm} km Rute Searah
                       </span>
                     </div>
@@ -977,7 +977,7 @@ export default function Itinerary() {
                           {/* Transit Connector */}
                           {prevSpot && (
                             <div className="flex items-center gap-2 text-xs text-[#595959] bg-[#f8f8f8] p-2 border border-[#ededed] rounded-none">
-                              <Car className="w-3.5 h-3.5 text-[#061e5a]" />
+                              <Car className="w-3.5 h-3.5 text-[#070e1e]" />
                               <span>Rute berkendara: <strong>~{transitDist} km</strong> ({transitMins} menit perjalanan)</span>
                             </div>
                           )}
@@ -993,7 +993,7 @@ export default function Itinerary() {
                                 className="w-full h-full object-cover" 
                                 loading="lazy" 
                               />
-                              <div className="absolute top-2 left-2 px-2 py-0.5 bg-[#061e5a] text-[#ffffff] text-[10px] font-bold">
+                              <div className="absolute top-2 left-2 px-2 py-0.5 bg-[#070e1e] text-[#ffffff] text-[10px] font-bold">
                                 Stop {idx + 1}
                               </div>
                             </div>
@@ -1002,19 +1002,19 @@ export default function Itinerary() {
                             <div className="flex-1 space-y-2">
                               <div className="flex flex-wrap items-center justify-between gap-2">
                                 <div className="flex items-center gap-2 text-xs">
-                                  <span className="font-bold text-[#061e5a] flex items-center gap-1">
+                                  <span className="font-bold text-[#070e1e] flex items-center gap-1">
                                     <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
                                     <span>{spot.rating || 4.8}</span>
                                   </span>
                                   <span className="text-[#8c8c8c]">•</span>
                                   <span className="text-[#595959]">{spot.durationHours || 2} Jam Kunjungan</span>
                                 </div>
-                                <span className="text-xs font-bold text-[#061e5a] bg-[#f8f8f8] px-2 py-0.5 border border-[#ededed]">
+                                <span className="text-xs font-bold text-[#070e1e] bg-[#f8f8f8] px-2 py-0.5 border border-[#ededed]">
                                   {spot.price === 0 ? 'Gratis Tiket' : formatRupiah(spot.price)}
                                 </span>
                               </div>
 
-                              <h4 className="font-serif font-bold text-sm sm:text-base text-[#061e5a]">
+                              <h4 className="font-serif font-bold text-sm sm:text-base text-[#070e1e]">
                                 {spot.name}
                               </h4>
 
@@ -1033,7 +1033,7 @@ export default function Itinerary() {
                                   href={spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + regionInput)}`} 
                                   target="_blank" 
                                   rel="noopener noreferrer" 
-                                  className="text-xs font-bold text-[#18409f] hover:text-[#061e5a] transition flex items-center gap-1"
+                                  className="text-xs font-bold text-[#121d38] hover:text-[#070e1e] transition flex items-center gap-1"
                                 >
                                   <span>Lihat Google Maps</span>
                                   <ExternalLink className="w-3 h-3" />
@@ -1072,7 +1072,7 @@ export default function Itinerary() {
             <div className="bg-[#ffffff] border border-[#ededed] rounded-none overflow-hidden">
               <div className="p-3.5 border-b border-[#ededed] flex items-center justify-between bg-[#f8f8f8]">
                 <div>
-                  <h3 className="text-xs font-bold text-[#061e5a] uppercase tracking-wider">
+                  <h3 className="text-xs font-bold text-[#070e1e] uppercase tracking-wider">
                     INTERACTIVE MAPS
                   </h3>
                   <p className="text-[11px] text-[#595959]">Rute searah berbasis OpenStreetMap</p>
@@ -1080,7 +1080,7 @@ export default function Itinerary() {
                 <button 
                   type="button"
                   onClick={handleResetMapZoom}
-                  className="text-[11px] px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] text-[#061e5a] border border-[#ededed] transition font-semibold"
+                  className="text-[11px] px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] text-[#070e1e] border border-[#ededed] transition font-semibold"
                 >
                   Reset Zoom
                 </button>
@@ -1113,12 +1113,12 @@ export default function Itinerary() {
             <div className="bg-[#ffffff] border border-[#ededed] p-5 space-y-4 rounded-none">
               <div className="flex items-center justify-between pb-3 border-b border-[#ededed]">
                 <div>
-                  <h3 className="text-sm font-bold font-serif text-[#061e5a]">
+                  <h3 className="text-sm font-bold font-serif text-[#070e1e]">
                     Estimasi Biaya Transparan
                   </h3>
                   <p className="text-xs text-[#595959]">Perkiraan all-in per orang selama liburan</p>
                 </div>
-                <span className="text-xs px-2.5 py-0.5 rounded-none bg-[#f8f8f8] text-[#061e5a] font-semibold border border-[#ededed]">
+                <span className="text-xs px-2.5 py-0.5 rounded-none bg-[#f8f8f8] text-[#070e1e] font-semibold border border-[#ededed]">
                   Tier: {budgetTier.toUpperCase()}
                 </span>
               </div>
@@ -1126,29 +1126,29 @@ export default function Itinerary() {
               <div className="space-y-2 text-xs text-[#595959]">
                 <div className="flex items-center justify-between py-1 border-b border-[#ededed]">
                   <span>Tiket Masuk &amp; Retribusi Resmi</span>
-                  <span className="font-bold text-[#061e5a]">{formatRupiah(totalTicketCost)}</span>
+                  <span className="font-bold text-[#070e1e]">{formatRupiah(totalTicketCost)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1 border-b border-[#ededed]">
                   <span>Sewa Transport &amp; Bensin ({calculatedDays} Hari)</span>
-                  <span className="font-bold text-[#061e5a]">{formatRupiah(transportCost)}</span>
+                  <span className="font-bold text-[#070e1e]">{formatRupiah(transportCost)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1 border-b border-[#ededed]">
                   <span>Estimasi Konsumsi Kuliner Lokal</span>
-                  <span className="font-bold text-[#061e5a]">{formatRupiah(foodCost)}</span>
+                  <span className="font-bold text-[#070e1e]">{formatRupiah(foodCost)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1 border-b border-[#ededed]">
                   <span>Akomodasi / Penginapan ({nights} Malam)</span>
-                  <span className="font-bold text-[#061e5a]">{formatRupiah(stayCost)}</span>
+                  <span className="font-bold text-[#070e1e]">{formatRupiah(stayCost)}</span>
                 </div>
                 <div className="flex items-center justify-between py-1 border-b border-[#ededed]">
                   <span>Biaya Parkir &amp; Tak Terduga</span>
-                  <span className="font-bold text-[#061e5a]">{formatRupiah(miscCost)}</span>
+                  <span className="font-bold text-[#070e1e]">{formatRupiah(miscCost)}</span>
                 </div>
               </div>
 
               <div className="pt-3 border-t border-[#ededed] flex items-center justify-between">
-                <span className="text-xs font-semibold text-[#061e5a]">Total Perkiraan Trip</span>
-                <span className="text-base font-bold font-serif text-[#061e5a]">
+                <span className="text-xs font-semibold text-[#070e1e]">Total Perkiraan Trip</span>
+                <span className="text-base font-bold font-serif text-[#070e1e]">
                   {formatRupiah(totalTripCost)}
                 </span>
               </div>
@@ -1156,7 +1156,7 @@ export default function Itinerary() {
 
             {/* Practical Local Field Guide & Tips */}
             <div className="bg-[#ffffff] border border-[#ededed] p-5 space-y-3 rounded-none">
-              <h3 className="text-sm font-bold font-serif text-[#061e5a] pb-2 border-b border-[#ededed]">
+              <h3 className="text-sm font-bold font-serif text-[#070e1e] pb-2 border-b border-[#ededed]">
                 Tips Praktis Lapangan
               </h3>
               <ul className="space-y-1.5 text-xs text-[#595959] list-disc list-inside leading-relaxed">
@@ -1175,13 +1175,13 @@ export default function Itinerary() {
       {/* 3. MODAL: AI PROGRESS FEEDBACK             */}
       {/* ========================================== */}
       {isAnalyzing && (
-        <div className="fixed inset-0 z-50 bg-[#061e5a]/70 flex items-center justify-center p-4 no-print">
+        <div className="fixed inset-0 z-50 bg-[#070e1e]/70 flex items-center justify-center p-4 no-print">
           <div className="max-w-md w-full p-6 text-center space-y-4 bg-[#ffffff] border border-[#ededed] rounded-none shadow-2xl">
-            <div className="w-10 h-10 mx-auto rounded-none bg-[#061e5a] text-[#fed988] flex items-center justify-center font-bold text-sm">
+            <div className="w-10 h-10 mx-auto rounded-none bg-[#070e1e] text-[#fed988] flex items-center justify-center font-bold text-sm">
               N
             </div>
             <div>
-              <h4 className="text-base font-bold font-serif text-[#061e5a]">
+              <h4 className="text-base font-bold font-serif text-[#070e1e]">
                 Asisten Sedang Menganalisis Rute {regionInput}...
               </h4>
               <p className="text-xs text-[#595959] mt-1 leading-relaxed">
@@ -1189,7 +1189,7 @@ export default function Itinerary() {
               </p>
             </div>
             <div className="w-full bg-[#f8f8f8] h-1.5 rounded-none overflow-hidden">
-              <div className="bg-[#061e5a] h-full w-2/3 animate-[pulse_1s_infinite]"></div>
+              <div className="bg-[#070e1e] h-full w-2/3 animate-[pulse_1s_infinite]"></div>
             </div>
           </div>
         </div>
@@ -1199,17 +1199,17 @@ export default function Itinerary() {
       {/* 4. MODAL: ADD SPOT PICKER                  */}
       {/* ========================================== */}
       {showAddSpotModal && (
-        <div className="fixed inset-0 z-50 bg-[#061e5a]/60 flex items-center justify-center p-4 no-print">
+        <div className="fixed inset-0 z-50 bg-[#070e1e]/60 flex items-center justify-center p-4 no-print">
           <div className="max-w-xl w-full p-6 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-none shadow-2xl max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between border-b border-[#ededed] pb-3 shrink-0">
               <div>
-                <h3 className="text-sm font-bold font-serif text-[#061e5a]">Tambah Destinasi Wisata</h3>
+                <h3 className="text-sm font-bold font-serif text-[#070e1e]">Tambah Destinasi Wisata</h3>
                 <p className="text-xs text-[#595959]">Pilih destinasi cadangan terverifikasi untuk Hari ke-{targetAddDay}</p>
               </div>
               <button 
                 type="button"
                 onClick={() => setShowAddSpotModal(false)}
-                className="text-[#595959] hover:text-[#061e5a] text-lg font-bold p-1"
+                className="text-[#595959] hover:text-[#070e1e] text-lg font-bold p-1"
               >
                 ✕
               </button>
@@ -1217,11 +1217,11 @@ export default function Itinerary() {
 
             {/* Target Day Selector */}
             <div className="flex items-center gap-2 text-xs shrink-0">
-              <span className="font-bold text-[#061e5a]">Tambahkan ke:</span>
+              <span className="font-bold text-[#070e1e]">Tambahkan ke:</span>
               <select
                 value={targetAddDay}
                 onChange={(e) => setTargetAddDay(Number(e.target.value))}
-                className="px-2.5 py-1 bg-[#f8f8f8] border border-[#ededed] rounded-none font-semibold text-xs text-[#061e5a] outline-none"
+                className="px-2.5 py-1 bg-[#f8f8f8] border border-[#ededed] rounded-none font-semibold text-xs text-[#070e1e] outline-none"
               >
                 {itinerary.map((d) => (
                   <option key={d.day} value={d.day}>Hari {d.day} ({d.zone})</option>
@@ -1239,16 +1239,16 @@ export default function Itinerary() {
                 availableSpotsToAdd.map((s) => (
                   <div key={s.id} className="p-3 border border-[#ededed] bg-[#f8f8f8] flex items-center justify-between gap-3 rounded-none">
                     <div className="space-y-1">
-                      <h4 className="text-xs font-bold font-serif text-[#061e5a]">{s.name}</h4>
+                      <h4 className="text-xs font-bold font-serif text-[#070e1e]">{s.name}</h4>
                       <p className="text-[11px] text-[#595959] line-clamp-1">{s.desc}</p>
-                      <div className="text-[10px] text-[#061e5a] font-semibold">
+                      <div className="text-[10px] text-[#070e1e] font-semibold">
                         {s.price === 0 ? 'Gratis' : formatRupiah(s.price)} • {s.zone}
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => handleAddSpotToDay(s)}
-                      className="px-3 py-1.5 bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-bold text-xs shrink-0 rounded-none transition"
+                      className="px-3 py-1.5 bg-[#070e1e] hover:bg-[#121d38] text-[#ffffff] font-bold text-xs shrink-0 rounded-none transition"
                     >
                       + Tambah
                     </button>
@@ -1261,7 +1261,7 @@ export default function Itinerary() {
               <button
                 type="button"
                 onClick={() => setShowAddSpotModal(false)}
-                className="px-4 py-2 border border-[#ededed] hover:bg-[#ededed] text-xs font-semibold text-[#061e5a] rounded-none transition"
+                className="px-4 py-2 border border-[#ededed] hover:bg-[#ededed] text-xs font-semibold text-[#070e1e] rounded-none transition"
               >
                 Tutup
               </button>

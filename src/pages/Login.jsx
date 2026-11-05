@@ -25,7 +25,7 @@ export default function Login({ setRoute }) {
         
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-2xl font-serif font-bold text-[#061e5a]">
+          <h1 className="text-2xl font-serif font-bold text-[#070e1e]">
             {isRegister ? 'Buat Akun Traveler' : 'Masuk ke Akun Anda'}
           </h1>
           <p className="text-xs text-[#595959]">
@@ -38,14 +38,14 @@ export default function Login({ setRoute }) {
           <button
             type="button"
             onClick={() => setIsRegister(false)}
-            className={`py-2 text-xs font-bold transition rounded-none ${!isRegister ? 'text-[#061e5a] bg-[#ffffff] shadow-xs' : 'text-[#595959] hover:text-[#061e5a]'}`}
+            className={`py-2 text-xs font-bold transition rounded-none ${!isRegister ? 'text-[#070e1e] bg-[#ffffff] shadow-xs' : 'text-[#595959] hover:text-[#070e1e]'}`}
           >
             Masuk
           </button>
           <button
             type="button"
             onClick={() => setIsRegister(true)}
-            className={`py-2 text-xs font-bold transition rounded-none ${isRegister ? 'text-[#061e5a] bg-[#ffffff] shadow-xs' : 'text-[#595959] hover:text-[#061e5a]'}`}
+            className={`py-2 text-xs font-bold transition rounded-none ${isRegister ? 'text-[#070e1e] bg-[#ffffff] shadow-xs' : 'text-[#595959] hover:text-[#070e1e]'}`}
           >
             Daftar Baru
           </button>
@@ -55,7 +55,7 @@ export default function Login({ setRoute }) {
         <button
           type="button"
           onClick={handleGoogleLogin}
-          className="w-full py-2.5 px-4 border border-[#ededed] hover:border-[#061e5a] bg-[#ffffff] text-xs font-semibold text-[#282828] flex items-center justify-center gap-2.5 transition rounded-none"
+          className="w-full py-2.5 px-4 border border-[#ededed] hover:border-[#070e1e] bg-[#ffffff] text-xs font-semibold text-[#282828] flex items-center justify-center gap-2.5 transition rounded-none"
         >
           <svg className="w-4 h-4" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
@@ -77,35 +77,35 @@ export default function Login({ setRoute }) {
           
           {isRegister && (
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#061e5a]">Nama Lengkap</label>
+              <label className="text-xs font-bold text-[#070e1e]">Nama Lengkap</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Nama Anda"
-                className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#061e5a] outline-none rounded-none"
+                className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#070e1e] outline-none rounded-none"
               />
             </div>
           )}
 
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-[#061e5a]">Alamat Email</label>
+            <label className="text-xs font-bold text-[#070e1e]">Alamat Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nama@email.com"
-              className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#061e5a] outline-none rounded-none"
+              className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#070e1e] outline-none rounded-none"
             />
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-[#061e5a]">Kata Sandi</label>
+              <label className="text-xs font-bold text-[#070e1e]">Kata Sandi</label>
               {!isRegister && (
-                <span className="text-[11px] font-semibold text-[#18409f] cursor-pointer hover:underline">
+                <span className="text-[11px] font-semibold text-[#121d38] cursor-pointer hover:underline">
                   Lupa sandi?
                 </span>
               )}
@@ -116,13 +116,13 @@ export default function Login({ setRoute }) {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Minimal 8 karakter"
-              className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#061e5a] outline-none rounded-none"
+              className="w-full px-3.5 py-2.5 bg-[#ffffff] border border-[#ededed] font-medium text-xs text-[#282828] focus:border-[#070e1e] outline-none rounded-none"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-bold text-xs uppercase tracking-wider transition rounded-none shadow-sm"
+            className="w-full py-3 bg-[#070e1e] hover:bg-[#121d38] text-[#ffffff] font-bold text-xs uppercase tracking-wider transition rounded-none shadow-sm"
           >
             {isRegister ? 'Buat Akun Sekarang' : 'Masuk ke Akun'}
           </button>
