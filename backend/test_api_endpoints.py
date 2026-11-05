@@ -60,6 +60,50 @@ class TestChatbotApi(unittest.TestCase):
         self.assertTrue("Yogyakarta" in reply_data["reply"] or "Jogja" in reply_data["reply"])
         self.assertIn("🛡️", reply_data["security_badge"])
 
+    def test_chatbot_speedboat_labuan_bajo_typo_with_bali_context(self):
+        # Verifies that asking about speedboat in Labuan Bajo (even with typo 'labua bajo')
+        # while the website background context is set to 'Pulau Bali'
+        # returns Labuan Bajo & Komodo Speedboat guide, NOT Pulau Bali itinerary!
+        session_res = self.client.get("/api/auth/session")
+        session_data = session_res.json()["data"]
+
+        payload = {
+            "message": "speedboat di labua bajo",
+            "session_id": session_data["token"],
+            "region_context": "Pulau Bali"
+        }
+        res = self.client.post(
+            "/api/chat",
+            json=payload,
+            headers={"X-CSRF-Token": session_data["csrf_token"]}
+        )
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertEqual(data["status"], "success")
+        self.assertIn("Labuan Bajo", data["reply"])
+        self.assertIn("Speedboat", data["reply"])
+        self.assertNotIn("Rekomendasi Liburan Pulau Bali", data["reply"])
+
+    def test_chatbot_quick_chip_speedboat(self):
+        session_res = self.client.get("/api/auth/session")
+        session_data = session_res.json()["data"]
+
+        payload = {
+            "message": "🌊 Speedboat Labuan Bajo",
+            "session_id": session_data["token"],
+            "region_context": "Pulau Bali"
+        }
+        res = self.client.post(
+            "/api/chat",
+            json=payload,
+            headers={"X-CSRF-Token": session_data["csrf_token"]}
+        )
+        self.assertEqual(res.status_code, 200)
+        data = res.json()
+        self.assertEqual(data["status"], "success")
+        self.assertIn("Labuan Bajo", data["reply"])
+        self.assertIn("Speedboat", data["reply"])
+
     def test_chatbot_waf_xss_block(self):
         payload = {
             "message": "<script>alert('xss')</script> rekomendasi wisata",
