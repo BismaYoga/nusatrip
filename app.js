@@ -238,9 +238,9 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".day-pill").forEach(btn => {
       const d = parseInt(btn.dataset.days);
       if (d === diffDays) {
-        btn.className = "day-pill active px-3 py-1 rounded-full bg-white text-sky-900 font-bold transition shadow-xs";
+        btn.className = "day-pill active px-3 py-1 rounded-none bg-white text-sky-900 font-bold transition shadow-xs";
       } else {
-        btn.className = "day-pill px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white transition";
+        btn.className = "day-pill px-3 py-1 rounded-none bg-white/10 hover:bg-white/20 border border-white/20 text-white transition";
       }
     });
   }
@@ -720,7 +720,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-5 leading-relaxed">
             Tentukan destinasi, tanggal, dan preferensi perjalanan di atas, lalu tekan tombol <strong>Susun AI</strong> untuk mulai merancang rencana perjalanan otomatis.
           </p>
-          <button id="btnEmptyStateGenerate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md transition">
+          <button id="btnEmptyStateGenerate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-none bg-[#1c1917] hover:bg-[#292524] text-white font-bold text-xs sm:text-sm shadow-md transition">
             <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
             <span>Susun Rute Liburan Sekarang</span>
           </button>
@@ -855,15 +855,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${categoryBadges}
                   </div>
                   <div class="flex items-center gap-2">
-                    <button class="btn-pan-spot text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 py-1 px-2.5 rounded-lg bg-sky-50 hover:bg-sky-100 transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
+                    <button class="btn-pan-spot text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 py-1 px-2.5 rounded-none bg-sky-50 hover:bg-sky-100 transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
                       <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
                       <span>Peta Rute</span>
                     </button>
-                    <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" class="text-xs font-bold text-slate-700 hover:text-sky-700 flex items-center gap-1 py-1 px-2.5 rounded-lg border border-slate-200 hover:border-sky-300 bg-white hover:bg-slate-50 transition shadow-2xs" title="Buka foto 360°, ulasan & foto Google Maps">
+                    <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" class="text-xs font-bold text-slate-700 hover:text-sky-700 flex items-center gap-1 py-1 px-2.5 rounded-none border border-slate-200 hover:border-sky-300 bg-white hover:bg-slate-50 transition shadow-2xs" title="Buka foto 360°, ulasan & foto Google Maps">
                       <i data-lucide="external-link" class="w-3.5 h-3.5 text-sky-600"></i>
                       <span>Foto & Review GMaps</span>
                     </a>
-                    <button class="btn-remove-spot text-xs p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" data-day="${dayPlan.day}" data-spot-id="${spot.id}" title="Hapus dari jadwal">
+                    <button class="btn-remove-spot text-xs p-1.5 rounded-none text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" data-day="${dayPlan.day}" data-spot-id="${spot.id}" title="Hapus dari jadwal">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
                   </div>
@@ -1303,17 +1303,17 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
         <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🏖️ Wisata 3 Hari di Bali
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
+            Wisata 3 Hari di Bali
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🌊 Speedboat Labuan Bajo
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
+            Speedboat Labuan Bajo
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🍜 Kuliner Legendaris Jogja
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
+            Kuliner Legendaris Jogja
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🌦️ Cuaca &amp; Gelombang BMKG
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
+            Cuaca &amp; Gelombang BMKG
           </button>
         </div>
       </div>

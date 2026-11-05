@@ -8,6 +8,18 @@
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
   
   <!-- Leaflet CSS & JS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -17,7 +29,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Custom Architectural Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_02" />
+  <link rel="stylesheet" href="style.css?v=20261105_04" />
 </head>
 <body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
 
@@ -29,7 +41,7 @@
       
       <!-- Brand Logo (Left) -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-[4px] bg-[#1c1917] text-[#ffffff] flex items-center justify-center font-bold text-sm">
+        <div class="w-8 h-8 rounded-none bg-[#1c1917] text-[#ffffff] flex items-center justify-center font-bold text-sm">
           N
         </div>
         <div class="flex flex-col">
@@ -46,10 +58,10 @@
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Profil Pengguna">
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -120,12 +132,12 @@
               <!-- Quick Region Shortcuts -->
               <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-[#78716c]">
                 <span class="font-semibold text-[#1c1917]">Pilihan Populer:</span>
-                <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Bali</button>
-                <button type="button" onclick="selectQuickRegion('Karangasem')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Karangasem</button>
-                <button type="button" onclick="selectQuickRegion('Kebumen')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Kebumen</button>
-                <button type="button" onclick="selectQuickRegion('Pacitan')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Pacitan</button>
-                <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Labuan Bajo</button>
-                <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-2.5 py-1 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Jogja</button>
+                <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Bali</button>
+                <button type="button" onclick="selectQuickRegion('Karangasem')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Karangasem</button>
+                <button type="button" onclick="selectQuickRegion('Kebumen')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Kebumen</button>
+                <button type="button" onclick="selectQuickRegion('Pacitan')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Pacitan</button>
+                <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Labuan Bajo</button>
+                <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Jogja</button>
               </div>
             </div>
 
@@ -170,9 +182,9 @@
                 </label>
                 <!-- Budget Tier Selection (Preset Buttons) -->
                 <div class="flex items-center gap-1 text-xs">
-                  <button type="button" onclick="setBudgetTierCustom('budget')" id="btnTierBudget" class="px-2.5 py-0.5 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Hemat</button>
-                  <button type="button" onclick="setBudgetTierCustom('comfort')" id="btnTierComfort" class="px-2.5 py-0.5 rounded-[4px] bg-[#1c1917] text-[#ffffff] text-[11px] font-semibold transition">Nyaman</button>
-                  <button type="button" onclick="setBudgetTierCustom('luxury')" id="btnTierLuxury" class="px-2.5 py-0.5 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Sultan</button>
+                  <button type="button" onclick="setBudgetTierCustom('budget')" id="btnTierBudget" class="px-2.5 py-0.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Hemat</button>
+                  <button type="button" onclick="setBudgetTierCustom('comfort')" id="btnTierComfort" class="px-2.5 py-0.5 rounded-none bg-[#1c1917] text-[#ffffff] text-[11px] font-semibold transition">Nyaman</button>
+                  <button type="button" onclick="setBudgetTierCustom('luxury')" id="btnTierLuxury" class="px-2.5 py-0.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Sultan</button>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-3">
@@ -193,16 +205,16 @@
                 Referensi Wisata <span class="text-[#78716c] font-normal">(Opsional, bisa pilih lebih dari 1)</span>
               </label>
               <div class="flex flex-wrap items-center gap-2" id="interestTags">
-                <button type="button" data-interest="pantai" class="travel-cat-pill active">
+                <button type="button" data-interest="pantai" class="travel-cat-pill active rounded-none">
                   <span>Pantai</span>
                 </button>
-                <button type="button" data-interest="alam" class="travel-cat-pill">
+                <button type="button" data-interest="alam" class="travel-cat-pill rounded-none">
                   <span>Dataran Tinggi</span>
                 </button>
-                <button type="button" data-interest="budaya" class="travel-cat-pill">
+                <button type="button" data-interest="budaya" class="travel-cat-pill rounded-none">
                   <span>Perkotaan &amp; Budaya</span>
                 </button>
-                <button type="button" data-interest="kuliner" class="travel-cat-pill">
+                <button type="button" data-interest="kuliner" class="travel-cat-pill rounded-none">
                   <span>Kuliner</span>
                 </button>
               </div>
@@ -215,7 +227,7 @@
               </label>
               <div class="flex items-center gap-2 bg-[#ffffff] rounded-[4px] p-1.5 border border-[#e7e5e4]">
                 <input type="text" id="inputAiPrompt" placeholder="Cth: Bawa balita, rute santai, sunset cantik, kuliner halal..." class="w-full bg-transparent text-xs text-[#1c1917] placeholder:text-[#a8a29e] outline-none px-2 font-normal" />
-                <button id="btnSubmitCustomWish" type="button" class="text-[11px] font-semibold px-3 py-1.5 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] shrink-0 transition">
+                <button id="btnSubmitCustomWish" type="button" class="text-[11px] font-semibold px-3 py-1.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] shrink-0 transition">
                   Terapkan
                 </button>
               </div>
@@ -248,7 +260,7 @@
             <button 
               id="btnGenerateAI" 
               type="button" 
-              class="w-full py-4 px-6 rounded-[6px] bg-[#1c1917] hover:bg-[#292524] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition"
+              class="w-full py-4 px-6 rounded-none bg-[#1c1917] hover:bg-[#292524] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition"
             >
               <span>Analisis &amp; Buat Rute</span>
               <span>&rarr;</span>
@@ -279,10 +291,10 @@
 
           <!-- Action Buttons -->
           <div class="flex items-center gap-2 no-print">
-            <button id="btnCopyWa" class="px-4 py-2 rounded-[4px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-semibold text-xs transition" title="Bagikan jadwal ke WhatsApp">
+            <button id="btnCopyWa" class="px-4 py-2 rounded-none bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-semibold text-xs transition" title="Bagikan jadwal ke WhatsApp">
               Bagikan WhatsApp
             </button>
-            <button onclick="window.print()" class="px-3.5 py-2 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs border border-[#e7e5e4] transition">
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs border border-[#e7e5e4] transition">
               Cetak PDF
             </button>
           </div>
@@ -333,10 +345,10 @@
 
       <!-- Mobile Segmented View Control -->
       <div class="lg:hidden mobile-segment-toggle no-print" id="mobileSegmentToggle">
-        <button type="button" class="mobile-segment-btn active" id="btnViewTimeline">
+        <button type="button" class="mobile-segment-btn active rounded-none" id="btnViewTimeline">
           Jadwal Rute
         </button>
-        <button type="button" class="mobile-segment-btn" id="btnViewMap">
+        <button type="button" class="mobile-segment-btn rounded-none" id="btnViewMap">
           Peta &amp; Biaya
         </button>
       </div>
@@ -352,7 +364,7 @@
             <div class="flex items-center gap-1.5 flex-nowrap shrink-0" id="dayFilterTabs">
               <!-- Populated by JS -->
             </div>
-            <button id="btnAddSpotModal" class="text-xs px-3 py-1.5 rounded-[4px] bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-semibold border border-[#e7e5e4] flex items-center gap-1 shrink-0 transition">
+            <button id="btnAddSpotModal" class="text-xs px-3 py-1.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-semibold border border-[#e7e5e4] flex items-center gap-1 shrink-0 transition">
               + Tambah Spot
             </button>
           </div>
@@ -376,7 +388,7 @@
                 </h3>
                 <p class="text-[11px] text-[#78716c]">Rute searah berbasis OpenStreetMap</p>
               </div>
-              <button id="btnResetMapBounds" class="text-[11px] px-2 py-1 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] border border-[#e7e5e4] transition font-semibold">
+              <button id="btnResetMapBounds" class="text-[11px] px-2 py-1 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] border border-[#e7e5e4] transition font-semibold">
                 Reset Zoom
               </button>
             </div>
@@ -521,7 +533,7 @@
         <p><strong class="text-[#1c1917]">Status:</strong> Wisatawan Aktif</p>
         <p><strong class="text-[#1c1917]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
       </div>
-      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Tutup
       </button>
     </div>
@@ -532,7 +544,7 @@
     <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
       <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
         <h3 class="text-base font-bold font-serif text-[#1c1917]">Pengaturan</h3>
-        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1 rounded-none">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -546,7 +558,7 @@
           <span class="font-bold text-[#1c1917]">OpenStreetMap Live</span>
         </div>
       </div>
-      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Simpan &amp; Tutup
       </button>
     </div>
@@ -561,27 +573,27 @@
           <p class="text-[11px] text-[#a8a29e]">Asisten Wisata Terpadu</p>
         </div>
         <div class="flex items-center gap-1">
-          <button type="button" id="btnClearChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e]" title="Bersihkan">
+          <button type="button" id="btnClearChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e] rounded-none" title="Bersihkan">
             <i data-lucide="trash-2" class="w-4 h-4"></i>
           </button>
-          <button type="button" id="btnCloseChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e]" title="Tutup">
+          <button type="button" id="btnCloseChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e] rounded-none" title="Tutup">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
       <div class="bg-[#f5f5f4] border-b border-[#e7e5e4] px-4 py-1.5 flex items-center justify-between text-[11px] text-[#78716c] shrink-0">
         <span>Sesi Aman &amp; Terenkripsi</span>
-        <span class="text-[10px] bg-[#ffffff] border border-[#e7e5e4] px-2 py-0.5 rounded-[4px]" id="chatQuotaBadge">20 kuota/mnt</span>
+        <span class="text-[10px] bg-[#ffffff] border border-[#e7e5e4] px-2 py-0.5 rounded-none" id="chatQuotaBadge">20 kuota/mnt</span>
       </div>
       <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#fbfbf9] text-xs text-[#1c1917]">
         <div class="bg-[#ffffff] p-3 rounded-[4px] border border-[#e7e5e4] leading-relaxed">
           Halo, saya <strong>NusaBot</strong>. Tanyakan rekomendasi destinasi, estimasi biaya tiket, atau tips perjalanan di Indonesia.
         </div>
         <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-[4px] bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
             Spot terbaik Karangasem?
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-[4px] bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
             Pantai di Kebumen
           </button>
         </div>
@@ -594,8 +606,8 @@
       </div>
       <div class="p-3 bg-[#ffffff] border-t border-[#e7e5e4] shrink-0">
         <form id="chatForm" class="flex items-center gap-2">
-          <input type="text" id="chatInput" placeholder="Ketik pertanyaan..." maxlength="500" class="flex-1 px-3 py-2 bg-[#fbfbf9] border border-[#e7e5e4] rounded-[4px] text-xs outline-none" />
-          <button type="submit" id="btnSendChat" class="px-3 py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] text-xs font-semibold">
+          <input type="text" id="chatInput" placeholder="Ketik pertanyaan..." maxlength="500" class="flex-1 px-3 py-2 bg-[#fbfbf9] border border-[#e7e5e4] rounded-none text-xs outline-none" />
+          <button type="submit" id="btnSendChat" class="px-3 py-2 rounded-none bg-[#1c1917] text-[#ffffff] text-xs font-semibold">
             Kirim
           </button>
         </form>
@@ -603,7 +615,7 @@
     </div>
 
     <!-- Toggle Button -->
-    <button type="button" id="btnChatToggle" class="w-12 h-12 rounded-[6px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] flex items-center justify-center shadow-lg transition">
+    <button type="button" id="btnChatToggle" class="w-12 h-12 rounded-none bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] flex items-center justify-center shadow-lg transition">
       <i data-lucide="message-square" id="iconChatOpen" class="w-5 h-5"></i>
       <i data-lucide="x" id="iconChatClose" class="w-5 h-5 hidden"></i>
     </button>

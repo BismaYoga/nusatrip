@@ -8,12 +8,24 @@
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Montserrat"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
   
   <!-- Lucide Icons (Minimal) -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Custom Architectural Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_03" />
+  <link rel="stylesheet" href="style.css?v=20261105_04" />
 </head>
 <body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
 
@@ -25,7 +37,7 @@
       
       <!-- Brand Logo (Left) -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-[4px] bg-[#ffffff] text-[#1c1917] flex items-center justify-center font-bold text-sm">
+        <div class="w-8 h-8 rounded-none bg-[#ffffff] text-[#1c1917] flex items-center justify-center font-bold text-sm">
           N
         </div>
         <div class="flex flex-col">
@@ -42,13 +54,13 @@
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs transition">
+        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs transition">
           Buat Itinerary
         </a>
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Profil Pengguna">
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -86,47 +98,43 @@
             Platform Perencana Perjalanan Indonesia
           </span>
 
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#ffffff] font-serif tracking-tight leading-tight">
+          <h1 class="text-4xl sm:text-5xl font-bold text-[#ffffff] font-serif tracking-tight leading-tight">
             Jelajahi Nusantara <br class="hidden sm:inline" />Sesuai Rencanamu
           </h1>
 
-          <p class="text-base sm:text-lg text-[#d6d3d1] leading-relaxed max-w-2xl mx-auto">
+          <p class="text-base text-[#d6d3d1] leading-relaxed max-w-2xl mx-auto">
             Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
           </p>
 
           <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-[6px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-bold text-sm transition">
+            <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-sm transition">
               <span>Rancang Itinerary Sekarang</span>
               <span>&rarr;</span>
             </a>
-            <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-[6px] bg-transparent hover:bg-[#ffffff]/10 text-[#ffffff] font-semibold text-sm border border-[#ffffff]/40 transition">
+            <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-none bg-transparent hover:bg-[#ffffff]/10 text-[#ffffff] font-semibold text-sm border border-[#ffffff]/40 transition">
               Pelajari Cara Kerja
             </a>
           </div>
         </div>
 
-        <!-- Bottom Status Bar & Slide Navigation -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#ffffff]/15 text-xs text-[#d6d3d1]">
+        <!-- Bottom Status Bar & Slide Navigation (No Icon Bulat, No 1/5 Total Slide) -->
+        <div class="flex items-center justify-between gap-4 pt-6 border-t border-[#ffffff]/15 text-xs text-[#d6d3d1]">
           
           <!-- Current Slide Location Label -->
-          <div class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-[#ffffff] animate-pulse"></span>
-            <span id="heroSlideLocation" class="font-bold text-[#ffffff] tracking-wide">
-              Gunung Bromo, Jawa Timur
-            </span>
-            <span class="text-[#a8a29e]">•</span>
-            <span id="heroSlideCounter" class="text-[11px] font-mono text-[#a8a29e]">
-              01 / 05
+          <div class="flex flex-col">
+            <span class="text-[11px] uppercase tracking-widest text-[#a8a29e] font-medium">Destinasi</span>
+            <span id="heroSlideLocation" class="text-sm font-semibold text-[#ffffff] tracking-wide font-sans">
+              Gunung Bromo — Jawa Timur
             </span>
           </div>
 
-          <!-- Slide Indicator Bars -->
+          <!-- Slide Indicator Bars (Sharp, Zero Radius) -->
           <div class="flex items-center gap-2" id="heroSlideDots">
-            <button type="button" onclick="setHeroSlide(0, true)" class="w-8 h-1 rounded-[2px] bg-[#ffffff] transition-all" title="Gunung Bromo"></button>
-            <button type="button" onclick="setHeroSlide(1, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Labuan Bajo"></button>
-            <button type="button" onclick="setHeroSlide(2, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Bali"></button>
-            <button type="button" onclick="setHeroSlide(3, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Borobudur"></button>
-            <button type="button" onclick="setHeroSlide(4, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Raja Ampat"></button>
+            <button type="button" onclick="setHeroSlide(0, true)" class="w-8 h-[3px] rounded-none bg-[#ffffff] transition-all" title="Gunung Bromo"></button>
+            <button type="button" onclick="setHeroSlide(1, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Labuan Bajo"></button>
+            <button type="button" onclick="setHeroSlide(2, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Bali"></button>
+            <button type="button" onclick="setHeroSlide(3, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Borobudur"></button>
+            <button type="button" onclick="setHeroSlide(4, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Raja Ampat"></button>
           </div>
 
         </div>
@@ -323,7 +331,7 @@
         <p><strong class="text-[#1c1917]">Status:</strong> Wisatawan Aktif</p>
         <p><strong class="text-[#1c1917]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
       </div>
-      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Tutup
       </button>
     </div>
@@ -334,7 +342,7 @@
     <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
       <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
         <h3 class="text-base font-bold font-serif text-[#1c1917]">Pengaturan</h3>
-        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1 rounded-none">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
@@ -348,7 +356,7 @@
           <span class="font-bold text-[#1c1917]">OpenStreetMap Live</span>
         </div>
       </div>
-      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Simpan &amp; Tutup
       </button>
     </div>
@@ -357,11 +365,11 @@
   <!-- Hero Slider Transition Script -->
   <script>
     const heroSlides = [
-      { name: "Gunung Bromo, Jawa Timur", counter: "01 / 05" },
-      { name: "Pulau Padar & Labuan Bajo, NTT", counter: "02 / 05" },
-      { name: "Pura Ulun Danu Beratan, Bali", counter: "03 / 05" },
-      { name: "Candi Borobudur, Jawa Tengah", counter: "04 / 05" },
-      { name: "Kepulauan Raja Ampat, Papua Barat", counter: "05 / 05" }
+      { name: "Gunung Bromo — Jawa Timur" },
+      { name: "Labuan Bajo & Pulau Padar — NTT" },
+      { name: "Danau Beratan Bedugul — Bali" },
+      { name: "Candi Borobudur — Jawa Tengah" },
+      { name: "Kepulauan Raja Ampat — Papua Barat" }
     ];
 
     let currentHeroIndex = 0;
@@ -379,19 +387,17 @@
         }
       }
 
-      // Update labels
+      // Update location label
       const locEl = document.getElementById("heroSlideLocation");
-      const cntEl = document.getElementById("heroSlideCounter");
       if (locEl) locEl.textContent = heroSlides[idx].name;
-      if (cntEl) cntEl.textContent = heroSlides[idx].counter;
 
-      // Update indicator dots
+      // Update indicator bars (zero border radius)
       const dots = document.querySelectorAll("#heroSlideDots button");
       dots.forEach((dot, dIdx) => {
         if (dIdx === idx) {
-          dot.className = "w-8 h-1 rounded-[2px] bg-[#ffffff] transition-all";
+          dot.className = "w-8 h-[3px] rounded-none bg-[#ffffff] transition-all";
         } else {
-          dot.className = "w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all";
+          dot.className = "w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all";
         }
       });
 
