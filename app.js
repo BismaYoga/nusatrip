@@ -1290,30 +1290,27 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial welcome message HTML template for reset
   const INITIAL_WELCOME_HTML = `
     <div class="flex items-start gap-2.5">
-      <div class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
-        <i data-lucide="bot" class="w-4 h-4"></i>
+      <div class="w-7 h-7 rounded-none bg-[#061e5a] text-[#fed988] flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
       </div>
       <div class="space-y-2 max-w-[85%]">
-        <div class="p-3 bg-white rounded-2xl rounded-tl-sm border border-slate-200 shadow-2xs leading-relaxed text-slate-700">
-          <p class="font-bold text-slate-900 mb-1">Halo! Saya NusaBot 👋</p>
-          <p>Asisten perjalanan cerdas GasTrip. Saya siap membantu menyusun rencana liburan searah, estimasi biaya, rekomendasi kuliner, dan tips cuaca BMKG di seluruh Indonesia.</p>
-          <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1 text-[10px] text-slate-400 font-medium">
-            <i data-lucide="check-check" class="w-3 h-3 text-emerald-500"></i>
-            <span>Telah diverifikasi aman oleh Security Shield</span>
-          </div>
+        <div class="p-3 bg-[#ffffff] rounded-none border border-[#ededed] leading-relaxed text-[#282828] text-xs">
+          <p class="font-bold text-[#061e5a] mb-1 font-serif text-sm">Halo! Saya NusaBot.</p>
+          <p>Asisten AI konsultan perjalanan GasTrip &amp; NusaTrip. Saya siap merekomendasikan rute wisata tersembunyi, estimasi tarif speedboat, rekomendasi kuliner halal autentik, hingga tips liburan bebas macet di seluruh nusantara.</p>
+          <p class="mt-2 text-[11px] text-[#595959]">Ada yang ingin Anda tanyakan seputar destinasi liburan?</p>
         </div>
         <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
-            Wisata 3 Hari di Bali
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#061e5a] text-[11px] font-medium transition">
+            Pantai Sepi di Bali
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#061e5a] text-[11px] font-medium transition">
             Speedboat Labuan Bajo
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
-            Kuliner Legendaris Jogja
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#061e5a] text-[11px] font-medium transition">
+            Kuliner Halal Jogja
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-white hover:bg-stone-50 border border-stone-200 hover:border-stone-800 text-stone-700 text-[11px] font-medium transition shadow-2xs">
-            Cuaca &amp; Gelombang BMKG
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#061e5a] text-[11px] font-medium transition">
+            Hidden Gem Air Terjun
           </button>
         </div>
       </div>
@@ -1377,9 +1374,38 @@ document.addEventListener("DOMContentLoaded", () => {
     return outputLines.join("");
   }
 
+  const CHAT_STORAGE_KEY = "gastrip_chat_history";
+  const CHAT_SESSION_KEY = "gastrip_chat_session_id";
+
+  function getChatHistory() {
+    try {
+      const data = localStorage.getItem(CHAT_STORAGE_KEY);
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function saveChatHistory(history) {
+    try {
+      if (history.length > 40) history = history.slice(-40);
+      localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(history));
+    } catch (e) {}
+  }
+
+  function addMessageToHistory(msg) {
+    const history = getChatHistory();
+    history.push(msg);
+    saveChatHistory(history);
+  }
+
   // Fetch Cryptographic Session Token & CSRF from Backend
   async function fetchChatSession() {
     try {
+      const cachedSession = localStorage.getItem(CHAT_SESSION_KEY);
+      if (cachedSession) {
+        chatState.sessionId = cachedSession;
+      }
       const res = await fetch(`${API_BASE}/auth/session`);
       if (res.ok) {
         const json = await res.json();
@@ -1387,6 +1413,7 @@ document.addEventListener("DOMContentLoaded", () => {
           chatState.sessionId = json.data.session_id;
           chatState.sessionToken = json.data.token;
           chatState.csrfToken = json.data.csrf_token;
+          localStorage.setItem(CHAT_SESSION_KEY, json.data.session_id);
         }
       }
     } catch (err) {
@@ -1422,7 +1449,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Append User Message Bubble
-  function appendUserMessage(text) {
+  function appendUserMessage(text, persist = true) {
     if (!elChatMessages) return;
     const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
     const bubble = document.createElement("div");
@@ -1431,36 +1458,41 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="chat-bubble-user text-xs">
         ${escapeHtml(text)}
       </div>
-      <span class="text-[9px] text-slate-400 px-1">${timeStr}</span>
+      <span class="text-[9px] text-[#595959] px-1">${timeStr}</span>
     `;
     elChatMessages.appendChild(bubble);
     scrollChatToBottom();
+    if (persist) {
+      addMessageToHistory({ type: "user", text, time: timeStr });
+    }
   }
 
   // Append Bot Message Bubble
-  function appendBotMessage(replyHtml, options = {}) {
+  function appendBotMessage(replyHtml, options = {}, persist = true) {
     if (!elChatMessages) return;
-    const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+    const timeStr = options.time || new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
     const isSecurityEvent = options.securityEvent || false;
     const wasRedacted = options.wasRedacted || false;
-    const badgeText = options.badgeText || "🛡️ WAF & Guardrail Verified";
+    const badgeText = options.badgeText || "";
 
     const bubble = document.createElement("div");
     bubble.className = "flex items-start gap-2.5";
     
     let badgeClass = isSecurityEvent ? "chat-warning-badge" : "chat-security-badge";
-    let iconName = isSecurityEvent ? "alert-shield" : "bot";
-    let avatarBg = isSecurityEvent ? "bg-amber-600" : "bg-sky-600";
+    let iconName = isSecurityEvent ? "shield-alert" : "sparkles";
+    let avatarBg = isSecurityEvent ? "bg-amber-600" : "bg-[#061e5a]";
 
     let redactedNoticeHtml = wasRedacted ? `
-      <div class="mt-2 px-2 py-1 bg-sky-50 border border-sky-100 rounded text-[10px] text-sky-800 flex items-center gap-1 font-medium">
+      <div class="mt-2 px-2 py-1 bg-sky-50 border border-sky-100 rounded-none text-[10px] text-sky-800 flex items-center gap-1 font-medium">
         <i data-lucide="lock" class="w-3 h-3 text-sky-600 shrink-0"></i>
         <span>Data pribadi (NIK / No. Telp) otomatis disensor demi keamanan privasi Anda.</span>
       </div>
     ` : "";
 
+    let badgeHtml = badgeText ? `<span class="${badgeClass}">${escapeHtml(badgeText)}</span>` : "";
+
     bubble.innerHTML = `
-      <div class="w-7 h-7 rounded-lg ${avatarBg} text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+      <div class="w-7 h-7 rounded-none ${avatarBg} text-[#fed988] flex items-center justify-center shrink-0 shadow-xs mt-0.5">
         <i data-lucide="${iconName}" class="w-4 h-4"></i>
       </div>
       <div class="space-y-1.5 max-w-[85%]">
@@ -1469,8 +1501,8 @@ document.addEventListener("DOMContentLoaded", () => {
           ${redactedNoticeHtml}
         </div>
         <div class="flex items-center justify-between px-1">
-          <span class="${badgeClass}">${escapeHtml(badgeText)}</span>
-          <span class="text-[9px] text-slate-400">${timeStr}</span>
+          ${badgeHtml}
+          <span class="text-[9px] text-[#595959] ml-auto">${timeStr}</span>
         </div>
       </div>
     `;
@@ -1478,6 +1510,9 @@ document.addEventListener("DOMContentLoaded", () => {
     elChatMessages.appendChild(bubble);
     if (window.lucide) lucide.createIcons();
     scrollChatToBottom();
+    if (persist) {
+      addMessageToHistory({ type: "bot", replyHtml, options: { securityEvent: isSecurityEvent, wasRedacted, badgeText }, time: timeStr });
+    }
   }
 
   // Client-Side Input Sanitization & Threat Check
@@ -1859,6 +1894,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function initChatbot() {
     fetchChatSession();
 
+    // Restore persistent chat history across page refreshes and navigations
+    const saved = getChatHistory();
+    if (saved && saved.length > 0 && elChatMessages) {
+      elChatMessages.innerHTML = "";
+      saved.forEach(item => {
+        if (item.type === "user") {
+          appendUserMessage(item.text, false);
+        } else if (item.type === "bot") {
+          appendBotMessage(item.replyHtml, { ...item.options, time: item.time }, false);
+        }
+      });
+      if (window.lucide) lucide.createIcons();
+    }
+
     // Toggle button bottom right
     if (elBtnChatToggle) {
       elBtnChatToggle.addEventListener("click", () => toggleChatbot());
@@ -1880,9 +1929,12 @@ document.addEventListener("DOMContentLoaded", () => {
       elBtnMinimizeChat.addEventListener("click", () => toggleChatbot(false));
     }
 
-    // Clear chat conversation
+    // Clear chat conversation & persistent history
     if (elBtnClearChat) {
       elBtnClearChat.addEventListener("click", () => {
+        try {
+          localStorage.removeItem(CHAT_STORAGE_KEY);
+        } catch (e) {}
         if (elChatMessages) {
           elChatMessages.innerHTML = INITIAL_WELCOME_HTML;
           if (window.lucide) lucide.createIcons();

@@ -68,12 +68,15 @@
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Profil Pengguna">
+        <a href="login.html" class="px-3 py-2 rounded-none bg-transparent hover:bg-[#ededed] text-[#061e5a] font-bold text-xs border border-[#ededed] transition" title="Masuk">
+          Masuk
+        </a>
+        <a href="profile.html" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
-        </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Pengaturan">
+        </a>
+        <a href="settings.html" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
-        </button>
+        </a>
       </div>
 
     </div>
@@ -118,10 +121,7 @@
                   id="inputCustomRegion" 
                   list="regionsList" 
                   placeholder="Ketik atau pilih kota / daerah tujuan (cth: Bali, Pacitan, Kebumen, Bromo, Jogja, Sumba)" 
-                  class="w-full px-4 py-3 bg-[#ffffff] border border-[#ededed] rounded-[4px] font-semibold text-sm text-[#282828] placeholder:text-[#8c8c8c] placeholder:font-normal focus:border-[#061e5a] outline-none transition" 
-                  value="Pulau Bali" 
-                />
-                  class="w-full px-4 py-3 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] font-semibold text-sm text-[#1c1917] placeholder:text-[#a8a29e] placeholder:font-normal focus:border-[#1c1917] outline-none transition" 
+                  class="w-full px-4 py-3 bg-[#ffffff] border border-[#ededed] rounded-none font-semibold text-sm text-[#282828] placeholder:text-[#8c8c8c] placeholder:font-normal focus:border-[#061e5a] outline-none transition" 
                   value="Pulau Bali" 
                 />
                 <datalist id="regionsList">
@@ -486,9 +486,8 @@
 
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#a8a29e]">
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#c8ccd7]">
         <p>&copy; 2026 NusaTrip. All rights reserved. Platform Perencana Liburan Cerdas Indonesia.</p>
-        <p>Engine: OpenStreetMap &amp; AI Live Geospatial System.</p>
       </div>
     </div>
   </footer>
@@ -628,19 +627,10 @@
     </div>
 
     <!-- Toggle Button -->
-    <button type="button" id="btnChatToggle" class="w-12 h-12 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#fed988] flex items-center justify-center shadow-lg transition">
-      <i data-lucide="message-square" id="iconChatOpen" class="w-5 h-5"></i>
-      <i data-lucide="x" id="iconChatClose" class="w-5 h-5 hidden"></i>
-    </button>
-  </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Toggle Button -->
-    <button type="button" id="btnChatToggle" class="w-12 h-12 rounded-none bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] flex items-center justify-center shadow-lg transition">
-      <i data-lucide="message-square" id="iconChatOpen" class="w-5 h-5"></i>
-      <i data-lucide="x" id="iconChatClose" class="w-5 h-5 hidden"></i>
+    <button type="button" id="btnChatToggle" class="h-12 px-4 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#fed988] flex items-center justify-center gap-2 shadow-2xl transition border border-[#fed988]/40 group" title="Tanya NusaBot AI">
+      <i data-lucide="sparkles" id="iconChatOpen" class="w-5 h-5 text-[#fed988]"></i>
+      <i data-lucide="x" id="iconChatClose" class="w-5 h-5 hidden text-[#fed988]"></i>
+      <span class="text-xs font-bold text-[#ffffff] tracking-wide font-sans">Tanya NusaBot</span>
     </button>
   </div>
 

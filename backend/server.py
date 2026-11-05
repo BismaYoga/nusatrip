@@ -593,7 +593,7 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
 }}
 """
 
-    models_to_try = ["gemini-3.5-flash-lite"]
+    models_to_try = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
     raw_text = None
     last_err = None
 
@@ -795,16 +795,26 @@ def extract_travel_intent(user_query: str, region_context: str = "") -> tuple[st
     topic = "itinerary"
     if any(k in uq for k in ["speedboat", "speed boat", "spidbot", "spid bot", "kapal", "boat", "perahu", "phinisi", "pinisi", "liveaboard", "open trip", "snorkeling", "snorkling", "diving", "hopping", "bahari"]):
         topic = "speedboat"
-    elif any(k in uq for k in ["kuliner", "makanan", "makan", "resto", "restoran", "kafe", "cafe", "warung", "kopi", "gudeg", "betutu", "seafood", "taliwang", "oleh-oleh", "sarapan", "dinner"]):
+    elif any(k in uq for k in ["hidden gem", "hiddengem", "rahasia", "sepi", "anti-mainstream", "anti mainstream", "alami", "tersembunyi", "belum ramai", "unik"]):
+        topic = "hidden_gem"
+    elif any(k in uq for k in ["waterfall", "air terjun", "curug", "sungai", "tracking", "trekking", "hiking", "gunung"]):
+        topic = "waterfall"
+    elif any(k in uq for k in ["pantai", "beach", "pasir", "surfing"]):
+        topic = "pantai"
+    elif any(k in uq for k in ["kafe", "cafe", "nongkrong", "estetik", "aesthetic", "beach club", "sunset bar", "coffee shop"]):
+        topic = "cafe"
+    elif any(k in uq for k in ["kuliner", "makanan", "makan", "resto", "restoran", "warung", "gudeg", "betutu", "seafood", "taliwang", "oleh-oleh", "sarapan", "dinner", "halal"]):
         topic = "kuliner"
+    elif any(k in uq for k in ["keluarga", "anak", "balita", "family", "orang tua"]):
+        topic = "family"
+    elif any(k in uq for k in ["hotel", "penginapan", "villa", "villas", "homestay", "resort", "hostel", "menginap", "staycation", "private pool"]):
+        topic = "hotel"
     elif any(k in uq for k in ["cuaca", "bmkg", "hujan", "gelombang", "angin", "musim", "ombak", "iklim", "suhu"]):
         topic = "cuaca"
     elif any(k in uq for k in ["budget", "biaya", "harga", "tarif", "ongkos", "tiket", "estimasi", "murah", "hemat", "uang", "rp"]):
         topic = "budget"
     elif any(k in uq for k in ["transport", "transportasi", "sewa", "rental", "motor", "mobil", "sopir", "driver", "ojek", "taksi"]):
         topic = "transport"
-    elif any(k in uq for k in ["hotel", "penginapan", "villa", "villas", "homestay", "resort", "hostel", "menginap", "staycation"]):
-        topic = "hotel"
     elif any(k in uq for k in ["itinerary", "jadwal", "rencana", "rute", "hari", "day", "liburan", "wisata"]):
         topic = "itinerary"
 
@@ -938,7 +948,111 @@ def generate_intelligent_travel_fallback(prompt_or_query: str, region_context: s
     # 3. PULAU BALI
     # -----------------------------------------------------------------------
     elif dest == "bali":
-        if topic == "speedboat":
+        if topic == "hidden_gem":
+            return (
+                "🌿 **Rekomendasi Hidden Gems & Wisata Anti-Mainstream Pulau Bali**:\n\n"
+                "• **Pantai Rahasia Bebas Keramaian**:\n"
+                "  - *Pantai Nyang Nyang (Uluwatu)*: Pasir putih bersih sepanjang 1 km di bawah tebing tinggi dengan bangkai kapal berlukis grafiti artistik. Suasana damai dan privat.\n"
+                "  - *Pantai Gunung Payung (Kutuh)*: Akses melalui anak tangga berpagar tebing kapur dan goa karang eksotis yang teduh saat matahari terik.\n"
+                "  - *Pantai Thomas Beach (Padang Padang)*: Spot tersembunyi dengan pasir putih lembut dan deretan warung santai gaya bohemian.\n\n"
+                "• **Air Terjun Eksotis & Alami**:\n"
+                "  - *Banyumala Twin Waterfalls (Wanagiri - Buleleng)*: Dua aliran air kembar merembes di tebing berlumut hijau ke kolam air tawar alami yang sangat jernih dan segar untuk berenang.\n"
+                "  - *Air Terjun Tukad Cepung (Bangli)*: Air terjun magis di dalam celah gua batu dengan efek sinar dewa matahari (*sunray*) yang memukau sekitar jam 10.00–11.00 pagi.\n\n"
+                "• **Kawasan Tenang & Budaya Autentik**:\n"
+                "  - *Desa Sidemen (Karangasem)*: Panorama lembah hijau terasering persawahan berlatar kemegahan Gunung Agung. Suasana Bali tahun 1980-an yang tenang dan jauh dari hiruk-pikuk macet.\n"
+                "  - *Danau Tamblingan (Munduk)*: Danau kramat di kelilingi hutan hujan tropis berkabut sejuk dengan pura kuno Pura Ulun Danu Tamblingan di tepinya.\n\n"
+                "💡 **Tips GasTrip**: Kunjungi destinasi tersembunyi ini di pagi hari (pukul 07.30 - 09.30 WITA) untuk mendapatkan pencahayaan fotografi terbaik dan ketenangan maksimal."
+            )
+        elif topic == "pantai":
+            return (
+                "🌊 **Kurasi Pantai Terbaik di Bali Sesuai Karakter Liburan**:\n\n"
+                "• **Pantai Tebing Eksotis & Sunset Dramatis (Bali Selatan)**:\n"
+                "  - *Pantai Melasti Ungasan*: Akses jalan aspal spektakuler membelah tebing kapur putih tinggi, air laut gradasi toska, dan fasilitas beach club modern.\n"
+                "  - *Pantai Suluban (Blue Point Uluwatu)*: Akses unik menuruni celah goa karang sempit menuju lautan lepas. Spot favorit para peselancar dunia dan penikmat senja.\n"
+                "  - *Pantai Balangan*: Garis pantai berpasir keemasan dengan jajaran pohon kelapa tropis dan tebing karang ikonik untuk foto senja.\n\n"
+                "• **Pantai Tenang Pasir Putih & Berenang Santai**:\n"
+                "  - *Virgin Beach (Pantai Perasi Karangasem)*: Pantai pasir putih di pesisir timur yang tenang, air laut jernih aman berenang, dan bebas polusi bising.\n"
+                "  - *Pantai Sanur*: Ombak tenang terlindung gugusan karang luar, ramah anak-anak dan keluarga, serta terkenal dengan panorama sunrise yang magis.\n\n"
+                "• **Surga Snorkeling & Diving**:\n"
+                "  - *Teluk Jemeluk & Pantai Amed*: Terumbu karang dangkal hanya 5 meter dari bibir pantai hitam vulkanik dengan view spektakuler Gunung Agung.\n"
+                "  - *Blue Lagoon Padangbai*: Terumbu karang sehat dan kawanan ikan tropis warna-warni.\n\n"
+                "💡 **Tips GasTrip**: Bawa sepatu air (*water shoes*) saat mengunjungi pantai berkarang di Uluwatu untuk melindungi kaki saat air laut surut."
+            )
+        elif topic == "waterfall":
+            return (
+                "💦 **Panduan Eksplorasi Air Terjun Terbaik & Paling Spektakuler di Bali**:\n\n"
+                "• **Air Terjun Sekumpul (Raja Air Terjun Bali)**:\n"
+                "  - Berada di lembah hijau Buleleng dengan ketinggian mencapai 80 meter. Dikelilingi 7 aliran air terjun tersembunyi di tengah hutan tropis lebat.\n"
+                "• **Banyumala Twin Waterfalls (Buleleng)**:\n"
+                "  - Aliran kembar dengan kolam pemandian alami air pegunungan dingin dan jernih, dikelilingi taman pakis alami.\n"
+                "• **Air Terjun Tibumana & Kanto Lampo (Gianyar - Dekat Ubud)**:\n"
+                "  - *Tibumana*: Aliran lurus vertikal dengan kolam luas berpasir halus.\n"
+                "  - *Kanto Lampo*: Formasi undakan batu hitam yang mengalirkan tirai air menyebar, sangat fotogenik.\n"
+                "• **Air Terjun Aling-Aling (Sambangan - Wisata Adrenalin)**:\n"
+                "  - Spot favorit untuk meluncur di seluncuran batu alami (*natural water slide*) dan *cliff jumping* dari tebing 5m hingga 10m didampingi pemandu lokal.\n\n"
+                "💡 **Tips GasTrip**: Gunakan sandal gunung atau sepatu bertapak antislip, siapkan baju ganti dan kantong kedap air (*dry bag*) untuk melindungi ponsel."
+            )
+        elif topic == "cafe":
+            return (
+                "☕ **Kurasi Kafe Estetik, Senja Syahdu & Sunset Spot di Bali**:\n\n"
+                "• **Sunset & Beachside Sanctuary (Canggu & Seminyak)**:\n"
+                "  - *La Brisa (Echo Beach)*: Konsep arsitektur bohemian tropis ramah lingkungan dari kayu perahu nelayan daur ulang, dengan kolam dan view sunset langsung ke Samudra Hindia.\n"
+                "  - *Penny Lane (Canggu)*: Interior menawan perpaduan Mediterania klasik, tanaman monstera tropis, dan karya seni patung kontemporer.\n"
+                "  - *Revolver Espresso (Seminyak)*: Pelopor specialty coffee di Bali dengan interior bergaya vintage speakeasy.\n\n"
+                "• **Nuansa Lembah Persawahan & Hutan (Ubud)**:\n"
+                "  - *Cretya Ubud (Tegallalang)*: Day club berundak tiga tingkat menghadap sawah terasering megah dengan infinity pool dan kuliner gourmet.\n"
+                "  - *Seniman Coffee Studio (Pusat Ubud)*: Bar kopi artisanal legendaris dengan metode seduh manual dan biji kopi pilihan petani nusantara.\n\n"
+                "• **Cliffside Sunset Panorama (Uluwatu)**:\n"
+                "  - *Single Fin Uluwatu*: Nongkrong di bibir tebing mengamati para surfer profesional menunggang ombak sembari menikmati live music saat matahari terbenam.\n"
+                "  - *Mana Uluwatu*: Kafe semi-terbuka dengan tiupan angin sepoi-sepoi laut dan hidangan sehat plant-based & fusion.\n\n"
+                "💡 **Tips GasTrip**: Untuk kafe sunset tepi tebing di Uluwatu atau Canggu, reservasi atau tiba sebelum pukul 16.30 WITA agar mendapatkan meja baris terdepan."
+            )
+        elif topic == "family":
+            return (
+                "👨‍👩‍👧‍👦 **Panduan Liburan Ramah Keluarga & Anak di Bali**:\n\n"
+                "• **Kawasan Menginap Paling Aman & Tenang**:\n"
+                "  - *Kawasan Nusa Dua & Sanur*: Pesisir pantai berpasir putih luas, ombak sangat tenang, trotoar pedestrian rapi untuk stroller anak, dan jauh dari kebisingan pesta malam.\n\n"
+                "• **Aktivitas & Wisata Edukasi Favorit Anak**:\n"
+                "  - *Waterbom Bali (Kuta)*: Waterpark ramah lingkungan nomor 1 di Asia dengan zona anak Kids Area yang teduh dan standar keselamatan internasional.\n"
+                "  - *Bali Safari & Marine Park (Gianyar)*: Naik bus safari keliling habitat satwa liar Indonesia, India, dan Afrika, serta pertunjukan edukasi gajah dan harimau.\n"
+                "  - *Turtle Conservation and Education Center (Pulau Serangan)*: Mengajak si kecil melihat proses penetasan telur penyu dan adopsi pelepasan tukik ke laut bebas.\n\n"
+                "• **Saran Transportasi Keluarga**:\n"
+                "  - Sangat disarankan menyewa mobil keluarga (Toyota Innova Zenix / Avanza) lengkap dengan sopir lokal ramah anak agar perjalanan lebih fleksibel dan bebas capek.\n\n"
+                "💡 **Tips GasTrip**: Bawa kereta dorong (*compact stroller*) lipat kecil dan selalu sediakan lotion antinyamuk alami untuk anak saat berwisata di alam terbuka Ubud."
+            )
+        elif topic == "hotel":
+            return (
+                "🏨 **Panduan Area Menginap & Pilihan Akomodasi di Bali**:\n\n"
+                "• **Kawasan Ubud (Suasana Tenang, Hutan & Persawahan)**:\n"
+                "  - *Cocok untuk*: Relaksasi, yoga, bulan madu, dan pecinta karya seni.\n"
+                "  - *Tipe*: Resort tepi lembah sungai (Campuhan/Ayung) dan villa bambu arsitektur organik.\n\n"
+                "• **Kawasan Uluwatu & Ungasan (Panorama Tebing Laut Spektakuler)**:\n"
+                "  - *Cocok untuk*: Liburan mewah (*luxury getaway*), peselancar, dan pencari sunset privat.\n"
+                "  - *Tipe*: Villa private pool di atas tebing Samudra Hindia dengan panorama tak terbatas.\n\n"
+                "• **Kawasan Canggu & Seminyak (Pusat Gaya Hidup, Kafe & Kuliner)**:\n"
+                "  - *Cocok untuk*: Anak muda, digital nomad, dan pecinta kuliner trendi.\n"
+                "  - *Tipe*: Villa minimalis modern tropis di dekat jalan raya Nelayan atau Batu Bolong.\n\n"
+                "• **Kawasan Sanur (Ramah Keluarga & Tenang)**:\n"
+                "  - *Cocok untuk*: Keluarga membawa balita/lansia dan pencari ketenangan.\n"
+                "  - *Tipe*: Hotel bintang 4-5 tepi pantai dengan akses langsung ke jalur sepeda pantai.\n\n"
+                "💡 **Tips GasTrip**: Jika berlibur lebih dari 4 hari, bagi tempat menginap menjadi 2 lokasi (misal: 2 malam di Ubud untuk alam/budaya, 2 malam di Bali Selatan untuk pantai)."
+            )
+        elif topic == "budget":
+            return (
+                "💰 **Estimasi Rincian Budget Liburan di Bali (Per Orang / Hari)**:\n\n"
+                "• **Kelas Hemat / Backpacker (Rp 250.000 – Rp 400.000 / hari)**:\n"
+                "  - Akomodasi: Homestay / hostel AC bersih di Kuta/Sanur/Ubud (Rp 120rb - Rp 180rb/malam)\n"
+                "  - Transportasi: Sewa motor matic (Rp 75rb - Rp 90rb/hari + bensin Rp 25rb)\n"
+                "  - Konsumsi: Warung makan lokal, nasi jinggo, warteg, dan warung campur Bali halal (Rp 25rb - Rp 35rb/makan)\n\n"
+                "• **Kelas Nyaman / Comfort (Rp 750.000 – Rp 1.300.000 / hari)**:\n"
+                "  - Akomodasi: Hotel Bintang 3-4 atau private room resort (Rp 600rb - Rp 900rb/kamar berdua)\n"
+                "  - Transportasi: Sewa mobil Avanza + Driver + Bensin dibagi rombongan (Rp 550rb - Rp 650rb/hari)\n"
+                "  - Konsumsi: Restoran lokal higienis, kafe santai, dan dinner Jimbaran Seafood (Rp 80rb - Rp 150rb/makan)\n\n"
+                "• **Kelas Premium / Luxury (Rp 2.500.000+ / hari)**:\n"
+                "  - Private Pool Villa bintang 5, mobil premium (Innova Zenix / Alphard), fine dining & beach club VIP daybed.\n\n"
+                "💡 **Tips GasTrip**: Menghindari tiket musim liburan sekolah (Juni-Juli) dan akhir tahun (Desember) dapat memangkas anggaran hotel dan tiket pesawat hingga 30-40%."
+            )
+        elif topic == "speedboat":
             return (
                 "🚤 **Panduan Speedboat / Fast Boat di Bali (Penyeberangan Pulau)**:\n\n"
                 "• **Rute Sanur ➔ Nusa Penida (Paling Populer)**:\n"
@@ -971,21 +1085,60 @@ def generate_intelligent_travel_fallback(prompt_or_query: str, region_context: s
                 "  - Tarif: **Rp 550.000 – Rp 750.000 / 10 jam** (sudah termasuk mobil Avanza/Innova, bensin, dan driver).\n"
                 "  - Keuntungan: Terbebas dari stres macet Canggu/Ubud, rute perjalanan dipastikan selalu searah.\n"
                 "• **Sewa Sepeda Motor**:\n"
-                "  - Tarif: **Rp 75.000 – Rp 150.000 / hari** (Scoopy/NMax/PCX). Wajib helm berstandar SNI dan SIM C aktif."
+                "  - Tarif: **Rp 75.000 – Rp 150.000 / hari** (Scoopy/NMax/PCX). Wajib helm berstandar SNI dan SIM C aktif.\n\n"
+                "💡 **Tips Jalur Bebas Macet**: Hindari melintasi rute Kerobokan-Canggu pada jam pulang kantor (17.00 - 19.30 WITA) dengan memilih jalur pintas jalan persawahan atau gunakan sepeda motor."
             )
         else:
+            # Dynamic multi-routed itinerary generator for Bali (3 distinct thematic pathways)
+            routes = [
+                (
+                    "🌴 **Rekomendasi Rute Liburan Bali: Wisata Alam, Budaya & Keasrian Ubud**:\n\n"
+                    "• **Hari 1 (Seni Tradisi & Persawahan Hijau Ubud)**:\n"
+                    "  - Pagi: Sacred Monkey Forest Sanctuary & Puri Saren Agung Ubud.\n"
+                    "  - Siang: Terasering Sawah Tegallalang & makan siang Bebek Crispy Tepi Sawah.\n"
+                    "  - Senja: Jalan santai berangin sejuk di Campuhan Ridge Walk (Bukit Cinta Ubud).\n\n"
+                    "• **Hari 2 (Pesona Tirta Suci & Air Terjun Megah)**:\n"
+                    "  - Pagi: Ritual penyucian diri di mata air Pura Tirta Empul Tampaksiring.\n"
+                    "  - Siang: Eksplorasi keindahan Air Terjun Tibumana atau Kanto Lampo.\n"
+                    "  - Sore: Rehat kopi artisanal di Seniman Coffee Studio Ubud.\n\n"
+                    "• **Hari 3 (Desa Tradisional & Sunset Karangasem)**:\n"
+                    "  - Pagi: Mengunjungi Desa Tradisional Penglipuran (salah satu desa terbersih di dunia).\n"
+                    "  - Siang: Menyusuri persawahan damai Desa Sidemen sebelum transfer ke bandara."
+                ),
+                (
+                    "🌊 **Rekomendasi Rute Liburan Bali: Pantai Eksotis, Tebing Karang & Sunset Bali Selatan**:\n\n"
+                    "• **Hari 1 (Tebing Kapur Megah & Pantai Pasir Putih)**:\n"
+                    "  - Pagi: Pantai Pandawa & mengagumi tebing kapur Pantai Melasti Ungasan.\n"
+                    "  - Siang: Berenang di air toska jernih Pantai Dreamland atau Thomas Beach.\n"
+                    "  - Senja: Menikmati suasana santai di Single Fin Uluwatu.\n\n"
+                    "• **Hari 2 (Pantai Karang Tersembunyi & Magisnya Tari Kecak)**:\n"
+                    "  - Pagi: Menuruni goa karang Pantai Suluban (Blue Point Beach).\n"
+                    "  - Siang: Relaksasi di pantai privat Pantai Nyang Nyang atau Gunung Payung.\n"
+                    "  - Sore/Malam: Tari Kecak legendaris berlatar sunset di bibir tebing Pura Uluwatu, dilanjutkan makan malam seafood bakar di Pantai Jimbaran.\n\n"
+                    "• **Hari 3 (Bahari Nusa Dua & Sentra Kafe)**:\n"
+                    "  - Pagi: Semburan ombak Waterblow Nusa Dua & bersantai di Pantai Mengiat.\n"
+                    "  - Siang: Beli oleh-oleh khas Bali di Krisna Oleh-Oleh sebelum menuju Bandara Ngurah Rai."
+                ),
+                (
+                    "⛰️ **Rekomendasi Rute Liburan Bali: Hidden Gems Bali Utara & Danau Pegunungan Bedugul**:\n\n"
+                    "• **Hari 1 (Pura Terapung & Danau Bersejarah)**:\n"
+                    "  - Pagi: Berangkat menuju dataran tinggi Bedugul, singgah di Pura Ulun Danu Beratan.\n"
+                    "  - Siang: Kebun Raya Eka Karya Bedugul & santap siang kuliner stroberi segar.\n"
+                    "  - Senja: Menikmati panorama Danau Buyan & Danau Tamblingan dari Wanagiri Hidden Hills.\n\n"
+                    "• **Hari 2 (Petualangan Air Terjun Tirai Kembar & Hutan Tropis)**:\n"
+                    "  - Pagi: Trekking sejuk menuju Banyumala Twin Waterfalls di Buleleng.\n"
+                    "  - Siang: Eksplorasi perkebunan kopi dan cengkih di kawasan sejuk Munduk.\n"
+                    "  - Sore: Singgah di Air Terjun Gitgit atau Aling-Aling.\n\n"
+                    "• **Hari 3 (Kembali ke Selatan & Pesona Pesisir)**:\n"
+                    "  - Pagi: Mengunjungi Pura Tanah Lot saat air laut surut.\n"
+                    "  - Siang: Kafe estetik di kawasan Seminyak sebelum jadwal penerbangan kembali."
+                )
+            ]
+            import random
+            selected_route = random.choice(routes)
             return (
-                "🌴 **Rekomendasi Liburan Pulau Bali (3 Hari Terarah & Minim Macet)**:\n\n"
-                "• **Hari 1 (Seni, Budaya & Keindahan Ubud)**:\n"
-                "  - Pagi: Hutan Monyet Ubud (Sacred Monkey Forest) & Puri Saren Agung.\n"
-                "  - Siang: Terasering Sawah Tegallalang & Makan Siang Bebek Crispy Tepi Sawah.\n"
-                "  - Senja: Sunset syahdu di Campuhan Ridge Walk (Bukit Cinta Ubud).\n\n"
-                "• **Hari 2 (Pesona Tebing & Sunset Eksotis Bali Selatan)**:\n"
-                "  - Pagi: Pantai Melasti Ungasan & tebing kapur Pantai Pandawa.\n"
-                "  - Siang: Pantai Suluban / Blue Point Beach (spot selancar tersembunyi).\n"
-                "  - Sore/Malam: Tari Kecak Magis saat sunset di tebing Pura Uluwatu, lanjut makan malam seafood bakar di Jimbaran.\n\n"
-                "• **Hari 3 (Bahari & Kafe Estetik)**:\n"
-                "  - Waterblow Nusa Dua atau eksplor kafe hits Seminyak sebelum transfer ke Bandara Ngurah Rai."
+                f"{selected_route}\n\n"
+                "💡 **Catatan Rute GasTrip**: Rute di atas dirancang searah secara geografis demi menghemat bahan bakar dan menghindari titik kemacetan utama."
             )
 
     # -----------------------------------------------------------------------
@@ -1138,10 +1291,31 @@ def generate_intelligent_travel_fallback(prompt_or_query: str, region_context: s
 
 def query_gemini_chat(prompt: str, user_message: str = "", region_context: str = "") -> str:
     """Query Gemini AI with fallback models and intelligent offline knowledge base."""
-    # 1. Try Google GenAI SDK if initialized
+    active_models = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-flash-lite-latest"]
+
+    # 1. Try Google REST API with urllib if API_KEY is set
+    if API_KEY:
+        for m in active_models:
+            try:
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent?key={API_KEY}"
+                payload = json.dumps({
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.85, "maxOutputTokens": 1000}
+                }).encode("utf-8")
+                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+                with urllib.request.urlopen(req, timeout=9) as res:
+                    data = json.loads(res.read().decode())
+                    candidates = data.get("candidates", [])
+                    if candidates:
+                        parts = candidates[0].get("content", {}).get("parts", [])
+                        if parts and "text" in parts[0]:
+                            return parts[0]["text"].strip()
+            except Exception:
+                continue
+
+    # 2. Try Google GenAI SDK if initialized
     if gemini_client:
-        models = ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-flash-lite-latest", "gemini-3.1-flash-lite"]
-        for m in models:
+        for m in active_models:
             try:
                 res = gemini_client.models.generate_content(
                     model=m,
@@ -1151,22 +1325,6 @@ def query_gemini_chat(prompt: str, user_message: str = "", region_context: str =
                     return res.text.strip()
             except Exception:
                 continue
-
-    # 2. Try Google REST API with urllib if API_KEY is set
-    if API_KEY:
-        try:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
-            payload = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
-            req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
-            with urllib.request.urlopen(req, timeout=8) as res:
-                data = json.loads(res.read().decode())
-                candidates = data.get("candidates", [])
-                if candidates:
-                    parts = candidates[0].get("content", {}).get("parts", [])
-                    if parts and "text" in parts[0]:
-                        return parts[0]["text"].strip()
-        except Exception:
-            pass
 
     # 3. Intelligent fallback contextual response for Indonesian tourism
     return generate_intelligent_travel_fallback(prompt, region_context=region_context, user_query=user_message)
@@ -1351,7 +1509,7 @@ BATASAN KEAMANAN & LINGKUP TUGAS:
     return {
         "status": "success",
         "reply": safe_reply,
-        "security_badge": "🛡️ WAF & Guardrail Verified",
+        "security_badge": "",
         "was_redacted": was_redacted,
         "session_id": session["session_id"],
         "remaining_quota": remaining
