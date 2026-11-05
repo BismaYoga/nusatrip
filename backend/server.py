@@ -13,7 +13,7 @@ import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ET
 from typing import List, Optional
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from google import genai
@@ -443,6 +443,28 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
         return {"status": "success", "data": parsed_data}
     except Exception as parse_err:
         raise HTTPException(status_code=500, detail=f"Gagal mem-parsing output AI JSON: {parse_err}. Raw: {clean_json[:300]}")
+
+REVISIONS_FILE = "/var/www/html/gastrip/halodev_revisions.json"
+
+@app.get("/api/halodev/revisions")
+def get_halodev_revisions():
+    if os.path.exists(REVISIONS_FILE):
+        try:
+            with open(REVISIONS_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            return {"error": str(e), "data": {}}
+    return {"data": {}}
+
+@app.post("/api/halodev/revisions")
+async def save_halodev_revisions(request: Request):
+    try:
+        payload = await request.json()
+        with open(REVISIONS_FILE, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
+        return {"status": "success", "message": "Revisi berhasil disimpan ke server Halodev!"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn

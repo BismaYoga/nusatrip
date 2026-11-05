@@ -552,10 +552,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (daysToRender.length === 0) {
       elItineraryContainer.innerHTML = `
-        <div class="p-8 text-center travel-card">
-          <p class="text-slate-500 text-sm">Tidak ada jadwal untuk hari yang dipilih.</p>
+        <div class="p-8 sm:p-12 text-center travel-card border-2 border-dashed border-sky-200 bg-gradient-to-b from-sky-50/40 to-white">
+          <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center shadow-sm">
+            <i data-lucide="sparkles" class="w-7 h-7 text-sky-600"></i>
+          </div>
+          <h3 class="text-base sm:text-lg font-extrabold text-slate-800 mb-1.5">Siap Merancang Liburan ${state.regionName}?</h3>
+          <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-5 leading-relaxed">
+            Tentukan destinasi, tanggal, dan preferensi perjalanan di atas, lalu tekan tombol <strong>Susun AI</strong> untuk mulai merancang rencana perjalanan otomatis.
+          </p>
+          <button id="btnEmptyStateGenerate" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-xs sm:text-sm shadow-md transition">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
+            <span>Susun Rute Liburan Sekarang</span>
+          </button>
         </div>
       `;
+      const btnEmpty = document.getElementById("btnEmptyStateGenerate");
+      if (btnEmpty) btnEmpty.addEventListener("click", () => triggerAIGeneration());
+      lucide.createIcons();
       return;
     }
 
@@ -1094,6 +1107,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initMap();
   initEventListeners();
   fetchLiveNews();
-  triggerAIGeneration();
+  renderAll();
   lucide.createIcons();
 });
