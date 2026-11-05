@@ -367,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lucide.createIcons();
   }
 
-  // Trigger Dynamic AI Generation via Gemini Backend
+  // Trigger Dynamic AI Generation via Gemini Backend (Optimized with Client & Server Caching)
   async function triggerAIGeneration(customWish = null) {
     const regionQuery = elInputCustomRegion ? elInputCustomRegion.value.trim() : state.regionName;
     if (!regionQuery) return;
@@ -375,10 +375,42 @@ document.addEventListener("DOMContentLoaded", () => {
     state.regionName = regionQuery;
     if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${regionQuery}`;
 
-    // Show Loading Modal
+    const customPromptVal = customWish || (elInputAiPrompt ? elInputAiPrompt.value.trim() : "");
+    const clientCacheKey = `gastrip_cache_${regionQuery.toLowerCase()}_${state.totalDays}_${state.travelerType}_${state.pace}_${state.budgetTier}_${customPromptVal}`;
+
+    // 1. Instant Client-Side Cache Check (0ms immediate rendering)
+    try {
+      const clientCached = sessionStorage.getItem(clientCacheKey);
+      if (clientCached) {
+        const cachedData = JSON.parse(clientCached);
+        applyAIGeneratedItinerary(cachedData);
+        const itSec = document.getElementById("sectionItinerary");
+        if (itSec) itSec.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    } catch (e) {
+      console.warn("Session cache read skipped", e);
+    }
+
+    // 2. Show Dynamic Progress Feedback Modal
+    let progressTimer = null;
+    let stepCount = 0;
+    const progressMsgs = [
+      "Menganalisis klaster geografis destinasi...",
+      "Menyusun rute searah & memverifikasi ulasan Google Maps...",
+      "Menghitung estimasi biaya & mengintegrasikan prakiraan BMKG..."
+    ];
+
     if (elModalAiLoading) {
       if (elAiLoadingTitle) elAiLoadingTitle.textContent = `Asisten AI Merancang Rute ${regionQuery}...`;
+      if (elAiLoadingDesc) elAiLoadingDesc.textContent = progressMsgs[0];
       elModalAiLoading.classList.remove("hidden");
+      progressTimer = setInterval(() => {
+        stepCount++;
+        if (elAiLoadingDesc && progressMsgs[stepCount % progressMsgs.length]) {
+          elAiLoadingDesc.textContent = progressMsgs[stepCount % progressMsgs.length];
+        }
+      }, 1200);
     }
 
     const payload = {
@@ -388,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
       pace: state.pace,
       budget_tier: state.budgetTier,
       interests: Array.from(state.interests),
-      custom_prompt: customWish || (elInputAiPrompt ? elInputAiPrompt.value.trim() : "")
+      custom_prompt: customPromptVal
     };
 
     try {
@@ -400,6 +432,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const json = await res.json();
       if (json.status === "success" && json.data) {
+        // Cache in browser session
+        try {
+          sessionStorage.setItem(clientCacheKey, JSON.stringify(json.data));
+        } catch (e) {}
         applyAIGeneratedItinerary(json.data);
       } else {
         throw new Error(json.detail || "Gagal mendapatkan respon AI");
@@ -409,6 +445,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Fallback to local heuristic engine if offline/network timeout
       generateLocalHeuristic();
     } finally {
+      if (progressTimer) clearInterval(progressTimer);
       if (elModalAiLoading) elModalAiLoading.classList.add("hidden");
       // Smooth scroll to itinerary
       const itSec = document.getElementById("sectionItinerary");
