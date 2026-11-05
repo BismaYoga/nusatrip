@@ -92,6 +92,7 @@ if genai and API_KEY:
         gemini_client = None
 
 from real_destinations_db import find_matched_region_key, build_itinerary_from_db, build_dynamic_region_itinerary
+from osm_engine import generate_osm_itinerary
 
 # Cache for Weather & News & Photos & Full Itineraries
 NEWS_CACHE = {"timestamp": 0, "data": []}
@@ -610,19 +611,26 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
             continue
             
     if not raw_text:
-        # Dynamic authentic fallback using geocoded region and Wikipedia landmarks (Never generic placeholder!)
-        parsed_data = build_dynamic_region_itinerary(
+        # Live OpenStreetMap Geospatial Query Engine (100% authentic landmarks, zero placeholder!)
+        parsed_data = generate_osm_itinerary(
             req.region,
             days=days,
             traveler_type=req.traveler_type,
             pace=req.pace,
-            budget_tier=req.budget_tier
+            budget_tier=req.budget_tier,
+            custom_prompt=req.custom_prompt or ""
         )
         ITINERARY_CACHE[primary_cache_key] = {
             "timestamp": t_start,
             "data": parsed_data
         }
-        return {"status": "success", "cached": False, "source": "dynamic_authentic_fallback", "data": parsed_data}
+        return {
+            "status": "success",
+            "cached": False,
+            "source": "openstreetmap_live_geospatial",
+            "latency_ms": round((time.time() - t_start) * 1000, 2),
+            "data": parsed_data
+        }
         
     clean_json = raw_text.strip()
     if clean_json.startswith("```json"):

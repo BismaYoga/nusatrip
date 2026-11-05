@@ -294,8 +294,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const match = c.textContent.toLowerCase().includes(name.toLowerCase());
       c.classList.toggle("active", match);
     });
-    // Trigger generation immediately for the selected region
-    triggerAIGeneration();
+    // Do NOT auto trigger; wait for user to click analysis
+    // triggerAIGeneration();
   };
 
   // Initialize Island Gallery (With expanded 10+ regions)
@@ -921,6 +921,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize Map
   function initMap() {
+    if (!document.getElementById('map')) return;
     const initialCenter = [-8.4095, 115.1889];
     state.map = L.map("map", {
       zoomControl: true,
@@ -1142,14 +1143,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Dates Change
+    // Dates Change (Only update values; DO NOT auto-trigger analysis)
     if (elStartDate) {
       elStartDate.addEventListener("change", (e) => {
         state.startDate = e.target.value;
         state.endDate = addDays(state.startDate, state.totalDays - 1);
         if (elEndDate) elEndDate.value = state.endDate;
         updateDurationBadge();
-        triggerAIGeneration();
       });
     }
 
@@ -1157,11 +1157,10 @@ document.addEventListener("DOMContentLoaded", () => {
       elEndDate.addEventListener("change", (e) => {
         state.endDate = e.target.value;
         updateDurationBadge();
-        triggerAIGeneration();
       });
     }
 
-    // Quick Days Buttons
+    // Quick Days Buttons (Only update duration badge; DO NOT auto-trigger)
     document.querySelectorAll(".day-pill").forEach(btn => {
       btn.addEventListener("click", () => {
         const days = parseInt(btn.dataset.days);
@@ -1170,15 +1169,13 @@ document.addEventListener("DOMContentLoaded", () => {
         state.endDate = addDays(state.startDate, days - 1);
         if (elEndDate) elEndDate.value = state.endDate;
         updateDurationBadge();
-        triggerAIGeneration();
       });
     });
 
-    // Traveler Type & Budget Tier & Pace
+    // Traveler Type & Budget Tier & Pace (Only update state; DO NOT auto-trigger)
     if (elSelectTravelerType) {
       elSelectTravelerType.addEventListener("change", (e) => {
         state.travelerType = e.target.value;
-        triggerAIGeneration();
       });
     }
 
@@ -1192,11 +1189,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (elSelectPace) {
       elSelectPace.addEventListener("change", (e) => {
         state.pace = e.target.value;
-        triggerAIGeneration();
       });
     }
 
-    // Category Filter Chips
+    // Category Filter Chips (Toggle selection only; DO NOT auto-trigger)
     elInterestChips.forEach(chip => {
       chip.addEventListener("click", () => {
         const cat = chip.dataset.interest;
@@ -1209,7 +1205,6 @@ document.addEventListener("DOMContentLoaded", () => {
           state.interests.add(cat);
           chip.classList.add("active");
         }
-        triggerAIGeneration();
       });
     });
 
@@ -2061,6 +2056,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevIdx = (currentFoxicoIndex - 1 + foxicoSlideData.length) % foxicoSlideData.length;
     window.selectFoxicoCard(prevIdx);
   };
+
+  // Pre-populate destination from URL query parameters (e.g. ?region=Karangasem)
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramRegion = urlParams.get('region');
+  if (paramRegion && elInputCustomRegion) {
+    elInputCustomRegion.value = paramRegion;
+    state.regionName = paramRegion;
+    if (elActiveTripTitle) elActiveTripTitle.textContent = "Liburan " + paramRegion;
+  }
 
   // Bootstrap Application
   initDates();
