@@ -3,62 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>NusaTrip — Rancang Liburan yang Pas Buat Kamu</title>
-  <meta name="description" content="Platform perencana itinerary liburan cerdas nomor satu di Indonesia berbasis AI, OpenStreetMap, cuaca realtime BMKG, dan data destinasi terverifikasi." />
+  <title>NusaTrip — Jelajahi Nusantara Sesuai Rencanamu</title>
+  <meta name="description" content="Platform perencana liburan cerdas nomor satu di Indonesia berbasis AI, OpenStreetMap, cuaca realtime BMKG, dan data destinasi terverifikasi." />
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Leaflet CSS & JS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  
-  <!-- Lucide Icons -->
+  <!-- Lucide Icons (Minimal) -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <!-- Google Fonts: Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Custom Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_01" />
+  <!-- Custom Architectural Travel Styles -->
+  <link rel="stylesheet" href="style.css?v=20261105_02" />
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+<body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
 
   <!-- ========================================== -->
-  <!-- TOP GLOBAL NAVIGATION BAR                   -->
+  <!-- TOP NAVIGATION BAR                         -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+  <header class="sticky top-0 z-40 bg-[#ffffff] border-b border-[#e7e5e4] no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
       
       <!-- Brand Logo (Left) -->
-      <a href="#sectionHome" class="flex items-center gap-3 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 via-sky-500 to-emerald-400 flex items-center justify-center shadow-md shadow-sky-500/20 text-white font-extrabold group-hover:scale-105 transition-transform duration-200">
-          <i data-lucide="compass" class="w-6 h-6"></i>
+      <a href="index.html" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-[4px] bg-[#1c1917] text-[#ffffff] flex items-center justify-center font-bold text-sm">
+          N
         </div>
         <div class="flex flex-col">
-          <div class="flex items-center gap-1.5">
-            <span class="text-xl font-extrabold tracking-tight text-slate-900">NusaTrip</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 border border-sky-200">AI Live</span>
-          </div>
-          <span class="text-[10px] font-medium text-slate-400 tracking-wide">Smart Travel Planner</span>
+          <span class="text-xl font-bold tracking-tight text-[#1c1917] font-serif">NusaTrip</span>
         </div>
       </a>
 
       <!-- Center Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
-        <a href="#sectionHome" class="hover:text-sky-600 transition-colors py-1">Home</a>
-        <a href="#plannerSection" class="hover:text-sky-600 transition-colors py-1">Itinerary</a>
-        <a href="#sectionAboutUs" class="hover:text-sky-600 transition-colors py-1">About Us</a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#78716c]">
+        <a href="index.html" class="text-[#1c1917] border-b-2 border-[#1c1917] pb-1">Home</a>
+        <a href="itinerary.html" class="hover:text-[#1c1917] transition-colors pb-1">Itinerary</a>
+        <a href="about.html" class="hover:text-[#1c1917] transition-colors pb-1">About Us</a>
       </nav>
 
       <!-- Right User Profile & Settings Icons -->
-      <div class="flex items-center gap-2.5">
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition border border-slate-200 shadow-2xs" title="Profil Pengguna">
+      <div class="flex items-center gap-2">
+        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-[4px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-semibold text-xs transition">
+          Buat Itinerary
+        </a>
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition border border-slate-200 shadow-2xs" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -70,578 +60,162 @@
   <main class="flex-1">
 
     <!-- ========================================== -->
-    <!-- SCREEN 1: HOME (LANDING PAGE)              -->
+    <!-- 1. HERO SECTION                            -->
     <!-- ========================================== -->
-    <section id="sectionHome" class="relative overflow-hidden pt-12 pb-20 border-b border-slate-200 bg-gradient-to-b from-sky-50/60 via-white to-slate-50">
-      
-      <!-- Background Ambient Glow -->
-      <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-200/40 rounded-full blur-3xl pointer-events-none -z-10"></div>
-      
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
-
-        <!-- 1. Hero Section -->
-        <div class="text-center max-w-3xl mx-auto space-y-6 pt-4">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-100/80 border border-sky-200 text-sky-800 text-xs font-bold tracking-wide">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-sky-600"></i>
-            <span>Platform Perencana Liburan Nomor 1 di Indonesia</span>
-          </div>
-          
-          <!-- Slogan Utama -->
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15]">
-            Jelajahi Nusantara <br class="hidden sm:inline" />
-            <span class="bg-gradient-to-r from-sky-600 to-emerald-600 bg-clip-text text-transparent">Sesuai Rencanamu</span>
-          </h1>
-
-          <!-- Little Paragraf Tentang Website -->
-          <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
-          </p>
-
-          <!-- Button (Itinerary) -->
-          <div class="pt-2">
-            <a href="#plannerSection" class="inline-flex items-center gap-2.5 px-8 py-4 rounded-2xl bg-sky-600 hover:bg-sky-700 active:scale-98 text-white font-extrabold text-base shadow-lg shadow-sky-600/25 transition-all duration-200 group">
-              <span>Mulai Rancang Liburan</span>
-              <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- 2. Value Proposition: Kenapa Website Ini Dibuat & 3 Featured Cards -->
-        <div class="space-y-10">
-          
-          <div class="text-center max-w-2xl mx-auto space-y-3">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Kenapa NusaTrip Diciptakan?
-            </h2>
-            <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-              Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget.
-            </p>
-          </div>
-
-          <!-- 3 Featured Destination Cards (Wireframe Grid) -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            
-            <!-- Card 1: Karangasem Bali -->
-            <div onclick="selectQuickRegion('Karangasem'); document.getElementById('plannerSection').scrollIntoView({behavior:'smooth'});" class="group cursor-pointer rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div class="relative h-60 overflow-hidden bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-4 left-4 right-4 text-white">
-                  <span class="text-xs font-bold uppercase tracking-wider text-sky-300 block mb-1">Destinasi Budaya</span>
-                  <h3 class="text-xl font-bold tracking-tight">Pura Lempuyang</h3>
-                  <p class="text-xs text-slate-200 flex items-center gap-1 mt-0.5">
-                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span>Karangasem, Bali</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card 2: Pantai Menganti Kebumen -->
-            <div onclick="selectQuickRegion('Kebumen'); document.getElementById('plannerSection').scrollIntoView({behavior:'smooth'});" class="group cursor-pointer rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div class="relative h-60 overflow-hidden bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-4 left-4 right-4 text-white">
-                  <span class="text-xs font-bold uppercase tracking-wider text-sky-300 block mb-1">Wisata Pantai Alami</span>
-                  <h3 class="text-xl font-bold tracking-tight">Pantai Menganti</h3>
-                  <p class="text-xs text-slate-200 flex items-center gap-1 mt-0.5">
-                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span>Kebumen, Jawa Tengah</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card 3: Labuan Bajo NTT -->
-            <div onclick="selectQuickRegion('Labuan Bajo & Komodo'); document.getElementById('plannerSection').scrollIntoView({behavior:'smooth'});" class="group cursor-pointer rounded-2xl overflow-hidden bg-white border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div class="relative h-60 overflow-hidden bg-slate-100">
-                <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-4 left-4 right-4 text-white">
-                  <span class="text-xs font-bold uppercase tracking-wider text-sky-300 block mb-1">Taman Nasional & Bahari</span>
-                  <h3 class="text-xl font-bold tracking-tight">Pulau Padar & Komodo</h3>
-                  <p class="text-xs text-slate-200 flex items-center gap-1 mt-0.5">
-                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-400"></i>
-                    <span>Labuan Bajo, NTT</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- 3. Section About Us & Testimonial Reviewer (Wireframe Split Layout) -->
-        <div id="sectionAboutUs" class="scroll-mt-24 pt-6">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
-            
-            <!-- Left Column: Narasi About Us & Manfaat -->
-            <div class="lg:col-span-7 space-y-5">
-              <span class="text-xs font-bold tracking-wider uppercase text-sky-600 bg-sky-50 px-3 py-1 rounded-full border border-sky-200 inline-block">
-                ABOUT US
-              </span>
-              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Kenapa NusaTrip Berbeda & Layak Kamu Gunakan?
-              </h2>
-              <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
-                NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:
-              </p>
-              
-              <div class="space-y-3 pt-2">
-                <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</div>
-                  <div>
-                    <h4 class="text-sm font-bold text-slate-900">Rute Searah Minim Bolak-Balik</h4>
-                    <p class="text-xs text-slate-500">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</div>
-                  <div>
-                    <h4 class="text-sm font-bold text-slate-900">Estimasi Biaya Transparan</h4>
-                    <p class="text-xs text-slate-500">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan makan tanpa biaya tak terduga.</p>
-                  </div>
-                </div>
-                <div class="flex items-start gap-3">
-                  <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">✓</div>
-                  <div>
-                    <h4 class="text-sm font-bold text-slate-900">Data Otentik 100% Nyata</h4>
-                    <p class="text-xs text-slate-500">Terintegrasi langsung dengan koordinat OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Column: Reviewer Card Testimonial (Wireframe) -->
-            <div class="lg:col-span-5">
-              <div class="relative bg-slate-900 text-white rounded-2xl p-6 sm:p-7 shadow-xl overflow-hidden border border-slate-800">
-                <div class="relative z-10 space-y-4">
-                  <!-- 5 Star Rating -->
-                  <div class="flex items-center gap-1 text-amber-400">
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <i data-lucide="star" class="w-5 h-5 fill-current"></i>
-                    <span class="text-xs font-bold text-amber-300 ml-1">5.0 / 5.0</span>
-                  </div>
-
-                  <!-- Hasil Review -->
-                  <blockquote class="text-sm text-slate-200 leading-relaxed italic">
-                    "Itinerary NusaTrip bikin liburan keluarga kami di Bali dan Karangasem teratur banget. Rutenya searah gak ada bolak-balik, estimasi biaya tiketnya pas di kantong, dan kami nemu spot tersembunyi yang otentik!"
-                  </blockquote>
-
-                  <!-- Reviewer Info -->
-                  <div class="flex items-center gap-3 pt-3 border-t border-slate-800">
-                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-sky-400 to-emerald-400 p-0.5 shrink-0">
-                      <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center font-bold text-white text-sm">
-                        BY
-                      </div>
-                    </div>
-                    <div>
-                      <h4 class="text-sm font-bold text-white">Bisma Yoga &amp; Keluarga</h4>
-                      <p class="text-xs text-slate-400">Wisatawan Terverifikasi • Jakarta</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ========================================== -->
-    <!-- SCREEN 2: ITINERARY (INPUT FORM)           -->
-    <!-- ========================================== -->
-    <section id="plannerSection" class="relative py-14 px-4 sm:px-6 lg:px-8 bg-slate-100/90 border-b border-slate-200 scroll-mt-20 no-print">
-      <div class="max-w-4xl mx-auto space-y-8">
+    <section class="py-20 lg:py-24 border-b border-[#e7e5e4] bg-[#ffffff]">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
         
-        <!-- Section Header -->
-        <div class="text-center space-y-2">
-          <span class="text-xs font-bold text-sky-600 uppercase tracking-wider bg-sky-50 px-3 py-1 rounded-full border border-sky-200 inline-block">
-            Formulir Perencanaan Perjalanan
+        <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+          Platform Perencana Perjalanan Indonesia
+        </span>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1c1917] font-serif tracking-tight leading-tight">
+          Jelajahi Nusantara Sesuai Rencanamu
+        </h1>
+
+        <p class="text-base sm:text-lg text-[#78716c] leading-relaxed max-w-2xl mx-auto">
+          Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
+        </p>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-[6px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-bold text-sm transition">
+            <span>Rancang Itinerary Sekarang</span>
+            <span>&rarr;</span>
+          </a>
+          <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-[6px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-sm border border-[#e7e5e4] transition">
+            Pelajari Cara Kerja
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. VALUE PROPOSITION & 3 FEATURED CARDS     -->
+    <!-- ========================================== -->
+    <section class="py-20 border-b border-[#e7e5e4] bg-[#fbfbf9]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        
+        <div class="text-center max-w-2xl mx-auto space-y-3">
+          <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+            Filosofi Kami
           </span>
-          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-            Rancang Liburan yang Pas Buat Kamu
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#1c1917] font-serif tracking-tight">
+            Kenapa NusaTrip Diciptakan?
           </h2>
-          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto">
-            Tentukan destinasi, budget, dan gaya wisatamu. Kami buatkan rute perjalanan terbaiknya.
+          <p class="text-sm sm:text-base text-[#78716c] leading-relaxed">
+            Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget.
           </p>
         </div>
 
-        <!-- Wireframe Form Container Card -->
-        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xl space-y-6">
+        <!-- 3 Featured Destination Cards (Wireframe Grid) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            
-            <!-- 1. Tujuan Wisata * (Dropdown Lokasi) -->
-            <div class="space-y-1.5 md:col-span-2">
-              <label class="text-xs font-bold text-slate-800 flex items-center justify-between">
-                <span>Tujuan Wisata <span class="text-rose-500">*</span></span>
-                <span class="text-[11px] font-normal text-slate-400">Pilih dari daftar atau ketik daerah apa saja</span>
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-600">
-                  <i data-lucide="map-pin" class="w-4 h-4"></i>
-                </div>
-                <input 
-                  type="text" 
-                  id="inputCustomRegion" 
-                  list="regionsList" 
-                  placeholder="Ketik atau pilih kota / daerah tujuan (cth: Bali, Pacitan, Kebumen, Bromo, Jogja, Sumba)" 
-                  class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm text-slate-900 placeholder:text-slate-400 placeholder:font-normal focus:bg-white focus:border-sky-500 focus:ring-2 focus:ring-sky-100 outline-none transition" 
-                  value="Pulau Bali" 
-                />
-                <datalist id="regionsList">
-                  <option value="Pulau Bali">
-                  <option value="Karangasem">
-                  <option value="Pacitan">
-                  <option value="Kebumen">
-                  <option value="Labuan Bajo & Komodo">
-                  <option value="Pulau Lombok & Gili">
-                  <option value="DI Yogyakarta">
-                  <option value="Kepulauan Belitung">
-                  <option value="Kepulauan Raja Ampat">
-                  <option value="Banyuwangi & Kawah Ijen">
-                  <option value="Danau Toba & Samosir">
-                  <option value="Bromo & Kota Malang">
-                  <option value="Pulau Sumba">
-                  <option value="Bandung & Lembang">
-                </datalist>
-              </div>
-
-              <!-- Quick Region Shortcuts -->
-              <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-slate-500">
-                <span class="font-semibold text-slate-600">Destinasi Cepat:</span>
-                <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Bali</button>
-                <button type="button" onclick="selectQuickRegion('Karangasem')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Karangasem</button>
-                <button type="button" onclick="selectQuickRegion('Kebumen')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Kebumen</button>
-                <button type="button" onclick="selectQuickRegion('Pacitan')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Pacitan</button>
-                <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Labuan Bajo</button>
-                <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-2.5 py-0.5 rounded-lg bg-slate-100 hover:bg-sky-50 hover:text-sky-700 text-slate-700 font-medium transition text-[11px]">Jogja</button>
-              </div>
+          <!-- Card 1: Karangasem Bali -->
+          <a href="itinerary.html?region=Karangasem" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+              <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
-
-            <!-- 2. Tanggal * (Tanggal dari - Tanggal sampai) -->
-            <div class="space-y-1.5">
-              <label class="text-xs font-bold text-slate-800">
-                Tanggal Perjalanan <span class="text-rose-500">*</span>
-              </label>
-              <div class="grid grid-cols-2 gap-2 bg-slate-50 border border-slate-200 rounded-xl p-1.5 items-center">
-                <div class="flex items-center gap-1.5 px-2">
-                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-sky-600 shrink-0"></i>
-                  <input type="date" id="inputStartDate" class="w-full bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer" />
-                </div>
-                <div class="flex items-center gap-1.5 px-2 border-l border-slate-200">
-                  <span class="text-slate-400 text-xs font-bold shrink-0">–</span>
-                  <input type="date" id="inputEndDate" class="w-full bg-transparent text-xs font-bold text-slate-800 outline-none cursor-pointer" />
-                </div>
-              </div>
+            <div class="p-5 space-y-1">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Destinasi Budaya</span>
+              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pura Lempuyang</h3>
+              <p class="text-xs text-[#78716c]">Karangasem, Bali</p>
             </div>
+          </a>
 
-            <!-- 3. Jumlah Pax (Orang) * (Dropdown 1 - 20) -->
-            <div class="space-y-1.5">
-              <label class="text-xs font-bold text-slate-800">
-                Jumlah Pax (Orang) <span class="text-rose-500">*</span>
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-sky-600">
-                  <i data-lucide="users" class="w-4 h-4"></i>
-                </div>
-                <select id="selectPaxCount" class="w-full pl-10 pr-8 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs text-slate-900 outline-none cursor-pointer appearance-none">
-                  <option value="1">1 Orang (Solo Traveler)</option>
-                  <option value="2">2 Orang (Pasangan / Duo)</option>
-                  <option value="3">3 Orang (Keluarga Kecil)</option>
-                  <option value="4" selected>4 Orang (Keluarga / Teman)</option>
-                  <option value="5">5 Orang</option>
-                  <option value="6">6 Orang</option>
-                  <option value="8">8 Orang (Rombongan)</option>
-                  <option value="10">10 Orang (Grup Tour)</option>
-                  <option value="15">15 Orang (Rombongan Besar)</option>
-                  <option value="20">20 Orang (Max Bus Tour)</option>
-                </select>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                  <i data-lucide="chevron-down" class="w-4 h-4"></i>
-                </div>
-              </div>
+          <!-- Card 2: Pantai Menganti Kebumen -->
+          <a href="itinerary.html?region=Kebumen" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+              <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
-
-            <!-- 4. Budget * (Budget Minimal - Budget Maksimal) -->
-            <div class="space-y-1.5 md:col-span-2">
-              <div class="flex items-center justify-between">
-                <label class="text-xs font-bold text-slate-800">
-                  Rentang Budget Per Orang <span class="text-rose-500">*</span>
-                </label>
-                <!-- Budget Tier Selection (Hidden/Synced) -->
-                <div class="flex items-center gap-1.5 text-xs">
-                  <button type="button" onclick="setBudgetTierCustom('budget')" id="btnTierBudget" class="px-2.5 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold transition">Hemat</button>
-                  <button type="button" onclick="setBudgetTierCustom('comfort')" id="btnTierComfort" class="px-2.5 py-0.5 rounded-md bg-sky-600 text-white text-[11px] font-semibold transition">Nyaman</button>
-                  <button type="button" onclick="setBudgetTierCustom('luxury')" id="btnTierLuxury" class="px-2.5 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold transition">Sultan</button>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-3">
-                <div class="relative">
-                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400">Rp</span>
-                  <input type="text" id="inputBudgetMin" value="500.000" class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs text-slate-900 outline-none" placeholder="Minimal" />
-                </div>
-                <div class="relative">
-                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-slate-400">Rp</span>
-                  <input type="text" id="inputBudgetMax" value="3.500.000" class="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs text-slate-900 outline-none" placeholder="Maksimal" />
-                </div>
-              </div>
+            <div class="p-5 space-y-1">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Wisata Pesisir</span>
+              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pantai Menganti</h3>
+              <p class="text-xs text-[#78716c]">Kebumen, Jawa Tengah</p>
             </div>
+          </a>
 
-            <!-- 5. Referensi Wisata (Opsional, bisa lebih dari 1) -->
-            <div class="space-y-2 md:col-span-2">
-              <label class="text-xs font-bold text-slate-800 block">
-                Referensi Wisata <span class="text-slate-400 font-normal">(Opsional, bisa pilih lebih dari 1)</span>
-              </label>
-              <div class="flex flex-wrap items-center gap-2" id="interestTags">
-                <button type="button" data-interest="pantai" class="travel-cat-pill active px-4 py-2 rounded-xl border border-sky-300 bg-sky-50 text-sky-800 text-xs font-bold flex items-center gap-1.5 transition">
-                  <i data-lucide="waves" class="w-3.5 h-3.5 text-sky-600"></i>
-                  <span>Pantai</span>
-                </button>
-                <button type="button" data-interest="alam" class="travel-cat-pill px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition hover:bg-slate-100">
-                  <i data-lucide="mountain" class="w-3.5 h-3.5 text-emerald-600"></i>
-                  <span>Dataran Tinggi</span>
-                </button>
-                <button type="button" data-interest="budaya" class="travel-cat-pill px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition hover:bg-slate-100">
-                  <i data-lucide="landmark" class="w-3.5 h-3.5 text-amber-600"></i>
-                  <span>Perkotaan &amp; Budaya</span>
-                </button>
-                <button type="button" data-interest="kuliner" class="travel-cat-pill px-4 py-2 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-1.5 transition hover:bg-slate-100">
-                  <i data-lucide="utensils" class="w-3.5 h-3.5 text-rose-500"></i>
-                  <span>Kuliner</span>
-                </button>
-              </div>
+          <!-- Card 3: Labuan Bajo NTT -->
+          <a href="itinerary.html?region=Labuan+Bajo+%26+Komodo" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+              <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
-
-            <!-- AI Wish Prompt (Optional enhancement) -->
-            <div class="space-y-1.5 md:col-span-2 pt-1">
-              <label class="text-xs font-bold text-slate-800 block">
-                Catatan / Instruksi Khusus <span class="text-slate-400 font-normal">(Opsional)</span>
-              </label>
-              <div class="flex items-center gap-2 bg-slate-50 rounded-xl p-1.5 px-3 border border-slate-200">
-                <i data-lucide="sparkles" class="w-4 h-4 text-sky-600 shrink-0"></i>
-                <input type="text" id="inputAiPrompt" placeholder="Cth: Bawa balita, mau rute santai, sunset cantik, dan kuliner halal..." class="w-full bg-transparent text-xs text-slate-900 placeholder:text-slate-400 outline-none font-medium" />
-                <button id="btnSubmitCustomWish" type="button" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800 shrink-0 transition">
-                  Terapkan
-                </button>
-              </div>
+            <div class="p-5 space-y-1">
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Taman Nasional Bahari</span>
+              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pulau Padar &amp; Komodo</h3>
+              <p class="text-xs text-[#78716c]">Labuan Bajo, NTT</p>
             </div>
-
-          </div>
-
-          <!-- Hidden Compatibility Elements for JS Engine -->
-          <div class="hidden">
-            <select id="selectTravelerType">
-              <option value="family" selected>Keluarga</option>
-              <option value="couple">Pasangan</option>
-              <option value="friends">Grup</option>
-              <option value="solo">Solo</option>
-            </select>
-            <select id="selectBudgetTier">
-              <option value="budget">Hemat</option>
-              <option value="comfort" selected>Nyaman</option>
-              <option value="luxury">Sultan</option>
-            </select>
-            <select id="selectPace">
-              <option value="balanced" selected>Seimbang</option>
-              <option value="relaxed">Santai</option>
-              <option value="active">Padat</option>
-            </select>
-          </div>
-
-          <!-- 6. Button (Kirim) - Eksekusi Itinerary -->
-          <div class="pt-2">
-            <button 
-              id="btnGenerateAI" 
-              type="button" 
-              class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-600 via-sky-500 to-emerald-500 hover:opacity-95 active:scale-99 text-white font-extrabold text-base flex items-center justify-center gap-2.5 shadow-lg shadow-sky-600/25 transition-all duration-200"
-            >
-              <i data-lucide="compass" class="w-5 h-5 text-amber-200"></i>
-              <span>Buat Itinerary Sekarang</span>
-            </button>
-          </div>
+          </a>
 
         </div>
 
       </div>
     </section>
 
-
     <!-- ========================================== -->
-    <!-- SCREEN 3: ITINERARY RESULT                 -->
+    <!-- 3. SECTION ABOUT US (RINGKAS DI HOME)      -->
     <!-- ========================================== -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8" id="resultContainerSection">
-      
-      <!-- Section Title & Subtitle Matching Wireframe -->
-      <div class="space-y-2 border-b border-slate-200 pb-5">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Kamu cocoknya kesini..
+    <section class="py-20 border-b border-[#e7e5e4] bg-[#ffffff]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          <!-- Left Column: Narasi About Us & Manfaat -->
+          <div class="lg:col-span-7 space-y-6">
+            <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+              Tentang Kami
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#1c1917] font-serif tracking-tight">
+              Kenapa NusaTrip Berbeda &amp; Layak Kamu Gunakan?
             </h2>
-            <p class="text-sm sm:text-base text-slate-600 mt-1">
-              Rute perjalanan terkurasi otomatis, hemat waktu, dan ramah di kantong.
+            <p class="text-sm sm:text-base text-[#78716c] leading-relaxed">
+              NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:
             </p>
-          </div>
-
-          <!-- Action Buttons: WA Share & Print -->
-          <div class="flex items-center gap-2 no-print">
-            <button id="btnCopyWa" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-2 transition shadow-sm" title="Bagikan jadwal ke WhatsApp">
-              <i data-lucide="share-2" class="w-4 h-4"></i>
-              <span>Bagikan WhatsApp</span>
-            </button>
-            <button onclick="window.print()" class="px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-2 transition border border-slate-200 shadow-2xs">
-              <i data-lucide="printer" class="w-4 h-4"></i>
-              <span>Cetak PDF</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Active Trip Overview Banner with Realtime Weather & AI Status -->
-      <div class="travel-card p-5 sm:p-6 bg-gradient-to-r from-sky-50 via-white to-blue-50 border-sky-200">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div class="flex flex-wrap items-center gap-2 mb-1.5">
-              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-600 text-white uppercase tracking-wider">Itinerary Terverifikasi</span>
-              <span class="text-xs font-semibold text-slate-500" id="badgeDuration">3 Hari (2 Malam)</span>
-              <div id="weatherLiveBadge" class="weather-live-badge">
-                <span id="weatherIcon">🌤️</span>
-                <span id="weatherText">Cuaca: Memuat prakiraan BMKG...</span>
-              </div>
-            </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900" id="activeTripTitle">
-              Liburan Pulau Bali
-            </h3>
-            <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl" id="islandHeaderDesc">
-              Memuat kurasi destinasi...
-            </p>
-          </div>
-
-          <!-- Quick Trip Stats Bar -->
-          <div class="flex flex-wrap items-center gap-2.5">
-            <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-semibold text-slate-400 block uppercase">Total Tempat</span>
-              <span class="text-sm font-bold text-slate-900" id="statTotalSpots">12 Destinasi</span>
-            </div>
-            <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-semibold text-slate-400 block uppercase">Total Jarak</span>
-              <span class="text-sm font-bold text-sky-700" id="statTotalDistance">84.5 km</span>
-            </div>
-            <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-semibold text-slate-400 block uppercase">Estimasi Biaya</span>
-              <span class="text-sm font-bold text-emerald-700" id="statTotalCost">Rp 2.450.000</span>
-            </div>
-            <div class="bg-white px-3.5 py-2 rounded-xl border border-slate-200 shadow-2xs">
-              <span class="text-[10px] font-semibold text-slate-400 block uppercase">Musim Terbaik</span>
-              <span class="text-sm font-bold text-amber-700" id="statBestSeason">Apr – Okt</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile Segmented View Control -->
-      <div class="lg:hidden mobile-segment-toggle no-print" id="mobileSegmentToggle">
-        <button type="button" class="mobile-segment-btn active" id="btnViewTimeline">
-          <i data-lucide="calendar" class="w-4 h-4"></i>
-          <span>Jadwal Rute</span>
-        </button>
-        <button type="button" class="mobile-segment-btn" id="btnViewMap">
-          <i data-lucide="map" class="w-4 h-4"></i>
-          <span>Peta &amp; Biaya</span>
-        </button>
-      </div>
-
-      <!-- Main Result Workspace: Split Cards Feed (Left) & Sticky Interactive Map (Right) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start" id="sectionItinerary">
-
-        <!-- Left Column: Day-by-Day Timeline Cards (7 cols) -->
-        <div class="lg:col-span-7 space-y-5" id="colTimeline">
-
-          <!-- Day Filter Tabs Bar -->
-          <div class="travel-card p-2.5 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar no-print">
-            <div class="flex items-center gap-1.5 flex-nowrap shrink-0" id="dayFilterTabs">
-              <!-- Populated by JS -->
-            </div>
-            <button id="btnAddSpotModal" class="text-xs px-3.5 py-2 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 font-bold border border-sky-200 flex items-center gap-1.5 shrink-0 whitespace-nowrap transition">
-              <i data-lucide="plus-circle" class="w-4 h-4"></i>
-              <span>Tambah Spot</span>
-            </button>
-          </div>
-
-          <!-- Itinerary Cards Feed (Populated by JS) -->
-          <div id="itineraryContainer" class="space-y-5">
-            <!-- Populated by JS -->
-          </div>
-
-        </div>
-
-        <!-- Right Column: Sticky Leaflet Map (INTERACTIVE MAPS) & Cost Card (5 cols) -->
-        <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24" id="colMap">
-
-          <!-- Interactive Map Card (Wireframe: INTERACTIVE MAPS) -->
-          <div class="travel-card overflow-hidden border border-slate-200 shadow-md">
-            <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <div>
-                <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
-                  <i data-lucide="map" class="w-4 h-4 text-sky-600"></i>
-                  <span>INTERACTIVE MAPS</span>
-                </h3>
-                <p class="text-[11px] text-slate-500">Peta rute searah dengan koordinat GPS terverifikasi</p>
-              </div>
-              <button id="btnResetMapBounds" class="text-xs px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 shadow-2xs transition font-semibold">
-                Reset Zoom
-              </button>
-            </div>
-
-            <!-- Leaflet Map Container -->
-            <div id="map" class="w-full h-[360px] sm:h-[420px] bg-slate-100 z-10"></div>
             
-            <div id="mapLegend" class="p-3 bg-white border-t border-slate-100 flex flex-wrap gap-2 text-xs text-slate-700">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
-          <!-- Transparent Cost Breakdown Card -->
-          <div class="travel-card p-5 space-y-4" id="budgetCard">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-              <div>
-                <h3 class="text-sm sm:text-base font-bold text-slate-900 flex items-center gap-1.5">
-                  <i data-lucide="receipt" class="w-4 h-4 text-emerald-600"></i>
-                  <span>Estimasi Biaya Transparan</span>
-                </h3>
-                <p class="text-xs text-slate-500">Perkiraan all-in per orang selama liburan</p>
+            <div class="space-y-4 pt-2">
+              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#1c1917]">Rute Searah Minim Bolak-Balik</h4>
+                <p class="text-xs text-[#78716c]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
               </div>
-              <span id="budgetTierBadge" class="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200">Tier: Nyaman</span>
+              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#1c1917]">Estimasi Biaya Transparan</h4>
+                <p class="text-xs text-[#78716c]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
+              </div>
+              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#1c1917]">Data Otentik 100% Nyata</h4>
+                <p class="text-xs text-[#78716c]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
+              </div>
             </div>
 
-            <div id="budgetBreakdownList" class="space-y-2.5 text-xs text-slate-700">
-              <!-- Populated by JS -->
-            </div>
-
-            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-              <span class="text-xs font-semibold text-slate-600">Total Perkiraan Trip</span>
-              <span id="budgetTotalBottom" class="text-base sm:text-lg font-extrabold text-emerald-700">Rp 0</span>
+            <div class="pt-2">
+              <a href="about.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1c1917] hover:underline">
+                <span>Baca Selengkapnya Tentang Kami</span>
+                <span>&rarr;</span>
+              </a>
             </div>
           </div>
 
-          <!-- Practical Local Field Guide & Tips -->
-          <div class="travel-card p-5 space-y-3">
-            <h3 class="text-sm font-bold text-slate-900 flex items-center gap-1.5 pb-2 border-b border-slate-100">
-              <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i>
-              <span>Tips Praktis &amp; Rekomendasi Lapangan</span>
-            </h3>
-            <ul id="regionTipsList" class="space-y-2 text-xs text-slate-600 list-disc list-inside leading-relaxed">
-              <!-- Populated by JS -->
-            </ul>
+          <!-- Right Column: Reviewer Card Testimonial (Solid, No Gradients) -->
+          <div class="lg:col-span-5">
+            <div class="bg-[#fbfbf9] rounded-[6px] p-8 border border-[#e7e5e4] space-y-5">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#78716c]">
+                Rating Wisatawan • 5.0 / 5.0
+              </div>
+
+              <blockquote class="text-sm text-[#1c1917] font-serif leading-relaxed italic">
+                &ldquo;Itinerary NusaTrip bikin liburan keluarga kami di Bali dan Karangasem teratur banget. Rutenya searah gak ada bolak-balik, estimasi biaya tiketnya pas di kantong, dan kami nemu spot tersembunyi yang otentik!&rdquo;
+              </blockquote>
+
+              <div class="pt-4 border-t border-[#e7e5e4] flex items-center justify-between text-xs">
+                <div>
+                  <h4 class="font-bold text-[#1c1917]">Bisma Yoga &amp; Keluarga</h4>
+                  <p class="text-[#78716c]">Wisatawan Terverifikasi • Jakarta</p>
+                </div>
+                <span class="px-2 py-0.5 rounded-[4px] bg-[#ffffff] border border-[#e7e5e4] text-[#78716c] font-semibold text-[11px]">
+                  Terverifikasi
+                </span>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -651,432 +225,93 @@
 
   </main>
 
-
   <!-- ========================================== -->
   <!-- FOOTER (WIREFRAME: SOSMED & FAQ/POLICY)   -->
   <!-- ========================================== -->
-  <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 no-print mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800 text-sm">
+  <footer class="bg-[#1c1917] text-[#78716c] py-12 border-t border-[#292524] no-print mt-auto">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#292524] text-xs">
         
         <!-- Left: Sosmed 1, Sosmed 2, Sosmed 3 -->
         <div class="flex items-center gap-6">
-          <a href="https://instagram.com" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition">
-            <i data-lucide="instagram" class="w-4 h-4 text-pink-400"></i>
-            <span>Sosmed 1 (Instagram)</span>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+            Sosmed 1 (Instagram)
           </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition">
-            <i data-lucide="twitter" class="w-4 h-4 text-sky-400"></i>
-            <span>Sosmed 2 (X / Twitter)</span>
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+            Sosmed 2 (X / Twitter)
           </a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" class="flex items-center gap-2 hover:text-white transition">
-            <i data-lucide="video" class="w-4 h-4 text-emerald-400"></i>
-            <span>Sosmed 3 (TikTok)</span>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+            Sosmed 3 (TikTok)
           </a>
         </div>
 
         <!-- Right: FAQ & Policy -->
         <div class="flex items-center gap-6">
-          <button type="button" onclick="document.getElementById('modalFaq').classList.remove('hidden')" class="hover:text-white transition">
+          <a href="about.html#faq" class="hover:text-[#ffffff] transition">
             FAQ
-          </button>
-          <span class="text-slate-700">•</span>
-          <button type="button" onclick="document.getElementById('modalPolicy').classList.remove('hidden')" class="hover:text-white transition">
+          </a>
+          <span>•</span>
+          <a href="about.html#policy" class="hover:text-[#ffffff] transition">
             Policy (Kebijakan Privasi)
-          </button>
+          </a>
         </div>
 
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#a8a29e]">
         <p>&copy; 2026 NusaTrip. All rights reserved. Platform Perencana Liburan Cerdas Indonesia.</p>
         <p>Engine: OpenStreetMap &amp; AI Live Geospatial System.</p>
       </div>
     </div>
   </footer>
 
-
-  <!-- ========================================== -->
-  <!-- MODALS & OVERLAYS                          -->
-  <!-- ========================================== -->
-
-  <!-- Modal: User Profile -->
-  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-sm w-full p-6 space-y-4 shadow-2xl bg-white border border-slate-200">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-base font-bold text-slate-900">Profil Traveler</h3>
-        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
+  <!-- Profile Modal -->
+  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
+        <h3 class="text-base font-bold font-serif text-[#1c1917]">Profil Traveler</h3>
+        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 rounded-full bg-sky-600 text-white font-bold text-lg flex items-center justify-center shadow-md">
-          BY
-        </div>
-        <div>
-          <h4 class="font-bold text-sm text-slate-900">Bisma Yoga</h4>
-          <p class="text-xs text-slate-500">Travel Enthusiast</p>
-        </div>
+      <div class="space-y-2 text-xs text-[#78716c]">
+        <p><strong class="text-[#1c1917]">Nama:</strong> Bisma Yoga</p>
+        <p><strong class="text-[#1c1917]">Status:</strong> Wisatawan Aktif</p>
+        <p><strong class="text-[#1c1917]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
       </div>
-      <div class="text-xs space-y-2 text-slate-600 bg-slate-50 p-3 rounded-xl">
-        <p><strong>Riwayat Trip:</strong> 4 Rencana Tersimpan</p>
-        <p><strong>Status AI:</strong> Kuota Aktif (Tanpa Batas)</p>
-      </div>
-      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2.5 rounded-xl bg-sky-600 text-white font-bold text-xs">
+      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Tutup
       </button>
     </div>
   </div>
 
-  <!-- Modal: Settings -->
-  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-sm w-full p-6 space-y-4 shadow-2xl bg-white border border-slate-200">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-base font-bold text-slate-900">Pengaturan Sistem</h3>
-        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
+  <!-- Settings Modal -->
+  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
+        <h3 class="text-base font-bold font-serif text-[#1c1917]">Pengaturan</h3>
+        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="space-y-3 text-xs text-slate-700">
-        <div class="flex items-center justify-between py-1 border-b border-slate-100">
+      <div class="space-y-3 text-xs text-[#78716c]">
+        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
           <span>Mata Uang</span>
-          <span class="font-bold">IDR (Rupiah)</span>
+          <span class="font-bold text-[#1c1917]">IDR (Rupiah)</span>
         </div>
-        <div class="flex items-center justify-between py-1 border-b border-slate-100">
+        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
           <span>Mesin Geospasial</span>
-          <span class="font-bold text-emerald-600">OpenStreetMap Live</span>
-        </div>
-        <div class="flex items-center justify-between py-1 border-b border-slate-100">
-          <span>Keamanan (WAF)</span>
-          <span class="font-bold text-sky-600">Aktif &amp; Terlindungi</span>
+          <span class="font-bold text-[#1c1917]">OpenStreetMap Live</span>
         </div>
       </div>
-      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2.5 rounded-xl bg-slate-900 text-white font-bold text-xs">
+      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-[4px] bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
         Simpan &amp; Tutup
       </button>
     </div>
   </div>
 
-  <!-- Modal: FAQ -->
-  <div id="modalFaq" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-lg w-full p-6 space-y-4 shadow-2xl bg-white border border-slate-200 max-h-[80vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-base font-bold text-slate-900">Pertanyaan yang Sering Diajukan (FAQ)</h3>
-        <button onclick="document.getElementById('modalFaq').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div class="space-y-3 text-xs text-slate-600">
-        <div>
-          <h4 class="font-bold text-slate-900 mb-0.5">Bagaimana NusaTrip membuat rute perjalanan?</h4>
-          <p>NusaTrip mengombinasikan pemetaan OpenStreetMap dan algoritma klaster wilayah untuk menyusun daftar tempat wisata yang searah, menghindari bolak-balik jalan.</p>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-900 mb-0.5">Apakah data tempat wisatanya riil?</h4>
-          <p>Ya, 100% riil. Kami menghubungkan data langsung dengan koordinat geospasial aktual dan ulasan Google Maps.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal: Policy -->
-  <div id="modalPolicy" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-lg w-full p-6 space-y-4 shadow-2xl bg-white border border-slate-200 max-h-[80vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-base font-bold text-slate-900">Kebijakan Privasi (Policy)</h3>
-        <button onclick="document.getElementById('modalPolicy').classList.add('hidden')" class="text-slate-400 hover:text-slate-700 p-1 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div class="space-y-2 text-xs text-slate-600">
-        <p>Privasi Anda adalah prioritas kami. NusaTrip tidak pernah menjual atau membagikan data pribadi Anda ke pihak ketiga manapun.</p>
-        <p>Pencarian rute dan preferensi hanya digunakan untuk menghasilkan rencana perjalanan terbaik Anda di sesi yang aktif.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- AI Loading Modal Indicator -->
-  <div id="modalAiLoading" class="fixed inset-0 z-50 hidden bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-md w-full p-6 text-center space-y-4 shadow-2xl bg-white border border-slate-200">
-      <div class="w-16 h-16 mx-auto rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center relative">
-        <i data-lucide="compass" class="w-8 h-8 animate-spin text-sky-600"></i>
-        <div class="absolute inset-0 rounded-2xl border-2 border-sky-500 animate-ping opacity-25"></div>
-      </div>
-      <div>
-        <h4 class="text-base font-extrabold text-slate-900" id="aiLoadingTitle">Asisten AI Sedang Merancang Rute...</h4>
-        <p class="text-xs text-slate-500 mt-1 leading-relaxed" id="aiLoadingDesc">
-          Menganalisis klaster zona searah, memeriksa prakiraan cuaca terkini, dan menghitung estimasi tiket resmi.
-        </p>
-      </div>
-      <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-        <div class="bg-sky-600 h-full rounded-full w-2/3 animate-[pulse_1s_infinite]"></div>
-      </div>
-      <p class="text-[11px] text-slate-400 font-medium">Engine: OpenStreetMap Live Geospatial</p>
-    </div>
-  </div>
-
-  <!-- Modal: Tambah Spot Manual -->
-  <div id="modalSpotPicker" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
-    <div class="travel-card max-w-xl w-full p-5 space-y-4 shadow-2xl bg-white border border-slate-200">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div>
-          <h3 id="modalSpotTitle" class="text-base font-bold text-slate-900">Tambah Destinasi Wisata</h3>
-          <p class="text-xs text-slate-500">Pilih dari destinasi cadangan terverifikasi untuk wilayah ini</p>
-        </div>
-        <button id="btnCloseSpotPicker" class="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div class="flex items-center gap-2">
-        <label class="text-xs font-semibold text-slate-700">Masukkan ke Hari:</label>
-        <select id="selectTargetDay" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 font-bold outline-none"></select>
-      </div>
-      <div id="availableSpotsList" class="space-y-2.5 max-h-[50vh] overflow-y-auto pr-1">
-        <!-- Populated by JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Sticky Mobile Bottom Bar -->
-  <aside class="lg:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-2.5 flex items-center justify-between z-40 shadow-lg no-print" aria-label="Ringkasan Itinerari Mobile">
-    <div>
-      <span class="text-[11px] text-slate-500 block font-medium" id="mobSummaryDays">3 Hari • 12 Destinasi</span>
-      <span class="text-sm font-bold text-emerald-700" id="mobSummaryCost">Rp 2.450.000</span>
-    </div>
-    <div class="flex items-center gap-2">
-      <button onclick="document.getElementById('plannerSection').scrollIntoView({behavior: 'smooth'})" class="text-xs px-3 py-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 font-semibold">
-        Ubah Destinasi
-      </button>
-      <button id="btnMobileCopy" class="text-xs px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center gap-1.5 shadow-sm">
-        <i data-lucide="share-2" class="w-3.5 h-3.5"></i>
-        <span>Bagikan WA</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- ========================================== -->
-  <!-- NUSABOT CHATBOT FLOATING WIDGET (PR #1)    -->
-  <!-- ========================================== -->
-  <div id="chatbotContainer" class="fixed bottom-6 right-6 z-50 flex flex-col items-end no-print" aria-label="Asisten Wisata NusaBot">
-    
-    <!-- Chat Window Card -->
-    <div 
-      id="chatbotWindow" 
-      class="hidden flex flex-col w-[360px] sm:w-[420px] h-[580px] max-h-[85vh] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300 ease-out origin-bottom-right mb-4"
-    >
-      <!-- Chat Header -->
-      <div class="bg-gradient-to-r from-sky-600 via-sky-700 to-slate-900 text-white p-4 flex items-center justify-between shrink-0 shadow-sm">
-        <div class="flex items-center gap-3">
-          <div class="relative">
-            <div class="w-9 h-9 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center border border-white/20">
-              <i data-lucide="bot" class="w-5 h-5 text-sky-200"></i>
-            </div>
-            <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-sky-700 rounded-full"></span>
-          </div>
-          <div>
-            <div class="flex items-center gap-1.5">
-              <h3 class="font-extrabold text-sm tracking-tight">NusaBot AI</h3>
-              <span class="text-[9px] uppercase tracking-wider font-extrabold bg-emerald-400/20 text-emerald-200 px-1.5 py-0.2 rounded border border-emerald-400/30">Live</span>
-            </div>
-            <p class="text-[11px] text-sky-100/80 font-normal">Asisten Rencana Liburan Nusantara</p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-1">
-          <button 
-            type="button" 
-            id="btnClearChat" 
-            class="p-1.5 text-sky-100 hover:text-white hover:bg-white/10 rounded-lg transition" 
-            title="Bersihkan Percakapan"
-          >
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-          <button 
-            type="button" 
-            id="btnMinimizeChat" 
-            class="p-1.5 text-sky-100 hover:text-white hover:bg-white/10 rounded-lg transition" 
-            title="Kecilkan"
-          >
-            <i data-lucide="minus" class="w-4 h-4"></i>
-          </button>
-          <button 
-            type="button" 
-            id="btnCloseChat" 
-            class="p-1.5 text-sky-100 hover:text-white hover:bg-white/10 rounded-lg transition" 
-            title="Tutup Chat"
-          >
-            <i data-lucide="x" class="w-4 h-4"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Security / Quota Status Sub-header -->
-      <div class="bg-sky-50/90 border-b border-sky-100 px-4 py-1.5 flex items-center justify-between text-[11px] text-sky-900 shrink-0">
-        <span class="flex items-center gap-1 font-medium">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
-          <span>WAF &amp; Session Terenkripsi</span>
-        </span>
-        <span class="text-[10px] bg-sky-200/60 text-sky-900 px-2 py-0.5 rounded-full font-bold" id="chatQuotaBadge">20 kuota/mnt</span>
-      </div>
-
-      <!-- Chat Messages Scroll Area -->
-      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50/60 text-xs text-slate-800">
-        <div class="flex items-start gap-2.5">
-          <div class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center shrink-0 mt-0.5 font-bold text-xs">
-            N
-          </div>
-          <div class="space-y-1.5 max-w-[85%]">
-            <div class="bg-white p-3 rounded-2xl rounded-tl-sm border border-slate-200/80 shadow-2xs leading-relaxed">
-              Halo! Saya <strong>NusaBot</strong>, asisten perencana liburan cerdasmu. Tanyakan apa saja seputar rekomendasi rute, estimasi biaya tiket, kuliner lokal, atau tips wisata di seluruh Indonesia!
-            </div>
-            <!-- Quick Suggestion Chips -->
-            <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-              <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-                Rekomendasi Karangasem 2 Hari
-              </button>
-              <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-                Pantai terbaik di Kebumen?
-              </button>
-              <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-                Kuliner legendaris di Jogja
-              </button>
-              <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-                Tips trip Labuan Bajo hemat
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Typing Indicator -->
-      <div id="chatTypingIndicator" class="hidden px-4 py-2 bg-slate-50 flex items-center gap-2 text-xs text-slate-500 border-t border-slate-100 shrink-0">
-        <div class="flex items-center gap-1">
-          <span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce"></span>
-          <span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-          <span class="w-1.5 h-1.5 bg-sky-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-        </div>
-        <span class="text-[11px] font-medium text-slate-500">NusaBot sedang mengetik...</span>
-      </div>
-
-      <!-- Security / Alert Banner inside Chat -->
-      <div id="chatSecurityNotice" class="hidden px-3 py-1 bg-amber-50 border-t border-amber-200 text-[10px] text-amber-800 flex items-center gap-1.5 shrink-0">
-        <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-600 shrink-0"></i>
-        <span id="chatSecurityNoticeText">Pemberitahuan keamanan</span>
-      </div>
-
-      <!-- Chat Input Form -->
-      <div class="p-3 bg-white border-t border-slate-200 shrink-0">
-        <form id="chatForm" class="space-y-2">
-          <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl p-1.5 focus-within:border-sky-500 focus-within:bg-white focus-within:ring-2 focus-within:ring-sky-100 transition">
-            <input 
-              type="text" 
-              id="chatInput" 
-              placeholder="Ketik pertanyaan wisatamu di sini..." 
-              maxlength="500" 
-              autocomplete="off" 
-              class="w-full bg-transparent px-2 text-xs text-slate-800 placeholder:text-slate-400 outline-none"
-            />
-            <button 
-              type="submit" 
-              id="btnSendChat" 
-              class="w-8 h-8 rounded-lg bg-sky-600 hover:bg-sky-700 active:scale-95 text-white flex items-center justify-center shrink-0 transition disabled:opacity-50 disabled:cursor-not-allowed shadow-xs"
-              title="Kirim Pesan"
-            >
-              <i data-lucide="send" class="w-3.5 h-3.5"></i>
-            </button>
-          </div>
-          <div class="flex items-center justify-between text-[10px] text-slate-400 px-1">
-            <span>Tekan Enter untuk mengirim</span>
-            <span id="chatCharCounter">0/500</span>
-          </div>
-        </form>
-      </div>
-
-    </div>
-
-    <!-- Floating Toggle Button -->
-    <button 
-      type="button" 
-      id="btnChatToggle" 
-      class="group relative flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-tr from-sky-600 via-sky-500 to-emerald-500 hover:scale-105 active:scale-95 text-white shadow-xl shadow-sky-600/30 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-sky-300"
-      aria-label="Buka Chat Asisten NusaBot"
-    >
-      <div class="relative flex items-center justify-center">
-        <i data-lucide="message-square" id="iconChatOpen" class="w-6 h-6 transition-transform group-hover:scale-110"></i>
-        <i data-lucide="x" id="iconChatClose" class="w-6 h-6 hidden transition-transform"></i>
-      </div>
-      <span class="absolute top-1 right-1 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
-      <span class="absolute right-16 bg-slate-900 text-white text-xs font-bold py-1 px-3 rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none hidden sm:block">
-        Tanya NusaBot AI
-      </span>
-    </button>
-
-  </div>
-
-  <!-- Compatibility Hooks & App Scripts -->
-  <script src="data.js"></script>
   <script>
-    // Quick helper to select destination and sync
-    function selectQuickRegion(reg) {
-      const input = document.getElementById("inputCustomRegion");
-      if (input) {
-        input.value = reg;
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-      }
-    }
-
-    // Budget Tier Syncing
-    function setBudgetTierCustom(tier) {
-      const minInput = document.getElementById("inputBudgetMin");
-      const maxInput = document.getElementById("inputBudgetMax");
-      const selectBudget = document.getElementById("selectBudgetTier");
-      
-      const bTier = document.getElementById("btnTierBudget");
-      const cTier = document.getElementById("btnTierComfort");
-      const lTier = document.getElementById("btnTierLuxury");
-      
-      [bTier, cTier, lTier].forEach(b => {
-        if (b) {
-          b.className = "px-2.5 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-semibold transition";
-        }
-      });
-
-      if (tier === 'budget') {
-        if (minInput) minInput.value = "300.000";
-        if (maxInput) maxInput.value = "1.500.000";
-        if (bTier) bTier.className = "px-2.5 py-0.5 rounded-md bg-sky-600 text-white text-[11px] font-semibold transition";
-      } else if (tier === 'luxury') {
-        if (minInput) minInput.value = "2.000.000";
-        if (maxInput) maxInput.value = "10.000.000";
-        if (lTier) lTier.className = "px-2.5 py-0.5 rounded-md bg-sky-600 text-white text-[11px] font-semibold transition";
-      } else {
-        if (minInput) minInput.value = "500.000";
-        if (maxInput) maxInput.value = "3.500.000";
-        if (cTier) cTier.className = "px-2.5 py-0.5 rounded-md bg-sky-600 text-white text-[11px] font-semibold transition";
-      }
-
-      if (selectBudget) {
-        selectBudget.value = tier;
-        selectBudget.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    }
-
-    // Pax Count Syncing
-    document.addEventListener("DOMContentLoaded", () => {
-      const selectPax = document.getElementById("selectPaxCount");
-      const selectTravelerType = document.getElementById("selectTravelerType");
-      if (selectPax && selectTravelerType) {
-        selectPax.addEventListener("change", (e) => {
-          const val = parseInt(e.target.value);
-          if (val === 1) selectTravelerType.value = "solo";
-          else if (val === 2) selectTravelerType.value = "couple";
-          else if (val <= 5) selectTravelerType.value = "family";
-          else selectTravelerType.value = "friends";
-          selectTravelerType.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-      }
-    });
+    lucide.createIcons();
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
