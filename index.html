@@ -12,6 +12,16 @@
     tailwind.config = {
       theme: {
         extend: {
+          colors: {
+            palette: {
+              bg: '#f8f8f8',
+              text: '#282828',
+              primary: '#061e5a',
+              secondary: '#18409f',
+              accent: '#fed988',
+              border: '#ededed',
+            }
+          },
           fontFamily: {
             serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
             sans: ['"Montserrat"', 'sans-serif'],
@@ -25,19 +35,19 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Custom Architectural Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_04" />
+  <link rel="stylesheet" href="style.css?v=20261105_05" />
 </head>
-<body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
+<body class="bg-[#f8f8f8] text-[#282828] min-h-screen flex flex-col antialiased">
 
   <!-- ========================================== -->
   <!-- TOP NAVIGATION BAR                         -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-40 bg-[#1c1917]/95 backdrop-blur-md border-b border-[#292524] text-[#ffffff] no-print">
+  <header class="sticky top-0 z-40 bg-[#061e5a]/95 backdrop-blur-md border-b border-[#18409f]/30 text-[#ffffff] no-print">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
       
       <!-- Brand Logo (Left) -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-none bg-[#ffffff] text-[#1c1917] flex items-center justify-center font-bold text-sm">
+        <div class="w-8 h-8 rounded-none bg-[#fed988] text-[#061e5a] flex items-center justify-center font-bold text-sm">
           N
         </div>
         <div class="flex flex-col">
@@ -46,21 +56,21 @@
       </a>
 
       <!-- Center Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#a8a29e]">
-        <a href="index.html" class="text-[#ffffff] border-b-2 border-[#ffffff] pb-1">Home</a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#c8ccd7]">
+        <a href="index.html" class="text-[#ffffff] border-b-2 border-[#fed988] pb-1">Home</a>
         <a href="itinerary.html" class="hover:text-[#ffffff] transition-colors pb-1">Itinerary</a>
         <a href="about.html" class="hover:text-[#ffffff] transition-colors pb-1">About Us</a>
       </nav>
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs transition">
+        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-none bg-[#fed988] hover:bg-[#fdd887] text-[#061e5a] font-bold text-xs transition">
           Buat Itinerary
         </a>
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Profil Pengguna">
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#18409f]/40 text-[#ffffff] flex items-center justify-center border border-[#18409f]/40 transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-transparent hover:bg-[#18409f]/40 text-[#ffffff] flex items-center justify-center border border-[#18409f]/40 transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -107,7 +117,7 @@
           </p>
 
           <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-sm transition">
+            <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#fed988] hover:bg-[#fdd887] text-[#061e5a] font-bold text-sm transition shadow-md">
               <span>Rancang Itinerary Sekarang</span>
               <span>&rarr;</span>
             </a>
@@ -122,7 +132,7 @@
           
           <!-- Current Slide Location Label -->
           <div class="flex flex-col">
-            <span class="text-[11px] uppercase tracking-widest text-[#a8a29e] font-medium">Destinasi</span>
+            <span class="text-[11px] uppercase tracking-widest text-[#fed988] font-bold">Destinasi</span>
             <span id="heroSlideLocation" class="text-sm font-semibold text-[#ffffff] tracking-wide font-sans">
               Gunung Bromo — Jawa Timur
             </span>
@@ -130,7 +140,7 @@
 
           <!-- Slide Indicator Bars (Sharp, Zero Radius) -->
           <div class="flex items-center gap-2" id="heroSlideDots">
-            <button type="button" onclick="setHeroSlide(0, true)" class="w-8 h-[3px] rounded-none bg-[#ffffff] transition-all" title="Gunung Bromo"></button>
+            <button type="button" onclick="setHeroSlide(0, true)" class="w-8 h-[3px] rounded-none bg-[#fed988] transition-all" title="Gunung Bromo"></button>
             <button type="button" onclick="setHeroSlide(1, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Labuan Bajo"></button>
             <button type="button" onclick="setHeroSlide(2, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Bali"></button>
             <button type="button" onclick="setHeroSlide(3, true)" class="w-4 h-[3px] rounded-none bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Borobudur"></button>
@@ -145,17 +155,17 @@
     <!-- ========================================== -->
     <!-- 2. VALUE PROPOSITION & 3 FEATURED CARDS     -->
     <!-- ========================================== -->
-    <section class="py-20 border-b border-[#e7e5e4] bg-[#fbfbf9]" id="sectionPhilosophy">
+    <section class="py-20 border-b border-[#ededed] bg-[#f8f8f8]" id="sectionPhilosophy">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div class="text-center max-w-2xl mx-auto space-y-3">
-          <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+          <span class="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
             Filosofi Kami
           </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-[#1c1917] font-serif tracking-tight">
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
             Kenapa NusaTrip Diciptakan?
           </h2>
-          <p class="text-sm sm:text-base text-[#78716c] leading-relaxed">
+          <p class="text-sm sm:text-base text-[#595959] leading-relaxed">
             Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget.
           </p>
         </div>
@@ -164,38 +174,38 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           
           <!-- Card 1: Karangasem Bali -->
-          <a href="itinerary.html?region=Karangasem" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
-            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+          <a href="itinerary.html?region=Karangasem" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f8f8f8]">
               <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
             <div class="p-5 space-y-1">
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Destinasi Budaya</span>
-              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pura Lempuyang</h3>
-              <p class="text-xs text-[#78716c]">Karangasem, Bali</p>
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Destinasi Budaya</span>
+              <h3 class="text-lg font-bold text-[#061e5a] font-serif">Pura Lempuyang</h3>
+              <p class="text-xs text-[#595959]">Karangasem, Bali</p>
             </div>
           </a>
 
           <!-- Card 2: Pantai Menganti Kebumen -->
-          <a href="itinerary.html?region=Kebumen" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
-            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+          <a href="itinerary.html?region=Kebumen" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f8f8f8]">
               <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
             <div class="p-5 space-y-1">
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Wisata Pesisir</span>
-              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pantai Menganti</h3>
-              <p class="text-xs text-[#78716c]">Kebumen, Jawa Tengah</p>
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Wisata Pesisir</span>
+              <h3 class="text-lg font-bold text-[#061e5a] font-serif">Pantai Menganti</h3>
+              <p class="text-xs text-[#595959]">Kebumen, Jawa Tengah</p>
             </div>
           </a>
 
           <!-- Card 3: Labuan Bajo NTT -->
-          <a href="itinerary.html?region=Labuan+Bajo+%26+Komodo" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#e7e5e4] shadow-xs hover:border-[#1c1917] transition-all">
-            <div class="relative h-64 overflow-hidden bg-[#f5f5f4]">
+          <a href="itinerary.html?region=Labuan+Bajo+%26+Komodo" class="group block rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all">
+            <div class="relative h-64 overflow-hidden bg-[#f8f8f8]">
               <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" class="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
             </div>
             <div class="p-5 space-y-1">
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#78716c]">Taman Nasional Bahari</span>
-              <h3 class="text-lg font-bold text-[#1c1917] font-serif">Pulau Padar &amp; Komodo</h3>
-              <p class="text-xs text-[#78716c]">Labuan Bajo, NTT</p>
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Taman Nasional Bahari</span>
+              <h3 class="text-lg font-bold text-[#061e5a] font-serif">Pulau Padar &amp; Komodo</h3>
+              <p class="text-xs text-[#595959]">Labuan Bajo, NTT</p>
             </div>
           </a>
 
@@ -207,40 +217,40 @@
     <!-- ========================================== -->
     <!-- 3. SECTION ABOUT US (RINGKAS DI HOME)      -->
     <!-- ========================================== -->
-    <section class="py-20 border-b border-[#e7e5e4] bg-[#ffffff]">
+    <section class="py-20 border-b border-[#ededed] bg-[#ffffff]">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           <!-- Left Column: Narasi About Us & Manfaat -->
           <div class="lg:col-span-7 space-y-6">
-            <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+            <span class="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
               Tentang Kami
             </span>
-            <h2 class="text-2xl sm:text-3xl font-bold text-[#1c1917] font-serif tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
               Kenapa NusaTrip Berbeda &amp; Layak Kamu Gunakan?
             </h2>
-            <p class="text-sm sm:text-base text-[#78716c] leading-relaxed">
+            <p class="text-sm sm:text-base text-[#595959] leading-relaxed">
               NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:
             </p>
             
             <div class="space-y-4 pt-2">
-              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
-                <h4 class="text-sm font-bold text-[#1c1917]">Rute Searah Minim Bolak-Balik</h4>
-                <p class="text-xs text-[#78716c]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
+              <div class="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#061e5a]">Rute Searah Minim Bolak-Balik</h4>
+                <p class="text-xs text-[#595959]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
               </div>
-              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
-                <h4 class="text-sm font-bold text-[#1c1917]">Estimasi Biaya Transparan</h4>
-                <p class="text-xs text-[#78716c]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
+              <div class="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#061e5a]">Estimasi Biaya Transparan</h4>
+                <p class="text-xs text-[#595959]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
               </div>
-              <div class="border-l-2 border-[#1c1917] pl-4 space-y-1">
-                <h4 class="text-sm font-bold text-[#1c1917]">Data Otentik 100% Nyata</h4>
-                <p class="text-xs text-[#78716c]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
+              <div class="border-l-2 border-[#061e5a] pl-4 space-y-1">
+                <h4 class="text-sm font-bold text-[#061e5a]">Data Otentik 100% Nyata</h4>
+                <p class="text-xs text-[#595959]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
               </div>
             </div>
 
             <div class="pt-2">
-              <a href="about.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1c1917] hover:underline">
+              <a href="about.html" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#061e5a] hover:text-[#18409f] transition">
                 <span>Baca Selengkapnya Tentang Kami</span>
                 <span>&rarr;</span>
               </a>
@@ -249,21 +259,21 @@
 
           <!-- Right Column: Reviewer Card Testimonial (Solid, No Gradients) -->
           <div class="lg:col-span-5">
-            <div class="bg-[#fbfbf9] rounded-[6px] p-8 border border-[#e7e5e4] space-y-5">
-              <div class="text-xs font-bold uppercase tracking-wider text-[#78716c]">
+            <div class="bg-[#f8f8f8] rounded-[6px] p-8 border border-[#ededed] space-y-5">
+              <div class="text-xs font-bold uppercase tracking-wider text-[#18409f]">
                 Rating Wisatawan • 5.0 / 5.0
               </div>
 
-              <blockquote class="text-sm text-[#1c1917] font-serif leading-relaxed italic">
+              <blockquote class="text-sm text-[#282828] font-serif leading-relaxed italic">
                 &ldquo;Itinerary NusaTrip bikin liburan keluarga kami di Bali dan Karangasem teratur banget. Rutenya searah gak ada bolak-balik, estimasi biaya tiketnya pas di kantong, dan kami nemu spot tersembunyi yang otentik!&rdquo;
               </blockquote>
 
-              <div class="pt-4 border-t border-[#e7e5e4] flex items-center justify-between text-xs">
+              <div class="pt-4 border-t border-[#ededed] flex items-center justify-between text-xs">
                 <div>
-                  <h4 class="font-bold text-[#1c1917]">Bisma Yoga &amp; Keluarga</h4>
-                  <p class="text-[#78716c]">Wisatawan Terverifikasi • Jakarta</p>
+                  <h4 class="font-bold text-[#061e5a]">Bisma Yoga &amp; Keluarga</h4>
+                  <p class="text-[#595959]">Wisatawan Terverifikasi • Jakarta</p>
                 </div>
-                <span class="px-2 py-0.5 rounded-[4px] bg-[#ffffff] border border-[#e7e5e4] text-[#78716c] font-semibold text-[11px]">
+                <span class="px-2.5 py-1 rounded-none bg-[#fed988] text-[#061e5a] font-bold text-[11px] border border-[#ebd080]">
                   Terverifikasi
                 </span>
               </div>
@@ -280,37 +290,37 @@
   <!-- ========================================== -->
   <!-- FOOTER (WIREFRAME: SOSMED & FAQ/POLICY)   -->
   <!-- ========================================== -->
-  <footer class="bg-[#1c1917] text-[#78716c] py-12 border-t border-[#292524] no-print mt-auto">
+  <footer class="bg-[#061e5a] text-[#c8ccd7] py-12 border-t border-[#18409f]/30 no-print mt-auto">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#292524] text-xs">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#18409f]/30 text-xs">
         
         <!-- Left: Sosmed 1, Sosmed 2, Sosmed 3 -->
         <div class="flex items-center gap-6">
-          <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="hover:text-[#fed988] transition">
             Sosmed 1 (Instagram)
           </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+          <a href="https://twitter.com" target="_blank" rel="noopener" class="hover:text-[#fed988] transition">
             Sosmed 2 (X / Twitter)
           </a>
-          <a href="https://tiktok.com" target="_blank" rel="noopener" class="hover:text-[#ffffff] transition">
+          <a href="https://tiktok.com" target="_blank" rel="noopener" class="hover:text-[#fed988] transition">
             Sosmed 3 (TikTok)
           </a>
         </div>
 
         <!-- Right: FAQ & Policy -->
         <div class="flex items-center gap-6">
-          <a href="about.html#faq" class="hover:text-[#ffffff] transition">
+          <a href="about.html#faq" class="hover:text-[#fed988] transition">
             FAQ
           </a>
           <span>•</span>
-          <a href="about.html#policy" class="hover:text-[#ffffff] transition">
+          <a href="about.html#policy" class="hover:text-[#fed988] transition">
             Policy (Kebijakan Privasi)
           </a>
         </div>
 
       </div>
 
-      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#a8a29e]">
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#c8ccd7]">
         <p>&copy; 2026 NusaTrip. All rights reserved. Platform Perencana Liburan Cerdas Indonesia.</p>
         <p>Engine: OpenStreetMap &amp; AI Live Geospatial System.</p>
       </div>
@@ -318,45 +328,45 @@
   </footer>
 
   <!-- Profile Modal -->
-  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
-    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
-      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
-        <h3 class="text-base font-bold font-serif text-[#1c1917]">Profil Traveler</h3>
-        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-[#061e5a]/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#ededed]">
+        <h3 class="text-base font-bold font-serif text-[#061e5a]">Profil Traveler</h3>
+        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-[#595959] hover:text-[#061e5a] p-1">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="space-y-2 text-xs text-[#78716c]">
-        <p><strong class="text-[#1c1917]">Nama:</strong> Bisma Yoga</p>
-        <p><strong class="text-[#1c1917]">Status:</strong> Wisatawan Aktif</p>
-        <p><strong class="text-[#1c1917]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
+      <div class="space-y-2 text-xs text-[#595959]">
+        <p><strong class="text-[#061e5a]">Nama:</strong> Bisma Yoga</p>
+        <p><strong class="text-[#061e5a]">Status:</strong> Wisatawan Aktif</p>
+        <p><strong class="text-[#061e5a]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
       </div>
-      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition">
         Tutup
       </button>
     </div>
   </div>
 
   <!-- Settings Modal -->
-  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
-    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
-      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
-        <h3 class="text-base font-bold font-serif text-[#1c1917]">Pengaturan</h3>
-        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1 rounded-none">
+  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-[#061e5a]/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#ededed]">
+        <h3 class="text-base font-bold font-serif text-[#061e5a]">Pengaturan</h3>
+        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#595959] hover:text-[#061e5a] p-1 rounded-none">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="space-y-3 text-xs text-[#78716c]">
-        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
+      <div class="space-y-3 text-xs text-[#595959]">
+        <div class="flex items-center justify-between py-1 border-b border-[#ededed]">
           <span>Mata Uang</span>
-          <span class="font-bold text-[#1c1917]">IDR (Rupiah)</span>
+          <span class="font-bold text-[#061e5a]">IDR (Rupiah)</span>
         </div>
-        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
+        <div class="flex items-center justify-between py-1 border-b border-[#ededed]">
           <span>Mesin Geospasial</span>
-          <span class="font-bold text-[#1c1917]">OpenStreetMap Live</span>
+          <span class="font-bold text-[#061e5a]">OpenStreetMap Live</span>
         </div>
       </div>
-      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition">
         Simpan &amp; Tutup
       </button>
     </div>

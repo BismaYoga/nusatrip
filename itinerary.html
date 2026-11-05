@@ -12,6 +12,16 @@
     tailwind.config = {
       theme: {
         extend: {
+          colors: {
+            palette: {
+              bg: '#f8f8f8',
+              text: '#282828',
+              primary: '#061e5a',
+              secondary: '#18409f',
+              accent: '#fed988',
+              border: '#ededed',
+            }
+          },
           fontFamily: {
             serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
             sans: ['"Montserrat"', 'sans-serif'],
@@ -29,39 +39,39 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Custom Architectural Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_04" />
+  <link rel="stylesheet" href="style.css?v=20261105_05" />
 </head>
-<body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
+<body class="bg-[#f8f8f8] text-[#282828] min-h-screen flex flex-col antialiased">
 
   <!-- ========================================== -->
   <!-- TOP NAVIGATION BAR                         -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-40 bg-[#ffffff] border-b border-[#e7e5e4] no-print">
+  <header class="sticky top-0 z-40 bg-[#ffffff] border-b border-[#ededed] no-print">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
       
       <!-- Brand Logo (Left) -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-none bg-[#1c1917] text-[#ffffff] flex items-center justify-center font-bold text-sm">
+        <div class="w-8 h-8 rounded-none bg-[#061e5a] text-[#fed988] flex items-center justify-center font-bold text-sm">
           N
         </div>
         <div class="flex flex-col">
-          <span class="text-xl font-bold tracking-tight text-[#1c1917] font-serif">NusaTrip</span>
+          <span class="text-xl font-bold tracking-tight text-[#061e5a] font-serif">NusaTrip</span>
         </div>
       </a>
 
       <!-- Center Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#78716c]">
-        <a href="index.html" class="hover:text-[#1c1917] transition-colors pb-1">Home</a>
-        <a href="itinerary.html" class="text-[#1c1917] border-b-2 border-[#1c1917] pb-1">Itinerary</a>
-        <a href="about.html" class="hover:text-[#1c1917] transition-colors pb-1">About Us</a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#595959]">
+        <a href="index.html" class="hover:text-[#061e5a] transition-colors pb-1">Home</a>
+        <a href="itinerary.html" class="text-[#061e5a] border-b-2 border-[#061e5a] pb-1 font-bold">Itinerary</a>
+        <a href="about.html" class="hover:text-[#061e5a] transition-colors pb-1">About Us</a>
       </nav>
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Profil Pengguna">
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] flex items-center justify-center border border-[#ededed] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -75,32 +85,32 @@
     <!-- ========================================== -->
     <!-- FORM SECTION: RANCANG LIBURAN              -->
     <!-- ========================================== -->
-    <section id="plannerSection" class="py-12 sm:py-16 border-b border-[#e7e5e4] bg-[#ffffff] no-print">
+    <section id="plannerSection" class="py-12 sm:py-16 border-b border-[#ededed] bg-[#ffffff] no-print">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         
         <!-- Section Header -->
         <div class="text-center space-y-2">
-          <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
+          <span class="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
             Formulir Perencanaan Perjalanan
           </span>
-          <h1 class="text-3xl sm:text-4xl font-bold text-[#1c1917] font-serif tracking-tight">
+          <h1 class="text-3xl sm:text-4xl font-bold text-[#061e5a] font-serif tracking-tight">
             Rancang Liburan yang Pas Buat Kamu
           </h1>
-          <p class="text-sm sm:text-base text-[#78716c] max-w-xl mx-auto">
+          <p class="text-sm sm:text-base text-[#595959] max-w-xl mx-auto">
             Tentukan destinasi, budget, dan gaya wisatamu. Kami buatkan rute perjalanan terbaiknya.
           </p>
         </div>
 
         <!-- Wireframe Form Container Card -->
-        <div class="bg-[#ffffff] rounded-[6px] p-6 sm:p-8 border border-[#e7e5e4] shadow-xs space-y-6">
+        <div class="bg-[#ffffff] rounded-[6px] p-6 sm:p-8 border border-[#ededed] shadow-xs space-y-6">
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             
             <!-- 1. Tujuan Wisata * (Dropdown Lokasi) -->
             <div class="space-y-1.5 md:col-span-2">
-              <label class="text-xs font-bold text-[#1c1917] flex items-center justify-between">
+              <label class="text-xs font-bold text-[#061e5a] flex items-center justify-between">
                 <span>Tujuan Wisata <span class="text-rose-500">*</span></span>
-                <span class="text-[11px] font-normal text-[#78716c]">Pilih dari daftar atau ketik daerah apa saja</span>
+                <span class="text-[11px] font-normal text-[#595959]">Pilih dari daftar atau ketik daerah apa saja</span>
               </label>
               <div class="relative">
                 <input 
@@ -108,6 +118,9 @@
                   id="inputCustomRegion" 
                   list="regionsList" 
                   placeholder="Ketik atau pilih kota / daerah tujuan (cth: Bali, Pacitan, Kebumen, Bromo, Jogja, Sumba)" 
+                  class="w-full px-4 py-3 bg-[#ffffff] border border-[#ededed] rounded-[4px] font-semibold text-sm text-[#282828] placeholder:text-[#8c8c8c] placeholder:font-normal focus:border-[#061e5a] outline-none transition" 
+                  value="Pulau Bali" 
+                />
                   class="w-full px-4 py-3 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] font-semibold text-sm text-[#1c1917] placeholder:text-[#a8a29e] placeholder:font-normal focus:border-[#1c1917] outline-none transition" 
                   value="Pulau Bali" 
                 />
@@ -130,37 +143,37 @@
               </div>
 
               <!-- Quick Region Shortcuts -->
-              <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-[#78716c]">
-                <span class="font-semibold text-[#1c1917]">Pilihan Populer:</span>
-                <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Bali</button>
-                <button type="button" onclick="selectQuickRegion('Karangasem')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Karangasem</button>
-                <button type="button" onclick="selectQuickRegion('Kebumen')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Kebumen</button>
-                <button type="button" onclick="selectQuickRegion('Pacitan')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Pacitan</button>
-                <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Labuan Bajo</button>
-                <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-2.5 py-1 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] font-medium transition text-[11px]">Jogja</button>
+              <div class="flex flex-wrap items-center gap-1.5 pt-1 text-xs text-[#595959]">
+                <span class="font-semibold text-[#061e5a]">Pilihan Populer:</span>
+                <button type="button" onclick="selectQuickRegion('Pulau Bali')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Bali</button>
+                <button type="button" onclick="selectQuickRegion('Karangasem')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Karangasem</button>
+                <button type="button" onclick="selectQuickRegion('Kebumen')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Kebumen</button>
+                <button type="button" onclick="selectQuickRegion('Pacitan')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Pacitan</button>
+                <button type="button" onclick="selectQuickRegion('Labuan Bajo & Komodo')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Labuan Bajo</button>
+                <button type="button" onclick="selectQuickRegion('DI Yogyakarta')" class="px-2.5 py-1 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] font-medium transition text-[11px] border border-[#ededed]">Jogja</button>
               </div>
             </div>
 
             <!-- 2. Tanggal * (Tanggal dari - Tanggal sampai) -->
             <div class="space-y-1.5">
-              <label class="text-xs font-bold text-[#1c1917]">
+              <label class="text-xs font-bold text-[#061e5a]">
                 Tanggal Perjalanan <span class="text-rose-500">*</span>
               </label>
-              <div class="grid grid-cols-2 gap-2 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] p-1.5 items-center">
-                <input type="date" id="inputStartDate" class="w-full bg-transparent text-xs font-bold text-[#1c1917] px-2 outline-none cursor-pointer" />
-                <div class="flex items-center gap-1.5 px-2 border-l border-[#e7e5e4]">
-                  <span class="text-[#a8a29e] text-xs font-bold shrink-0">–</span>
-                  <input type="date" id="inputEndDate" class="w-full bg-transparent text-xs font-bold text-[#1c1917] outline-none cursor-pointer" />
+              <div class="grid grid-cols-2 gap-2 bg-[#ffffff] border border-[#ededed] rounded-[4px] p-1.5 items-center">
+                <input type="date" id="inputStartDate" class="w-full bg-transparent text-xs font-bold text-[#282828] px-2 outline-none cursor-pointer" />
+                <div class="flex items-center gap-1.5 px-2 border-l border-[#ededed]">
+                  <span class="text-[#8c8c8c] text-xs font-bold shrink-0">–</span>
+                  <input type="date" id="inputEndDate" class="w-full bg-transparent text-xs font-bold text-[#282828] outline-none cursor-pointer" />
                 </div>
               </div>
             </div>
 
             <!-- 3. Jumlah Pax (Orang) * (Dropdown 1 - 20) -->
             <div class="space-y-1.5">
-              <label class="text-xs font-bold text-[#1c1917]">
+              <label class="text-xs font-bold text-[#061e5a]">
                 Jumlah Pax (Orang) <span class="text-rose-500">*</span>
               </label>
-              <select id="selectPaxCount" class="w-full px-3 py-2.5 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] font-semibold text-xs text-[#1c1917] outline-none cursor-pointer">
+              <select id="selectPaxCount" class="w-full px-3 py-2.5 bg-[#ffffff] border border-[#ededed] rounded-[4px] font-semibold text-xs text-[#282828] outline-none cursor-pointer">
                 <option value="1">1 Orang (Solo Traveler)</option>
                 <option value="2">2 Orang (Pasangan / Duo)</option>
                 <option value="3">3 Orang (Keluarga Kecil)</option>
@@ -177,32 +190,32 @@
             <!-- 4. Budget * (Budget Minimal - Budget Maksimal) -->
             <div class="space-y-1.5 md:col-span-2">
               <div class="flex items-center justify-between">
-                <label class="text-xs font-bold text-[#1c1917]">
+                <label class="text-xs font-bold text-[#061e5a]">
                   Rentang Budget Per Orang <span class="text-rose-500">*</span>
                 </label>
                 <!-- Budget Tier Selection (Preset Buttons) -->
                 <div class="flex items-center gap-1 text-xs">
-                  <button type="button" onclick="setBudgetTierCustom('budget')" id="btnTierBudget" class="px-2.5 py-0.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Hemat</button>
-                  <button type="button" onclick="setBudgetTierCustom('comfort')" id="btnTierComfort" class="px-2.5 py-0.5 rounded-none bg-[#1c1917] text-[#ffffff] text-[11px] font-semibold transition">Nyaman</button>
-                  <button type="button" onclick="setBudgetTierCustom('luxury')" id="btnTierLuxury" class="px-2.5 py-0.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] text-[11px] font-semibold transition">Sultan</button>
+                  <button type="button" onclick="setBudgetTierCustom('budget')" id="btnTierBudget" class="px-2.5 py-0.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] text-[11px] font-semibold transition border border-[#ededed]">Hemat</button>
+                  <button type="button" onclick="setBudgetTierCustom('comfort')" id="btnTierComfort" class="px-2.5 py-0.5 rounded-none bg-[#061e5a] text-[#ffffff] text-[11px] font-semibold transition">Nyaman</button>
+                  <button type="button" onclick="setBudgetTierCustom('luxury')" id="btnTierLuxury" class="px-2.5 py-0.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#282828] text-[11px] font-semibold transition border border-[#ededed]">Sultan</button>
                 </div>
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div class="relative">
-                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-[#a8a29e]">Rp</span>
-                  <input type="text" id="inputBudgetMin" value="500.000" class="w-full pl-9 pr-3 py-2.5 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] font-semibold text-xs text-[#1c1917] outline-none" placeholder="Minimal" />
+                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-[#8c8c8c]">Rp</span>
+                  <input type="text" id="inputBudgetMin" value="500.000" class="w-full pl-9 pr-3 py-2.5 bg-[#ffffff] border border-[#ededed] rounded-[4px] font-semibold text-xs text-[#282828] outline-none" placeholder="Minimal" />
                 </div>
                 <div class="relative">
-                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-[#a8a29e]">Rp</span>
-                  <input type="text" id="inputBudgetMax" value="3.500.000" class="w-full pl-9 pr-3 py-2.5 bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] font-semibold text-xs text-[#1c1917] outline-none" placeholder="Maksimal" />
+                  <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs font-bold text-[#8c8c8c]">Rp</span>
+                  <input type="text" id="inputBudgetMax" value="3.500.000" class="w-full pl-9 pr-3 py-2.5 bg-[#ffffff] border border-[#ededed] rounded-[4px] font-semibold text-xs text-[#282828] outline-none" placeholder="Maksimal" />
                 </div>
               </div>
             </div>
 
             <!-- 5. Referensi Wisata (Opsional, bisa lebih dari 1) -->
             <div class="space-y-2 md:col-span-2">
-              <label class="text-xs font-bold text-[#1c1917] block">
-                Referensi Wisata <span class="text-[#78716c] font-normal">(Opsional, bisa pilih lebih dari 1)</span>
+              <label class="text-xs font-bold text-[#061e5a] block">
+                Referensi Wisata <span class="text-[#595959] font-normal">(Opsional, bisa pilih lebih dari 1)</span>
               </label>
               <div class="flex flex-wrap items-center gap-2" id="interestTags">
                 <button type="button" data-interest="pantai" class="travel-cat-pill active rounded-none">
@@ -222,12 +235,12 @@
 
             <!-- Catatan Khusus -->
             <div class="space-y-1.5 md:col-span-2 pt-1">
-              <label class="text-xs font-bold text-[#1c1917] block">
-                Catatan / Instruksi Khusus <span class="text-[#78716c] font-normal">(Opsional)</span>
+              <label class="text-xs font-bold text-[#061e5a] block">
+                Catatan / Instruksi Khusus <span class="text-[#595959] font-normal">(Opsional)</span>
               </label>
-              <div class="flex items-center gap-2 bg-[#ffffff] rounded-[4px] p-1.5 border border-[#e7e5e4]">
-                <input type="text" id="inputAiPrompt" placeholder="Cth: Bawa balita, rute santai, sunset cantik, kuliner halal..." class="w-full bg-transparent text-xs text-[#1c1917] placeholder:text-[#a8a29e] outline-none px-2 font-normal" />
-                <button id="btnSubmitCustomWish" type="button" class="text-[11px] font-semibold px-3 py-1.5 rounded-none bg-[#f5f5f4] hover:bg-[#e7e5e4] text-[#1c1917] shrink-0 transition">
+              <div class="flex items-center gap-2 bg-[#ffffff] rounded-[4px] p-1.5 border border-[#ededed]">
+                <input type="text" id="inputAiPrompt" placeholder="Cth: Bawa balita, rute santai, sunset cantik, kuliner halal..." class="w-full bg-transparent text-xs text-[#282828] placeholder:text-[#8c8c8c] outline-none px-2 font-normal" />
+                <button id="btnSubmitCustomWish" type="button" class="text-[11px] font-semibold px-3 py-1.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] text-[#061e5a] shrink-0 transition border border-[#ededed]">
                   Terapkan
                 </button>
               </div>
@@ -260,7 +273,7 @@
             <button 
               id="btnGenerateAI" 
               type="button" 
-              class="w-full py-4 px-6 rounded-none bg-[#1c1917] hover:bg-[#292524] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition"
+              class="w-full py-4 px-6 rounded-none bg-[#061e5a] hover:bg-[#18409f] active:scale-99 text-[#ffffff] font-bold text-sm flex items-center justify-center gap-2 transition shadow-md"
             >
               <span>Analisis &amp; Buat Rute</span>
               <span>&rarr;</span>
@@ -278,23 +291,23 @@
     <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8" id="resultContainerSection">
       
       <!-- Section Title Matching Wireframe -->
-      <div class="space-y-2 border-b border-[#e7e5e4] pb-5">
+      <div class="space-y-2 border-b border-[#ededed] pb-5">
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 class="text-2xl sm:text-3xl font-bold text-[#1c1917] font-serif tracking-tight">
+            <h2 class="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
               Kamu cocoknya kesini..
             </h2>
-            <p class="text-sm text-[#78716c] mt-1">
+            <p class="text-sm text-[#595959] mt-1">
               Rute perjalanan terkurasi otomatis, hemat waktu, dan ramah di kantong.
             </p>
           </div>
 
           <!-- Action Buttons -->
           <div class="flex items-center gap-2 no-print">
-            <button id="btnCopyWa" class="px-4 py-2 rounded-none bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-semibold text-xs transition" title="Bagikan jadwal ke WhatsApp">
+            <button id="btnCopyWa" class="px-4 py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition" title="Bagikan jadwal ke WhatsApp">
               Bagikan WhatsApp
             </button>
-            <button onclick="window.print()" class="px-3.5 py-2 rounded-none bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs border border-[#e7e5e4] transition">
+            <button onclick="window.print()" class="px-3.5 py-2 rounded-none bg-[#ffffff] hover:bg-[#f8f8f8] text-[#061e5a] font-semibold text-xs border border-[#ededed] transition">
               Cetak PDF
             </button>
           </div>
@@ -306,38 +319,38 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div class="flex flex-wrap items-center gap-2 mb-1.5">
-              <span class="text-[11px] font-bold px-2 py-0.5 rounded-[4px] bg-[#1c1917] text-[#ffffff] uppercase tracking-wider">Terverifikasi</span>
-              <span class="text-xs text-[#78716c]" id="badgeDuration">3 Hari (2 Malam)</span>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-none bg-[#fed988] text-[#061e5a] uppercase tracking-wider border border-[#ebd080]">Terverifikasi</span>
+              <span class="text-xs text-[#595959]" id="badgeDuration">3 Hari (2 Malam)</span>
               <div id="weatherLiveBadge" class="weather-live-badge">
                 <span id="weatherIcon">🌤️</span>
                 <span id="weatherText">Cuaca: Memuat data BMKG...</span>
               </div>
             </div>
-            <h3 class="text-xl sm:text-2xl font-bold font-serif text-[#1c1917]" id="activeTripTitle">
+            <h3 class="text-xl sm:text-2xl font-bold font-serif text-[#061e5a]" id="activeTripTitle">
               Liburan Pulau Bali
             </h3>
-            <p class="text-xs text-[#78716c] mt-1 max-w-2xl" id="islandHeaderDesc">
+            <p class="text-xs text-[#595959] mt-1 max-w-2xl" id="islandHeaderDesc">
               Memuat kurasi destinasi...
             </p>
           </div>
 
           <!-- Quick Trip Stats Bar -->
           <div class="flex flex-wrap items-center gap-2">
-            <div class="bg-[#fbfbf9] px-3 py-2 rounded-[4px] border border-[#e7e5e4]">
-              <span class="text-[10px] font-semibold text-[#78716c] block uppercase">Destinasi</span>
-              <span class="text-xs font-bold text-[#1c1917]" id="statTotalSpots">12 Tempat</span>
+            <div class="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
+              <span class="text-[10px] font-semibold text-[#595959] block uppercase">Destinasi</span>
+              <span class="text-xs font-bold text-[#061e5a]" id="statTotalSpots">12 Tempat</span>
             </div>
-            <div class="bg-[#fbfbf9] px-3 py-2 rounded-[4px] border border-[#e7e5e4]">
-              <span class="text-[10px] font-semibold text-[#78716c] block uppercase">Rute</span>
-              <span class="text-xs font-bold text-[#1c1917]" id="statTotalDistance">84.5 km</span>
+            <div class="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
+              <span class="text-[10px] font-semibold text-[#595959] block uppercase">Rute</span>
+              <span class="text-xs font-bold text-[#061e5a]" id="statTotalDistance">84.5 km</span>
             </div>
-            <div class="bg-[#fbfbf9] px-3 py-2 rounded-[4px] border border-[#e7e5e4]">
-              <span class="text-[10px] font-semibold text-[#78716c] block uppercase">Total Biaya</span>
-              <span class="text-xs font-bold text-[#1c1917]" id="statTotalCost">Rp 2.450.000</span>
+            <div class="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
+              <span class="text-[10px] font-semibold text-[#595959] block uppercase">Total Biaya</span>
+              <span class="text-xs font-bold text-[#061e5a]" id="statTotalCost">Rp 2.450.000</span>
             </div>
-            <div class="bg-[#fbfbf9] px-3 py-2 rounded-[4px] border border-[#e7e5e4]">
-              <span class="text-[10px] font-semibold text-[#78716c] block uppercase">Musim</span>
-              <span class="text-xs font-bold text-[#1c1917]" id="statBestSeason">Apr – Okt</span>
+            <div class="bg-[#f8f8f8] px-3 py-2 rounded-none border border-[#ededed]">
+              <span class="text-[10px] font-semibold text-[#595959] block uppercase">Musim</span>
+              <span class="text-xs font-bold text-[#061e5a]" id="statBestSeason">Apr – Okt</span>
             </div>
           </div>
         </div>
@@ -487,31 +500,31 @@
         N
       </div>
       <div>
-        <h4 class="text-base font-bold font-serif text-[#1c1917]" id="aiLoadingTitle">Asisten Sedang Menganalisis Rute...</h4>
-        <p class="text-xs text-[#78716c] mt-1 leading-relaxed" id="aiLoadingDesc">
+        <h4 class="text-base font-bold font-serif text-[#061e5a]" id="aiLoadingTitle">Asisten Sedang Menganalisis Rute...</h4>
+        <p class="text-xs text-[#595959] mt-1 leading-relaxed" id="aiLoadingDesc">
           Memeriksa klaster geografis, ulasan Google Maps, dan tiket terverifikasi.
         </p>
       </div>
-      <div class="w-full bg-[#f5f5f4] h-1.5 rounded-full overflow-hidden">
-        <div class="bg-[#1c1917] h-full rounded-full w-2/3 animate-[pulse_1s_infinite]"></div>
+      <div class="w-full bg-[#f8f8f8] h-1.5 rounded-full overflow-hidden">
+        <div class="bg-[#061e5a] h-full rounded-full w-2/3 animate-[pulse_1s_infinite]"></div>
       </div>
     </div>
   </div>
 
-  <div id="modalSpotPicker" class="fixed inset-0 z-50 hidden bg-[#1c1917]/60 flex items-center justify-center p-4 no-print">
-    <div class="max-w-xl w-full p-5 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-2xl">
-      <div class="flex items-center justify-between border-b border-[#e7e5e4] pb-3">
+  <div id="modalSpotPicker" class="fixed inset-0 z-50 hidden bg-[#061e5a]/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="max-w-xl w-full p-5 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-[6px] shadow-2xl">
+      <div class="flex items-center justify-between border-b border-[#ededed] pb-3">
         <div>
-          <h3 id="modalSpotTitle" class="text-sm font-bold font-serif text-[#1c1917]">Tambah Destinasi Wisata</h3>
-          <p class="text-xs text-[#78716c]">Pilih dari destinasi cadangan terverifikasi untuk wilayah ini</p>
+          <h3 id="modalSpotTitle" class="text-sm font-bold font-serif text-[#061e5a]">Tambah Destinasi Wisata</h3>
+          <p class="text-xs text-[#595959]">Pilih dari destinasi cadangan terverifikasi untuk wilayah ini</p>
         </div>
-        <button id="btnCloseSpotPicker" class="text-[#78716c] hover:text-[#1c1917] p-1">
+        <button id="btnCloseSpotPicker" class="text-[#595959] hover:text-[#061e5a] p-1">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
       <div class="flex items-center gap-2">
-        <label class="text-xs font-semibold text-[#1c1917]">Pilih Hari:</label>
-        <select id="selectTargetDay" class="bg-[#ffffff] border border-[#e7e5e4] rounded-[4px] px-2.5 py-1 text-xs font-bold text-[#1c1917] outline-none"></select>
+        <label class="text-xs font-semibold text-[#061e5a]">Pilih Hari:</label>
+        <select id="selectTargetDay" class="bg-[#ffffff] border border-[#ededed] rounded-[4px] px-2.5 py-1 text-xs font-bold text-[#061e5a] outline-none"></select>
       </div>
       <div id="availableSpotsList" class="space-y-2 max-h-[50vh] overflow-y-auto pr-1 text-xs">
         <!-- Populated by JS -->
@@ -520,45 +533,45 @@
   </div>
 
   <!-- User Profile Modal -->
-  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
-    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
-      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
-        <h3 class="text-base font-bold font-serif text-[#1c1917]">Profil Traveler</h3>
-        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1">
+  <div id="modalProfile" class="fixed inset-0 z-50 hidden bg-[#061e5a]/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#ededed]">
+        <h3 class="text-base font-bold font-serif text-[#061e5a]">Profil Traveler</h3>
+        <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="text-[#595959] hover:text-[#061e5a] p-1">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="space-y-2 text-xs text-[#78716c]">
-        <p><strong class="text-[#1c1917]">Nama:</strong> Bisma Yoga</p>
-        <p><strong class="text-[#1c1917]">Status:</strong> Wisatawan Aktif</p>
-        <p><strong class="text-[#1c1917]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
+      <div class="space-y-2 text-xs text-[#595959]">
+        <p><strong class="text-[#061e5a]">Nama:</strong> Bisma Yoga</p>
+        <p><strong class="text-[#061e5a]">Status:</strong> Wisatawan Aktif</p>
+        <p><strong class="text-[#061e5a]">Rencana Perjalanan:</strong> Tersimpan di Perangkat</p>
       </div>
-      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalProfile').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition">
         Tutup
       </button>
     </div>
   </div>
 
   <!-- Settings Modal -->
-  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-[#1c1917]/50 flex items-center justify-center p-4 no-print">
-    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#e7e5e4] rounded-[6px] shadow-lg">
-      <div class="flex items-center justify-between pb-3 border-b border-[#e7e5e4]">
-        <h3 class="text-base font-bold font-serif text-[#1c1917]">Pengaturan</h3>
-        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#78716c] hover:text-[#1c1917] p-1 rounded-none">
+  <div id="modalSettings" class="fixed inset-0 z-50 hidden bg-[#061e5a]/60 backdrop-blur-xs flex items-center justify-center p-4 no-print">
+    <div class="max-w-sm w-full p-6 space-y-4 bg-[#ffffff] border border-[#ededed] rounded-[6px] shadow-lg">
+      <div class="flex items-center justify-between pb-3 border-b border-[#ededed]">
+        <h3 class="text-base font-bold font-serif text-[#061e5a]">Pengaturan</h3>
+        <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="text-[#595959] hover:text-[#061e5a] p-1 rounded-none">
           <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
-      <div class="space-y-3 text-xs text-[#78716c]">
-        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
+      <div class="space-y-3 text-xs text-[#595959]">
+        <div class="flex items-center justify-between py-1 border-b border-[#ededed]">
           <span>Mata Uang</span>
-          <span class="font-bold text-[#1c1917]">IDR (Rupiah)</span>
+          <span class="font-bold text-[#061e5a]">IDR (Rupiah)</span>
         </div>
-        <div class="flex items-center justify-between py-1 border-b border-[#e7e5e4]">
+        <div class="flex items-center justify-between py-1 border-b border-[#ededed]">
           <span>Mesin Geospasial</span>
-          <span class="font-bold text-[#1c1917]">OpenStreetMap Live</span>
+          <span class="font-bold text-[#061e5a]">OpenStreetMap Live</span>
         </div>
       </div>
-      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#1c1917] text-[#ffffff] font-semibold text-xs">
+      <button onclick="document.getElementById('modalSettings').classList.add('hidden')" class="w-full py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] font-semibold text-xs transition">
         Simpan &amp; Tutup
       </button>
     </div>
@@ -566,50 +579,60 @@
 
   <!-- NusaBot Floating Widget (PR #1 Feature Preserved) -->
   <div id="chatbotContainer" class="fixed bottom-6 right-6 z-50 flex flex-col items-end no-print">
-    <div id="chatbotWindow" class="hidden flex flex-col w-[350px] sm:w-[400px] h-[540px] max-h-[85vh] bg-[#ffffff] rounded-[6px] shadow-2xl border border-[#e7e5e4] overflow-hidden transition-all duration-200 mb-3">
-      <div class="bg-[#1c1917] text-[#ffffff] p-4 flex items-center justify-between shrink-0">
+    <div id="chatbotWindow" class="hidden flex flex-col w-[350px] sm:w-[400px] h-[540px] max-h-[85vh] bg-[#ffffff] rounded-[6px] shadow-2xl border border-[#ededed] overflow-hidden transition-all duration-200 mb-3">
+      <div class="bg-[#061e5a] text-[#ffffff] p-4 flex items-center justify-between shrink-0">
         <div>
           <h3 class="font-bold text-sm font-serif">NusaBot AI</h3>
-          <p class="text-[11px] text-[#a8a29e]">Asisten Wisata Terpadu</p>
+          <p class="text-[11px] text-[#fed988]">Asisten Wisata Terpadu</p>
         </div>
         <div class="flex items-center gap-1">
-          <button type="button" id="btnClearChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e] rounded-none" title="Bersihkan">
+          <button type="button" id="btnClearChat" class="p-1 hover:text-[#fed988] text-[#c8ccd7] rounded-none transition" title="Bersihkan">
             <i data-lucide="trash-2" class="w-4 h-4"></i>
           </button>
-          <button type="button" id="btnCloseChat" class="p-1 hover:text-[#ffffff] text-[#a8a29e] rounded-none" title="Tutup">
+          <button type="button" id="btnCloseChat" class="p-1 hover:text-[#fed988] text-[#c8ccd7] rounded-none transition" title="Tutup">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
-      <div class="bg-[#f5f5f4] border-b border-[#e7e5e4] px-4 py-1.5 flex items-center justify-between text-[11px] text-[#78716c] shrink-0">
+      <div class="bg-[#f8f8f8] border-b border-[#ededed] px-4 py-1.5 flex items-center justify-between text-[11px] text-[#595959] shrink-0">
         <span>Sesi Aman &amp; Terenkripsi</span>
-        <span class="text-[10px] bg-[#ffffff] border border-[#e7e5e4] px-2 py-0.5 rounded-none" id="chatQuotaBadge">20 kuota/mnt</span>
+        <span class="text-[10px] bg-[#ffffff] border border-[#ededed] px-2 py-0.5 rounded-none font-semibold text-[#061e5a]" id="chatQuotaBadge">20 kuota/mnt</span>
       </div>
-      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#fbfbf9] text-xs text-[#1c1917]">
-        <div class="bg-[#ffffff] p-3 rounded-[4px] border border-[#e7e5e4] leading-relaxed">
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[#f8f8f8] text-xs text-[#282828]">
+        <div class="bg-[#ffffff] p-3 border border-[#ededed] leading-relaxed shadow-2xs">
           Halo, saya <strong>NusaBot</strong>. Tanyakan rekomendasi destinasi, estimasi biaya tiket, atau tips perjalanan di Indonesia.
         </div>
         <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#ededed] text-[11px] text-[#061e5a] hover:border-[#061e5a] hover:bg-[#f8f8f8] transition font-medium">
             Spot terbaik Karangasem?
           </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#e7e5e4] text-[11px] text-[#78716c] hover:border-[#1c1917] hover:text-[#1c1917] transition">
+          <button type="button" class="chat-chip px-2.5 py-1 rounded-none bg-[#ffffff] border border-[#ededed] text-[11px] text-[#061e5a] hover:border-[#061e5a] hover:bg-[#f8f8f8] transition font-medium">
             Pantai di Kebumen
           </button>
         </div>
       </div>
-      <div id="chatTypingIndicator" class="hidden px-4 py-2 bg-[#f5f5f4] text-xs text-[#78716c] border-t border-[#e7e5e4]">
+      <div id="chatTypingIndicator" class="hidden px-4 py-2 bg-[#f8f8f8] text-xs text-[#595959] border-t border-[#ededed]">
         NusaBot sedang mengetik...
       </div>
       <div id="chatSecurityNotice" class="hidden px-3 py-1 bg-amber-50 border-t border-amber-200 text-[10px] text-amber-800">
         <span id="chatSecurityNoticeText">Pemberitahuan keamanan</span>
       </div>
-      <div class="p-3 bg-[#ffffff] border-t border-[#e7e5e4] shrink-0">
+      <div class="p-3 bg-[#ffffff] border-t border-[#ededed] shrink-0">
         <form id="chatForm" class="flex items-center gap-2">
-          <input type="text" id="chatInput" placeholder="Ketik pertanyaan..." maxlength="500" class="flex-1 px-3 py-2 bg-[#fbfbf9] border border-[#e7e5e4] rounded-none text-xs outline-none" />
-          <button type="submit" id="btnSendChat" class="px-3 py-2 rounded-none bg-[#1c1917] text-[#ffffff] text-xs font-semibold">
+          <input type="text" id="chatInput" placeholder="Ketik pertanyaan..." maxlength="500" class="flex-1 px-3 py-2 bg-[#f8f8f8] border border-[#ededed] rounded-none text-xs text-[#282828] outline-none focus:border-[#061e5a]" />
+          <button type="submit" id="btnSendChat" class="px-3.5 py-2 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#ffffff] text-xs font-semibold transition">
             Kirim
           </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Toggle Button -->
+    <button type="button" id="btnChatToggle" class="w-12 h-12 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#fed988] flex items-center justify-center shadow-lg transition">
+      <i data-lucide="message-square" id="iconChatOpen" class="w-5 h-5"></i>
+      <i data-lucide="x" id="iconChatClose" class="w-5 h-5 hidden"></i>
+    </button>
+  </div>
         </form>
       </div>
     </div>

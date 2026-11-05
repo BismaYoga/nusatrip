@@ -4,7 +4,14 @@
    Variants: Strictly 4 Font Variants Across Entire System
    Sizes: Strictly 5 Font Sizes (Display, Title, Sub, Body, Caption)
    Buttons: Strictly 0px Radius (Sharp Clean Geometry)
-   Palette: Strict 5 Solid Colors (Zero Gradients)
+   Official Palette (from Realtime Colors):
+   - Background: #f8f8f8
+   - Text:       #282828
+   - Primary:    #061e5a
+   - Secondary:  #18409f
+   - Accent:     #fed988
+   - Border:     #ededed
+   - Surface:    #ffffff
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:wght@400;500;600&display=swap');
@@ -13,16 +20,19 @@
   --font-serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
   --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* Strict 5 Solid Colors (Zero Gradients) */
-  --c-bg: #fbfbf9;        /* 1. Warm Ivory / Alabaster Canvas */
-  --c-surface: #ffffff;   /* 2. Solid White Surface */
-  --c-border: #e7e5e4;    /* 3. Stone 200 Architectural Border */
-  --c-dark: #1c1917;      /* 4. Obsidian Charcoal / Primary Dark */
-  --c-accent: #1e3a8a;    /* 5. Oxford Classic Navy Accent */
+  /* Realtime Colors Official 5-Color System */
+  --c-bg: #f8f8f8;        /* 1. Background: Clean Soft Canvas */
+  --c-surface: #ffffff;   /* Pure White Card Surface */
+  --c-border: #ededed;    /* Architectural Neutral Border */
+  --c-text: #282828;      /* 2. Text: Deep Charcoal Ink */
+  --c-primary: #061e5a;   /* 3. Primary: Deep Midnight Navy */
+  --c-secondary: #18409f; /* 4. Secondary: Sapphire Vibrant Blue */
+  --c-accent: #fed988;    /* 5. Accent: Sunlit Gold / Warm Sand */
   
-  --c-text-main: #1c1917;
-  --c-text-muted: #78716c;
-  --c-text-subtle: #a8a29e;
+  --c-dark: #061e5a;      /* Primary Navy Anchor */
+  --c-text-main: #282828;
+  --c-text-muted: #595959;
+  --c-text-subtle: #8c8c8c;
 
   /* Strictly 5 Font Sizes */
   --fs-display: 2.5rem;    /* 40px: H1 / Main Hero Title */
@@ -31,7 +41,7 @@
   --fs-body: 0.9375rem;    /* 15px: Standard Body / Inputs / Buttons */
   --fs-caption: 0.75rem;   /* 12px: Small labels / Badges / Metadata */
 
-  /* Strict Consistent Subtle Radius for Cards (Buttons have 0px) */
+  /* Strict Consistent Subtle Radius for Cards (Buttons strictly 0px) */
   --radius: 6px;
   --radius-sm: 4px;
 
@@ -46,8 +56,8 @@
   --space-3xl: 64px;
 
   /* Shadows (Discreet, subtle) */
-  --shadow-subtle: 0 1px 3px rgba(28, 25, 23, 0.05);
-  --shadow-card: 0 2px 6px -1px rgba(28, 25, 23, 0.06), 0 1px 3px -1px rgba(28, 25, 23, 0.04);
+  --shadow-subtle: 0 1px 3px rgba(6, 30, 90, 0.05);
+  --shadow-card: 0 2px 6px -1px rgba(6, 30, 90, 0.06), 0 1px 3px -1px rgba(6, 30, 90, 0.04);
 }
 
 *, *::before, *::after {
@@ -72,7 +82,7 @@ body {
   height: calc(100vh - 72px);
   min-height: 560px;
   overflow: hidden;
-  background-color: var(--c-dark);
+  background-color: var(--c-primary);
 }
 
 .hero-slide-item {
@@ -95,7 +105,7 @@ body {
 .hero-overlay-dark {
   position: absolute;
   inset: 0;
-  background-color: rgba(28, 25, 23, 0.58);
+  background-color: rgba(6, 30, 90, 0.62);
   z-index: 5;
 }
 
@@ -122,7 +132,7 @@ h1, .font-h1, .text-display {
   font-weight: 700 !important;
   line-height: 1.25;
   letter-spacing: -0.02em;
-  color: var(--c-dark);
+  color: var(--c-text);
 }
 
 @media (min-width: 768px) {
@@ -137,7 +147,7 @@ h2, .font-h2, .text-title {
   font-weight: 700 !important;
   line-height: 1.35;
   letter-spacing: -0.015em;
-  color: var(--c-dark);
+  color: var(--c-text);
 }
 
 h3, h4, .font-h3, .text-sub {
@@ -145,7 +155,7 @@ h3, h4, .font-h3, .text-sub {
   font-size: var(--fs-sub) !important;
   font-weight: 700 !important;
   line-height: 1.4;
-  color: var(--c-dark);
+  color: var(--c-text);
 }
 
 .font-serif, .heading-serif {
@@ -175,10 +185,12 @@ button,
 .btn,
 .btn-primary,
 .btn-secondary,
+.btn-accent,
 .day-tab-btn,
 .day-pill,
 .travel-cat-pill,
 .mobile-segment-btn,
+.chat-chip,
 a.btn,
 a[role="button"],
 input[type="button"],
@@ -199,7 +211,7 @@ input[type="submit"],
 }
 
 .travel-card:hover {
-  border-color: #d6d3d1;
+  border-color: #cbd5e1;
 }
 
 /* Form Inputs & Controls */
@@ -222,8 +234,8 @@ input[type="date"]:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--c-dark);
-  box-shadow: 0 0 0 1px var(--c-dark);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 1px var(--c-primary);
 }
 
 /* Category Filter Chips / Pills (Zero Radius) */
@@ -245,12 +257,13 @@ textarea:focus {
 }
 
 .travel-cat-pill:hover {
-  border-color: var(--c-dark);
+  border-color: var(--c-secondary);
+  color: var(--c-secondary);
 }
 
 .travel-cat-pill.active {
-  background: var(--c-dark);
-  border-color: var(--c-dark);
+  background: var(--c-primary);
+  border-color: var(--c-primary);
   color: #ffffff;
 }
 
@@ -262,22 +275,23 @@ textarea:focus {
   gap: 8px;
   padding: 12px 24px;
   border-radius: 0px !important;
-  background-color: var(--c-dark);
+  background-color: var(--c-primary);
   color: #ffffff;
   font-family: var(--font-sans);
   font-size: var(--fs-body);
   font-weight: 600;
-  border: 1px solid var(--c-dark);
+  border: 1px solid var(--c-primary);
   cursor: pointer;
-  transition: opacity 150ms ease;
+  transition: all 150ms ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.92;
+  background-color: var(--c-secondary);
+  border-color: var(--c-secondary);
 }
 
 .btn-primary:active {
-  opacity: 1;
+  opacity: 0.95;
 }
 
 .btn-secondary {
@@ -288,18 +302,27 @@ textarea:focus {
   padding: 10px 18px;
   border-radius: 0px !important;
   background-color: var(--c-surface);
-  color: var(--c-text-main);
+  color: var(--c-primary);
   font-family: var(--font-sans);
   font-size: var(--fs-body);
   font-weight: 600;
   border: 1px solid var(--c-border);
   cursor: pointer;
-  transition: border-color 150ms ease, background-color 150ms ease;
+  transition: all 150ms ease;
 }
 
 .btn-secondary:hover {
-  border-color: var(--c-dark);
+  border-color: var(--c-secondary);
+  color: var(--c-secondary);
   background-color: var(--c-bg);
+}
+
+/* Accent Badge / Highlights (Warm Sunlit Gold) */
+.badge-accent {
+  background-color: var(--c-accent);
+  color: var(--c-primary);
+  font-weight: 700;
+  border: 1px solid #ebd080;
 }
 
 /* Day Tabs in Timeline */
@@ -308,6 +331,12 @@ textarea:focus {
   font-family: var(--font-sans);
   font-size: var(--fs-caption);
   font-weight: 600;
+  transition: all 150ms ease;
+}
+
+.day-tab-btn.active {
+  background-color: var(--c-primary) !important;
+  color: #ffffff !important;
 }
 
 /* Live Weather Status Badge */
@@ -317,7 +346,7 @@ textarea:focus {
   gap: 6px;
   padding: 4px 10px;
   border-radius: 0px !important;
-  background: #f5f5f4;
+  background: var(--c-surface);
   border: 1px solid var(--c-border);
   font-family: var(--font-sans);
   font-size: var(--fs-caption);
@@ -328,7 +357,7 @@ textarea:focus {
 /* Mobile Segment Toggle */
 .mobile-segment-toggle {
   display: flex;
-  background: #f5f5f4;
+  background: var(--c-surface);
   padding: 4px;
   border-radius: 0px !important;
   border: 1px solid var(--c-border);
@@ -354,10 +383,10 @@ textarea:focus {
 }
 
 .mobile-segment-btn.active {
-  background: var(--c-surface);
-  color: var(--c-text-main);
+  background: var(--c-primary);
+  color: #ffffff;
   box-shadow: var(--shadow-subtle);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-primary);
 }
 
 /* Leaflet Map Customization */
@@ -373,12 +402,12 @@ textarea:focus {
   width: 28px !important;
   height: 28px !important;
   border-radius: 4px;
-  background-color: var(--c-dark);
+  background-color: var(--c-primary);
   color: #ffffff;
   font-size: 12px;
   font-weight: 700;
   border: 2px solid #ffffff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 6px rgba(6, 30, 90, 0.35);
 }
 
 /* Scrollbar Cleanliness */

@@ -855,15 +855,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${categoryBadges}
                   </div>
                   <div class="flex items-center gap-2">
-                    <button class="btn-pan-spot text-xs font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 py-1 px-2.5 rounded-none bg-sky-50 hover:bg-sky-100 transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
+                    <button class="btn-pan-spot text-xs font-bold text-[#061e5a] hover:text-[#18409f] flex items-center gap-1 py-1 px-2.5 rounded-none bg-[#f8f8f8] hover:bg-[#ededed] border border-[#ededed] transition" data-lat="${spot.lat}" data-lng="${spot.lng}">
                       <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
                       <span>Peta Rute</span>
                     </button>
-                    <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" class="text-xs font-bold text-slate-700 hover:text-sky-700 flex items-center gap-1 py-1 px-2.5 rounded-none border border-slate-200 hover:border-sky-300 bg-white hover:bg-slate-50 transition shadow-2xs" title="Buka foto 360°, ulasan & foto Google Maps">
-                      <i data-lucide="external-link" class="w-3.5 h-3.5 text-sky-600"></i>
+                    <a href="${spot.gmaps_url || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(spot.name + ' ' + state.regionName)}`}" target="_blank" rel="noopener" class="text-xs font-bold text-[#282828] hover:text-[#061e5a] flex items-center gap-1 py-1 px-2.5 rounded-none border border-[#ededed] hover:border-[#061e5a] bg-white hover:bg-[#f8f8f8] transition shadow-2xs" title="Buka foto 360°, ulasan & foto Google Maps">
+                      <i data-lucide="external-link" class="w-3.5 h-3.5 text-[#18409f]"></i>
                       <span>Foto & Review GMaps</span>
                     </a>
-                    <button class="btn-remove-spot text-xs p-1.5 rounded-none text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" data-day="${dayPlan.day}" data-spot-id="${spot.id}" title="Hapus dari jadwal">
+                    <button class="btn-remove-spot text-xs p-1.5 rounded-none text-[#8c8c8c] hover:text-rose-600 hover:bg-rose-50 transition" data-day="${dayPlan.day}" data-spot-id="${spot.id}" title="Hapus dari jadwal">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
                   </div>
