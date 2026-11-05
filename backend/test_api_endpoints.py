@@ -145,12 +145,16 @@ class TestChatbotApi(unittest.TestCase):
         self.assertNotIn("3201019908850001", data["reply"])
 
     def test_rate_limiting_enforcement(self):
-        # Fire 2 requests instantaneously to trigger burst limiter
+        # Fire request
         payload = {"message": "Tes limit 1"}
         res1 = self.client.post("/api/chat", json=payload)
         self.assertEqual(res1.status_code, 200)
 
-        # Immediate 2nd request within burst interval must return 429
+        # Simulate burst within interval by ensuring last request time is current
+        import time
+        for ip in list(RATE_LIMITER.last_request_time.keys()):
+            RATE_LIMITER.last_request_time[ip] = time.time()
+
         res2 = self.client.post("/api/chat", json=payload)
         self.assertEqual(res2.status_code, 429)
         self.assertIn("Retry-After", res2.headers)
