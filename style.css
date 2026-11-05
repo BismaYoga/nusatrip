@@ -55,6 +55,49 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Fullscreen Hero Crossfade Slideshow */
+.hero-slider-wrap {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 72px);
+  min-height: 580px;
+  overflow: hidden;
+  background-color: var(--c-dark);
+}
+
+.hero-slide-item {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1200ms ease-in-out, transform 6500ms ease-out;
+  z-index: 1;
+}
+
+.hero-slide-item.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.hero-overlay-dark {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(28, 25, 23, 0.55);
+  z-index: 5;
+}
+
+.hero-content-wrap {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /* Typographic Hierarchy (Strictly 4 Styles) */
 h1, .font-h1 {
   font-family: var(--font-serif);

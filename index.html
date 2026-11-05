@@ -13,42 +13,42 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Custom Architectural Travel Styles -->
-  <link rel="stylesheet" href="style.css?v=20261105_02" />
+  <link rel="stylesheet" href="style.css?v=20261105_03" />
 </head>
 <body class="bg-[#fbfbf9] text-[#1c1917] min-h-screen flex flex-col antialiased">
 
   <!-- ========================================== -->
   <!-- TOP NAVIGATION BAR                         -->
   <!-- ========================================== -->
-  <header class="sticky top-0 z-40 bg-[#ffffff] border-b border-[#e7e5e4] no-print">
+  <header class="sticky top-0 z-40 bg-[#1c1917]/95 backdrop-blur-md border-b border-[#292524] text-[#ffffff] no-print">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
       
       <!-- Brand Logo (Left) -->
       <a href="index.html" class="flex items-center gap-2.5 group">
-        <div class="w-8 h-8 rounded-[4px] bg-[#1c1917] text-[#ffffff] flex items-center justify-center font-bold text-sm">
+        <div class="w-8 h-8 rounded-[4px] bg-[#ffffff] text-[#1c1917] flex items-center justify-center font-bold text-sm">
           N
         </div>
         <div class="flex flex-col">
-          <span class="text-xl font-bold tracking-tight text-[#1c1917] font-serif">NusaTrip</span>
+          <span class="text-xl font-bold tracking-tight text-[#ffffff] font-serif">NusaTrip</span>
         </div>
       </a>
 
       <!-- Center Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#78716c]">
-        <a href="index.html" class="text-[#1c1917] border-b-2 border-[#1c1917] pb-1">Home</a>
-        <a href="itinerary.html" class="hover:text-[#1c1917] transition-colors pb-1">Itinerary</a>
-        <a href="about.html" class="hover:text-[#1c1917] transition-colors pb-1">About Us</a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-[#a8a29e]">
+        <a href="index.html" class="text-[#ffffff] border-b-2 border-[#ffffff] pb-1">Home</a>
+        <a href="itinerary.html" class="hover:text-[#ffffff] transition-colors pb-1">Itinerary</a>
+        <a href="about.html" class="hover:text-[#ffffff] transition-colors pb-1">About Us</a>
       </nav>
 
       <!-- Right User Profile & Settings Icons -->
       <div class="flex items-center gap-2">
-        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-[4px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-semibold text-xs transition">
+        <a href="itinerary.html" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-xs transition">
           Buat Itinerary
         </a>
-        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Profil Pengguna">
+        <button type="button" onclick="document.getElementById('modalProfile').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Profil Pengguna">
           <i data-lucide="user" class="w-4 h-4"></i>
         </button>
-        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] flex items-center justify-center border border-[#e7e5e4] transition" title="Pengaturan">
+        <button type="button" onclick="document.getElementById('modalSettings').classList.remove('hidden')" class="w-9 h-9 rounded-[4px] bg-transparent hover:bg-[#292524] text-[#ffffff] flex items-center justify-center border border-[#3f3f46] transition" title="Pengaturan">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
       </div>
@@ -60,31 +60,75 @@
   <main class="flex-1">
 
     <!-- ========================================== -->
-    <!-- 1. HERO SECTION                            -->
+    <!-- 1. FULLSCREEN HERO WITH ROTATING BG SLIDES -->
     <!-- ========================================== -->
-    <section class="py-20 lg:py-24 border-b border-[#e7e5e4] bg-[#ffffff]">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+    <section class="hero-slider-wrap" id="heroSection">
+      
+      <!-- 5 Background Tourism Slides (100% Famous Indonesian Destinations) -->
+      <div class="hero-slide-item active" id="slide0" style="background-image: url('assets/hero_bromo.jpg');"></div>
+      <div class="hero-slide-item" id="slide1" style="background-image: url('assets/hero_labuan_bajo.jpg');"></div>
+      <div class="hero-slide-item" id="slide2" style="background-image: url('assets/hero_bali.jpg');"></div>
+      <div class="hero-slide-item" id="slide3" style="background-image: url('assets/hero_borobudur.jpg');"></div>
+      <div class="hero-slide-item" id="slide4" style="background-image: url('assets/hero_raja_ampat.jpg');"></div>
+
+      <!-- Dark Tint Scrim Overlay -->
+      <div class="hero-overlay-dark"></div>
+
+      <!-- Inner Hero Content Container -->
+      <div class="hero-content-wrap max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
-        <span class="text-xs font-bold tracking-widest uppercase text-[#78716c] block">
-          Platform Perencana Perjalanan Indonesia
-        </span>
+        <!-- Top Spacer -->
+        <div></div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1c1917] font-serif tracking-tight leading-tight">
-          Jelajahi Nusantara Sesuai Rencanamu
-        </h1>
+        <!-- Center Typography & Call to Action -->
+        <div class="max-w-3xl mx-auto text-center space-y-6">
+          <span class="text-xs font-bold tracking-widest uppercase text-[#e7e5e4] block">
+            Platform Perencana Perjalanan Indonesia
+          </span>
 
-        <p class="text-base sm:text-lg text-[#78716c] leading-relaxed max-w-2xl mx-auto">
-          Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
-        </p>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#ffffff] font-serif tracking-tight leading-tight">
+            Jelajahi Nusantara <br class="hidden sm:inline" />Sesuai Rencanamu
+          </h1>
 
-        <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-[6px] bg-[#1c1917] hover:bg-[#292524] text-[#ffffff] font-bold text-sm transition">
-            <span>Rancang Itinerary Sekarang</span>
-            <span>&rarr;</span>
-          </a>
-          <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-[6px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-semibold text-sm border border-[#e7e5e4] transition">
-            Pelajari Cara Kerja
-          </a>
+          <p class="text-base sm:text-lg text-[#d6d3d1] leading-relaxed max-w-2xl mx-auto">
+            Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
+          </p>
+
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="itinerary.html" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-[6px] bg-[#ffffff] hover:bg-[#f5f5f4] text-[#1c1917] font-bold text-sm transition">
+              <span>Rancang Itinerary Sekarang</span>
+              <span>&rarr;</span>
+            </a>
+            <a href="about.html" class="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-[6px] bg-transparent hover:bg-[#ffffff]/10 text-[#ffffff] font-semibold text-sm border border-[#ffffff]/40 transition">
+              Pelajari Cara Kerja
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Status Bar & Slide Navigation -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-[#ffffff]/15 text-xs text-[#d6d3d1]">
+          
+          <!-- Current Slide Location Label -->
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-[#ffffff] animate-pulse"></span>
+            <span id="heroSlideLocation" class="font-bold text-[#ffffff] tracking-wide">
+              Gunung Bromo, Jawa Timur
+            </span>
+            <span class="text-[#a8a29e]">•</span>
+            <span id="heroSlideCounter" class="text-[11px] font-mono text-[#a8a29e]">
+              01 / 05
+            </span>
+          </div>
+
+          <!-- Slide Indicator Bars -->
+          <div class="flex items-center gap-2" id="heroSlideDots">
+            <button type="button" onclick="setHeroSlide(0, true)" class="w-8 h-1 rounded-[2px] bg-[#ffffff] transition-all" title="Gunung Bromo"></button>
+            <button type="button" onclick="setHeroSlide(1, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Labuan Bajo"></button>
+            <button type="button" onclick="setHeroSlide(2, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Bali"></button>
+            <button type="button" onclick="setHeroSlide(3, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Borobudur"></button>
+            <button type="button" onclick="setHeroSlide(4, true)" class="w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all" title="Raja Ampat"></button>
+          </div>
+
         </div>
 
       </div>
@@ -93,7 +137,7 @@
     <!-- ========================================== -->
     <!-- 2. VALUE PROPOSITION & 3 FEATURED CARDS     -->
     <!-- ========================================== -->
-    <section class="py-20 border-b border-[#e7e5e4] bg-[#fbfbf9]">
+    <section class="py-20 border-b border-[#e7e5e4] bg-[#fbfbf9]" id="sectionPhilosophy">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div class="text-center max-w-2xl mx-auto space-y-3">
@@ -310,8 +354,64 @@
     </div>
   </div>
 
+  <!-- Hero Slider Transition Script -->
   <script>
-    lucide.createIcons();
+    const heroSlides = [
+      { name: "Gunung Bromo, Jawa Timur", counter: "01 / 05" },
+      { name: "Pulau Padar & Labuan Bajo, NTT", counter: "02 / 05" },
+      { name: "Pura Ulun Danu Beratan, Bali", counter: "03 / 05" },
+      { name: "Candi Borobudur, Jawa Tengah", counter: "04 / 05" },
+      { name: "Kepulauan Raja Ampat, Papua Barat", counter: "05 / 05" }
+    ];
+
+    let currentHeroIndex = 0;
+    let heroInterval = null;
+
+    function setHeroSlide(idx, isManual = false) {
+      if (idx < 0 || idx >= heroSlides.length) return;
+      currentHeroIndex = idx;
+
+      // Update slide elements
+      for (let i = 0; i < heroSlides.length; i++) {
+        const slideEl = document.getElementById("slide" + i);
+        if (slideEl) {
+          slideEl.classList.toggle("active", i === idx);
+        }
+      }
+
+      // Update labels
+      const locEl = document.getElementById("heroSlideLocation");
+      const cntEl = document.getElementById("heroSlideCounter");
+      if (locEl) locEl.textContent = heroSlides[idx].name;
+      if (cntEl) cntEl.textContent = heroSlides[idx].counter;
+
+      // Update indicator dots
+      const dots = document.querySelectorAll("#heroSlideDots button");
+      dots.forEach((dot, dIdx) => {
+        if (dIdx === idx) {
+          dot.className = "w-8 h-1 rounded-[2px] bg-[#ffffff] transition-all";
+        } else {
+          dot.className = "w-4 h-1 rounded-[2px] bg-[#ffffff]/35 hover:bg-[#ffffff]/70 transition-all";
+        }
+      });
+
+      if (isManual) {
+        startHeroSlideshow();
+      }
+    }
+
+    function startHeroSlideshow() {
+      if (heroInterval) clearInterval(heroInterval);
+      heroInterval = setInterval(() => {
+        const next = (currentHeroIndex + 1) % heroSlides.length;
+        setHeroSlide(next);
+      }, 5000);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+      startHeroSlideshow();
+    });
   </script>
 </body>
 </html>
