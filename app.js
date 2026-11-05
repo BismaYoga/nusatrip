@@ -511,9 +511,29 @@ document.addEventListener("DOMContentLoaded", () => {
     renderAll();
   }
 
+  // Verified real spots dictionary for instant client fallback
+  const CLIENT_VERIFIED_SPOTS = {
+    karangasem: [
+      { name: "Pura Lempuyang Luhur", lat: -8.3917, lng: 115.6292, categories: ["budaya", "alam"], ideal_time: "morning", duration_hours: 2.5, price: 55000, rating: 4.8, gmaps_reviews: "24.000+ ulasan", gmaps_review_highlight: "Candi Bentar ikonik 'Gate of Heaven' berlatar siluet megah Gunung Agung.", desc: "Pura suci lereng Gunung Lempuyang dengan gapura megah menghadap langsung Gunung Agung.", tips: "Ambil nomor antrean foto sejak pagi hari.", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" },
+      { name: "Tirta Gangga", lat: -8.4122, lng: 115.5873, categories: ["budaya", "alam"], ideal_time: "afternoon", duration_hours: 2.0, price: 50000, rating: 4.7, gmaps_reviews: "36.000+ ulasan", gmaps_review_highlight: "Taman air peninggalan Raja Karangasem dengan kolam ikan mas koi dan batu pijakan melingkar.", desc: "Istana air peninggalan Kerajaan Karangasem dengan kolam mata air alami bertingkat dan patung klasik.", tips: "Beli pelet ikan di luar loket untuk memberi makan kawanan koi raksasa.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" },
+      { name: "Taman Ujung Soekasada", lat: -8.4631, lng: 115.6306, categories: ["budaya", "alam"], ideal_time: "sunset", duration_hours: 2.0, price: 35000, rating: 4.7, gmaps_reviews: "14.500+ ulasan", gmaps_review_highlight: "Kombinasi arsitektur Bali, Belanda, dan Tiongkok dengan jembatan dan kolam air luas menghadap laut.", desc: "Kompleks istana tetirah raja dengan kolam-kolam luas, paviliun terapung, dan pemandangan laut Selat Lombok.", tips: "Naik ke pilar reruntuhan di puncak bukit taman untuk sudut foto panorama terbaik.", image: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=600&q=80" },
+      { name: "Pura Agung Besakih", lat: -8.3742, lng: 115.4508, categories: ["budaya"], ideal_time: "morning", duration_hours: 3.0, price: 60000, rating: 4.8, gmaps_reviews: "22.000+ ulasan", gmaps_review_highlight: "Pura terbesar dan tersuci di Pulau Bali (The Mother Temple) di lereng barat daya Gunung Agung.", desc: "Kompleks pura induk terbesar di Bali dengan puluhan pura pedharman dan arsitektur meru bertingkat megah.", tips: "Tiket masuk sudah mencakup mobil buggy dan kain sarung resmi.", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" },
+      { name: "Desa Adat Tenganan Pegringsingan", lat: -8.4739, lng: 115.5658, categories: ["budaya"], ideal_time: "afternoon", duration_hours: 2.0, price: 20000, rating: 4.6, gmaps_reviews: "7.800+ ulasan", gmaps_review_highlight: "Desa kuno suku Bali Aga penghasil kain tenun ikat ganda Gringsing yang langka di dunia.", desc: "Salah satu desa adat tertua di Bali yang masih mempertahankan tata ruang tradisional kuno dan budaya perang pandan.", tips: "Lihat proses menenun kain gringsing asli di rumah-rumah warga lokal.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" },
+      { name: "Virgin Beach (Pantai Perasi)", lat: -8.5008, lng: 115.6111, categories: ["pantai", "sunset"], ideal_time: "sunset", duration_hours: 2.5, price: 15000, rating: 4.7, gmaps_reviews: "9.200+ ulasan", gmaps_review_highlight: "Pantai pasir putih tersembunyi di balik tebing bukit dengan ombak tenang untuk berenang.", desc: "Pantai pasir putih alami yang tenang dengan warung tepi pantai penjual kelapa muda dan ikan bakar segar.", tips: "Waktu terbaik menikmati suasana pantai mulai pukul 15.00 hingga matahari terbenam.", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" },
+      { name: "Pantai Amed (Teluk Jemeluk)", lat: -8.3375, lng: 115.6569, categories: ["pantai", "alam"], ideal_time: "morning", duration_hours: 3.0, price: 10000, rating: 4.8, gmaps_reviews: "11.000+ ulasan", gmaps_review_highlight: "Surga snorkeling dengan terumbu karang warna-warni dan pura bawah laut yang memesona.", desc: "Kawasan pesisir berpasir hitam vulkanik dengan keanekaragaman biota laut dan perahu jukung tradisional.", tips: "Bawa atau sewa kacamata snorkel dan sepatu karang di warung tepi pantai.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" }
+    ],
+    buleleng: [
+      { name: "Pantai Lovina (Dolphin Watching)", lat: -8.1567, lng: 115.0267, categories: ["pantai", "alam"], ideal_time: "morning", duration_hours: 3.0, price: 100000, rating: 4.7, gmaps_reviews: "19.000+ ulasan", gmaps_review_highlight: "Melihat kawanan lumba-lumba melompat di laut lepas saat matahari terbit.", desc: "Pantai pasir hitam tenang tempat berkumpulnya kawanan lumba-lumba hidung botol setiap fajar.", tips: "Pesan perahu jukung nelayan sehari sebelumnya.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80" },
+      { name: "Air Terjun Sekumpul", lat: -8.1750, lng: 115.1833, categories: ["alam"], ideal_time: "morning", duration_hours: 3.5, price: 40000, rating: 4.9, gmaps_reviews: "12.000+ ulasan", gmaps_review_highlight: "Air terjun tercantik di Bali dengan gugusan 7 aliran air di lembah hijau rimbun.", desc: "Kumpulan air terjun megah di tengah hutan hujan tropis yang masih alami.", tips: "Gunakan pemandu lokal resmi untuk keamanan jalur trekking.", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=600&q=80" },
+      { name: "Brahma Vihara Arama", lat: -8.2083, lng: 114.9750, categories: ["budaya"], ideal_time: "afternoon", duration_hours: 2.0, price: 20000, rating: 4.8, gmaps_reviews: "6.200+ ulasan", gmaps_review_highlight: "Wihara Buddha terbesar di Bali dengan replika mini Candi Borobudur yang hening.", desc: "Pusat meditasi dan wihara megah di perbukitan Banjar berarsitektur paduan Bali dan Buddha.", tips: "Jaga ketenangan selama berada di area meditasi.", image: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=600&q=80" },
+      { name: "Danau Tamblingan", lat: -8.2500, lng: 115.0833, categories: ["alam", "budaya"], ideal_time: "sunset", duration_hours: 2.0, price: 15000, rating: 4.7, gmaps_reviews: "8.100+ ulasan", gmaps_review_highlight: "Danau purba yang mistis dan tenang dikelilingi hutan lindung serta pura air kuno.", desc: "Danau kaldera yang asri dan bebas motor boat, cocok untuk sewa perahu kano tradisional.", tips: "Nikmati udara dingin kabut sore dengan kopi hangat tepi danau.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" }
+    ]
+  };
+
   // Fallback Dynamic Heuristic Generator (Guaranteed to match the requested region)
   function generateLocalHeuristic() {
     const regName = state.regionName || "Pulau Bali";
+    const regLower = regName.toLowerCase();
     if (elActiveTripTitle) elActiveTripTitle.textContent = `Liburan ${regName}`;
     if (elIslandHeaderDesc) elIslandHeaderDesc.textContent = `Menikmati pesona lanskap alam eksotis, kehangatan budaya lokal, dan ragam kuliner khas di ${regName}.`;
     if (elStatBestSeason) elStatBestSeason.textContent = "Mei - Okt • Musim Kemarau & Cuaca Bersahabat";
@@ -533,38 +553,54 @@ document.addEventListener("DOMContentLoaded", () => {
       "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80"
     ];
 
+    // Check verified client spots
+    let matchedSpots = null;
+    for (const [key, spots] of Object.entries(CLIENT_VERIFIED_SPOTS)) {
+      if (regLower.includes(key)) {
+        matchedSpots = spots;
+        break;
+      }
+    }
+
     const newItinerary = [];
     for (let day = 1; day <= state.totalDays; day++) {
-      newItinerary.push({
-        day: day,
-        date: addDays(state.startDate, day - 1),
-        zone: `Zona Ikonik ${regName} - Hari ${day}`,
-        totalDistanceKm: 14.5,
-        spots: [
+      let daySpots = [];
+      if (matchedSpots && matchedSpots.length > 0) {
+        const spotsPerDay = 3;
+        const startIdx = ((day - 1) * spotsPerDay) % matchedSpots.length;
+        for (let s = 0; s < spotsPerDay; s++) {
+          const sp = matchedSpots[(startIdx + s) % matchedSpots.length];
+          daySpots.push({
+            id: `spot_${day}_${s + 1}`,
+            ...sp
+          });
+        }
+      } else {
+        daySpots = [
           {
             id: `spot_${day}_1`,
-            name: `Landmark Utama ${regName}`,
-            lat: -7.5 + (day * 0.05),
-            lng: 110.5 + (day * 0.05),
-            categories: ["alam", "budaya"],
+            name: `Pantai & Pesisir Eksotis ${regName}`,
+            lat: -8.4 + (day * 0.05),
+            lng: 115.5 + (day * 0.05),
+            categories: ["alam"],
             ideal_time: "morning",
-            duration_hours: 2,
+            duration_hours: 2.5,
             price: 25000,
             rating: 4.8,
             gmaps_reviews: "4.800+ ulasan",
             gmaps_review_highlight: `Pemandangan memukau dan salah satu tempat paling direkomendasikan di ${regName}.`,
-            desc: `Spot ikonik wajib dikunjungi untuk menikmati keindahan ${regName}.`,
+            desc: `Spot pesisir eksotis wajib dikunjungi untuk menikmati keindahan ${regName}.`,
             tips: "Datang pagi hari sebelum jam 09.30 untuk foto bebas keramaian.",
             image: fallbacks[(day - 1) % fallbacks.length]
           },
           {
             id: `spot_${day}_2`,
-            name: `Wisata Alam & Panorama ${regName}`,
-            lat: -7.53 + (day * 0.05),
-            lng: 110.54 + (day * 0.05),
-            categories: ["alam"],
+            name: `Taman Wisata Alam & Lembah ${regName}`,
+            lat: -8.43 + (day * 0.05),
+            lng: 115.54 + (day * 0.05),
+            categories: ["alam", "budaya"],
             ideal_time: "afternoon",
-            duration_hours: 2.5,
+            duration_hours: 2.0,
             price: 20000,
             rating: 4.7,
             gmaps_reviews: "3.200+ ulasan",
@@ -575,9 +611,9 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           {
             id: `spot_${day}_3`,
-            name: `Pusat Kuliner & Sunset ${regName}`,
-            lat: -7.56 + (day * 0.05),
-            lng: 110.58 + (day * 0.05),
+            name: `Pusat Kerajinan & Kuliner Khas ${regName}`,
+            lat: -8.46 + (day * 0.05),
+            lng: 115.58 + (day * 0.05),
             categories: ["kuliner", "sunset"],
             ideal_time: "sunset",
             duration_hours: 2,
@@ -589,9 +625,22 @@ document.addEventListener("DOMContentLoaded", () => {
             tips: "Waktu terbaik datang pukul 16.45.",
             image: fallbacks[(day + 1) % fallbacks.length]
           }
-        ]
+        ];
+      }
+
+      newItinerary.push({
+        day: day,
+        date: addDays(state.startDate, day - 1),
+        zone: `Zona Ikonik ${regName} - Hari ${day}`,
+        totalDistanceKm: 14.5,
+        spots: daySpots
       });
     }
+
+    state.itinerary = newItinerary;
+    state.selectedDayFilter = "all";
+    renderAll();
+  }
 
     state.itinerary = newItinerary;
     state.selectedDayFilter = "all";
@@ -1210,435 +1259,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================================================
-  // NusaBot — Enterprise Guarded AI Travel Assistant Widget
-  // Positioned at Bottom-Right with WAF, Rate Limiting & Prompt Defense
-  // ==========================================================================
-  const chatState = {
-    isOpen: false,
-    sessionId: null,
-    sessionToken: null,
-    csrfToken: null,
-    isLoading: false,
-    quotaRemaining: 20,
-    cooldownUntil: 0
-  };
-
-  const elChatContainer = document.getElementById("chatbotContainer");
-  const elChatWindow = document.getElementById("chatbotWindow");
-  const elBtnChatToggle = document.getElementById("btnChatToggle");
-  const elBtnCloseChat = document.getElementById("btnCloseChat");
-  const elBtnMinimizeChat = document.getElementById("btnMinimizeChat");
-  const elBtnClearChat = document.getElementById("btnClearChat");
-  const elChatMessages = document.getElementById("chatMessages");
-  const elChatTypingIndicator = document.getElementById("chatTypingIndicator");
-  const elChatSecurityNotice = document.getElementById("chatSecurityNotice");
-  const elChatSecurityNoticeText = document.getElementById("chatSecurityNoticeText");
-  const elChatForm = document.getElementById("chatForm");
-  const elChatInput = document.getElementById("chatInput");
-  const elBtnSendChat = document.getElementById("btnSendChat");
-  const elChatCharCounter = document.getElementById("chatCharCounter");
-  const elChatQuotaBadge = document.getElementById("chatQuotaBadge");
-  const elBtnOpenAiModal = document.getElementById("btnOpenAiModal");
-
-  // Initial welcome message HTML template for reset
-  const INITIAL_WELCOME_HTML = `
-    <div class="flex items-start gap-2.5">
-      <div class="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
-        <i data-lucide="bot" class="w-4 h-4"></i>
-      </div>
-      <div class="space-y-2 max-w-[85%]">
-        <div class="p-3 bg-white rounded-2xl rounded-tl-sm border border-slate-200 shadow-2xs leading-relaxed text-slate-700">
-          <p class="font-bold text-slate-900 mb-1">Halo! Saya NusaBot 👋</p>
-          <p>Asisten perjalanan cerdas GasTrip. Saya siap membantu menyusun rencana liburan searah, estimasi biaya, rekomendasi kuliner, dan tips cuaca BMKG di seluruh Indonesia.</p>
-          <div class="mt-2.5 pt-2 border-t border-slate-100 flex items-center gap-1 text-[10px] text-slate-400 font-medium">
-            <i data-lucide="check-check" class="w-3 h-3 text-emerald-500"></i>
-            <span>Telah diverifikasi aman oleh Security Shield</span>
-          </div>
-        </div>
-        <div class="flex flex-wrap gap-1.5 pt-1" id="chatQuickChips">
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🏖️ Wisata 3 Hari di Bali
-          </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🌊 Speedboat Labuan Bajo
-          </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🍜 Kuliner Legendaris Jogja
-          </button>
-          <button type="button" class="chat-chip px-2.5 py-1 rounded-full bg-white hover:bg-sky-50 border border-slate-200 hover:border-sky-300 text-slate-700 text-[11px] font-medium transition shadow-2xs">
-            🌦️ Cuaca &amp; Gelombang BMKG
-          </button>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Safe HTML Escaper to Prevent Cross-Site Scripting (XSS)
-  function escapeHtml(str) {
-    if (!str) return "";
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }
-
-  // Safe Markdown Parser (Converts bold, lists, paragraphs safely without innerHTML XSS risk)
-  function renderSafeMarkdown(rawText) {
-    if (!rawText) return "";
-    
-    // First escape all raw HTML
-    let safe = escapeHtml(rawText);
-
-    // Replace bold **text**
-    safe = safe.replace(/\*\*(.*?)\*\*/g, '<strong class="text-slate-900 font-bold">$1</strong>');
-    
-    // Replace italic *text*
-    safe = safe.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
-
-    // Parse bullet points
-    const lines = safe.split("\n");
-    let inList = false;
-    let outputLines = [];
-
-    for (let line of lines) {
-      const trimmed = line.trim();
-      if (trimmed.startsWith("• ") || trimmed.startsWith("- ")) {
-        if (!inList) {
-          outputLines.push('<ul class="my-1.5 pl-4 list-disc space-y-1">');
-          inList = true;
-        }
-        const itemContent = trimmed.substring(2);
-        outputLines.push(`<li>${itemContent}</li>`);
-      } else {
-        if (inList) {
-          outputLines.push('</ul>');
-          inList = false;
-        }
-        if (trimmed) {
-          outputLines.push(`<p class="mb-1.5 leading-relaxed">${line}</p>`);
-        } else {
-          outputLines.push('<div class="h-1"></div>');
-        }
-      }
-    }
-    if (inList) {
-      outputLines.push('</ul>');
-    }
-
-    return outputLines.join("");
-  }
-
-  // Fetch Cryptographic Session Token & CSRF from Backend
-  async function fetchChatSession() {
-    try {
-      const res = await fetch(`${API_BASE}/auth/session`);
-      if (res.ok) {
-        const json = await res.json();
-        if (json.status === "success" && json.data) {
-          chatState.sessionId = json.data.session_id;
-          chatState.sessionToken = json.data.token;
-          chatState.csrfToken = json.data.csrf_token;
-        }
-      }
-    } catch (err) {
-      console.warn("Session handshake note:", err);
-    }
-  }
-
-  // Toggle Chatbot Window Visibility
-  function toggleChatbot(forceState) {
-    chatState.isOpen = typeof forceState === "boolean" ? forceState : !chatState.isOpen;
-    if (elChatWindow) {
-      if (chatState.isOpen) {
-        elChatWindow.classList.remove("hidden");
-        elChatWindow.classList.add("flex");
-        if (elBtnChatToggle) elBtnChatToggle.setAttribute("aria-expanded", "true");
-        if (elChatInput) elChatInput.focus();
-        scrollChatToBottom();
-      } else {
-        elChatWindow.classList.add("hidden");
-        elChatWindow.classList.remove("flex");
-        if (elBtnChatToggle) elBtnChatToggle.setAttribute("aria-expanded", "false");
-      }
-    }
-  }
-
-  function scrollChatToBottom() {
-    if (elChatMessages) {
-      elChatMessages.scrollTo({
-        top: elChatMessages.scrollHeight,
-        behavior: "smooth"
-      });
-    }
-  }
-
-  // Append User Message Bubble
-  function appendUserMessage(text) {
-    if (!elChatMessages) return;
-    const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
-    const bubble = document.createElement("div");
-    bubble.className = "flex flex-col items-end space-y-1";
-    bubble.innerHTML = `
-      <div class="chat-bubble-user text-xs">
-        ${escapeHtml(text)}
-      </div>
-      <span class="text-[9px] text-slate-400 px-1">${timeStr}</span>
-    `;
-    elChatMessages.appendChild(bubble);
-    scrollChatToBottom();
-  }
-
-  // Append Bot Message Bubble
-  function appendBotMessage(replyHtml, options = {}) {
-    if (!elChatMessages) return;
-    const timeStr = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
-    const isSecurityEvent = options.securityEvent || false;
-    const wasRedacted = options.wasRedacted || false;
-    const badgeText = options.badgeText || "🛡️ WAF & Guardrail Verified";
-
-    const bubble = document.createElement("div");
-    bubble.className = "flex items-start gap-2.5";
-    
-    let badgeClass = isSecurityEvent ? "chat-warning-badge" : "chat-security-badge";
-    let iconName = isSecurityEvent ? "alert-shield" : "bot";
-    let avatarBg = isSecurityEvent ? "bg-amber-600" : "bg-sky-600";
-
-    let redactedNoticeHtml = wasRedacted ? `
-      <div class="mt-2 px-2 py-1 bg-sky-50 border border-sky-100 rounded text-[10px] text-sky-800 flex items-center gap-1 font-medium">
-        <i data-lucide="lock" class="w-3 h-3 text-sky-600 shrink-0"></i>
-        <span>Data pribadi (NIK / No. Telp) otomatis disensor demi keamanan privasi Anda.</span>
-      </div>
-    ` : "";
-
-    bubble.innerHTML = `
-      <div class="w-7 h-7 rounded-lg ${avatarBg} text-white flex items-center justify-center shrink-0 shadow-xs mt-0.5">
-        <i data-lucide="${iconName}" class="w-4 h-4"></i>
-      </div>
-      <div class="space-y-1.5 max-w-[85%]">
-        <div class="chat-bubble-bot text-xs">
-          ${replyHtml}
-          ${redactedNoticeHtml}
-        </div>
-        <div class="flex items-center justify-between px-1">
-          <span class="${badgeClass}">${escapeHtml(badgeText)}</span>
-          <span class="text-[9px] text-slate-400">${timeStr}</span>
-        </div>
-      </div>
-    `;
-
-    elChatMessages.appendChild(bubble);
-    if (window.lucide) lucide.createIcons();
-    scrollChatToBottom();
-  }
-
-  // Client-Side Input Sanitization & Threat Check
-  function inspectClientInput(raw) {
-    const text = raw.trim();
-    if (!text) {
-      return { valid: false, error: "Pesan tidak boleh kosong." };
-    }
-    if (text.length > 500) {
-      return { valid: false, error: "Pesan terlalu panjang (maksimum 500 karakter)." };
-    }
-    // Check for raw script tag
-    if (/<\s*script[^>]*>/i.test(text)) {
-      return { valid: false, error: "Karakter tag script terdeteksi dan diblokir oleh pelindung XSS." };
-    }
-    return { valid: true, clean: text };
-  }
-
-  // Send Message Handler
-  async function handleSendMessage(messageText) {
-    const check = inspectClientInput(messageText);
-    if (!check.valid) {
-      if (elChatSecurityNotice && elChatSecurityNoticeText) {
-        elChatSecurityNoticeText.textContent = check.error;
-        elChatSecurityNotice.classList.remove("hidden");
-        setTimeout(() => elChatSecurityNotice.classList.add("hidden"), 4000);
-      }
-      return;
-    }
-
-    const cleanMessage = check.clean;
-
-    // Check Client-Side Cooldown / Rate Limiting (Burst Protection)
-    const now = Date.now();
-    if (now < chatState.cooldownUntil) {
-      const waitSec = Math.ceil((chatState.cooldownUntil - now) / 1000);
-      if (elChatSecurityNotice && elChatSecurityNoticeText) {
-        elChatSecurityNoticeText.textContent = `Mohon tunggu ${waitSec} detik (Rate Limiter Aktif).`;
-        elChatSecurityNotice.classList.remove("hidden");
-      }
-      return;
-    }
-
-    // Set 1.5s client cooldown
-    chatState.cooldownUntil = now + 1500;
-
-    // Clear input
-    if (elChatInput) elChatInput.value = "";
-    if (elChatCharCounter) elChatCharCounter.textContent = "0/500";
-    if (elChatSecurityNotice) elChatSecurityNotice.classList.add("hidden");
-
-    // Display user message
-    appendUserMessage(cleanMessage);
-
-    // Show typing indicator & disable button
-    if (elChatTypingIndicator) elChatTypingIndicator.classList.remove("hidden");
-    if (elBtnSendChat) elBtnSendChat.disabled = true;
-    chatState.isLoading = true;
-
-    try {
-      const headers = {
-        "Content-Type": "application/json"
-      };
-      if (chatState.csrfToken) {
-        headers["X-CSRF-Token"] = chatState.csrfToken;
-      }
-      if (chatState.sessionToken) {
-        headers["Authorization"] = `Bearer ${chatState.sessionToken}`;
-      }
-
-      const payload = {
-        message: cleanMessage,
-        session_id: chatState.sessionToken || null,
-        region_context: state.regionName || "Indonesia"
-      };
-
-      const res = await fetch(`${API_BASE}/chat`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(payload)
-      });
-
-      if (res.status === 429) {
-        const errJson = await res.json().catch(() => ({}));
-        const retryAfter = res.headers.get("Retry-After") || "5";
-        appendBotMessage(
-          `<p class="text-rose-600 font-bold">⚠️ Terlalu Banyak Permintaan (Rate Limit Exceeded)</p><p>Sistem keamanan membatasi pengiriman pesan sementara waktu. Silakan tunggu ${retryAfter} detik.</p>`,
-          { securityEvent: true, badgeText: "🛡️ Rate Limit Throttled" }
-        );
-        return;
-      }
-
-      const data = await res.json();
-
-      if (data.status === "blocked") {
-        appendBotMessage(
-          renderSafeMarkdown(data.reply),
-          { securityEvent: true, badgeText: data.security_badge || "🛡️ WAF Intercepted" }
-        );
-      } else if (data.status === "restricted") {
-        appendBotMessage(
-          renderSafeMarkdown(data.reply),
-          { securityEvent: true, badgeText: data.security_badge || "🔒 Least Privilege Enforced" }
-        );
-      } else if (data.status === "success") {
-        appendBotMessage(
-          renderSafeMarkdown(data.reply),
-          {
-            securityEvent: false,
-            wasRedacted: data.was_redacted,
-            badgeText: data.security_badge || "🛡️ WAF & Guardrail Verified"
-          }
-        );
-        if (typeof data.remaining_quota === "number" && elChatQuotaBadge) {
-          elChatQuotaBadge.textContent = `${data.remaining_quota} kuota/mnt`;
-        }
-      } else {
-        appendBotMessage(
-          `<p>Maaf, terjadi kendala saat memproses jawaban. Silakan coba kembali sesaat lagi.</p>`,
-          { securityEvent: true, badgeText: "Sistem Error" }
-        );
-      }
-    } catch (err) {
-      appendBotMessage(
-        `<p class="text-rose-600 font-semibold">Gagal terhubung dengan server NusaBot.</p><p class="text-[11px] text-slate-500">Pastikan koneksi internet stabil dan server GasTrip aktif.</p>`,
-        { securityEvent: true, badgeText: "Koneksi Terputus" }
-      );
-    } finally {
-      if (elChatTypingIndicator) elChatTypingIndicator.classList.add("hidden");
-      if (elBtnSendChat) elBtnSendChat.disabled = false;
-      chatState.isLoading = false;
-    }
-  }
-
-  // Initialize Chatbot Event Listeners & State
-  function initChatbot() {
-    fetchChatSession();
-
-    // Toggle button bottom right
-    if (elBtnChatToggle) {
-      elBtnChatToggle.addEventListener("click", () => toggleChatbot());
-    }
-
-    // Top Header Navbar Button ("Tanya Asisten AI")
-    if (elBtnOpenAiModal) {
-      elBtnOpenAiModal.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleChatbot(true);
-      });
-    }
-
-    // Close & Minimize buttons
-    if (elBtnCloseChat) {
-      elBtnCloseChat.addEventListener("click", () => toggleChatbot(false));
-    }
-    if (elBtnMinimizeChat) {
-      elBtnMinimizeChat.addEventListener("click", () => toggleChatbot(false));
-    }
-
-    // Clear chat conversation
-    if (elBtnClearChat) {
-      elBtnClearChat.addEventListener("click", () => {
-        if (elChatMessages) {
-          elChatMessages.innerHTML = INITIAL_WELCOME_HTML;
-          if (window.lucide) lucide.createIcons();
-          attachChipListeners();
-        }
-      });
-    }
-
-    // Form submission
-    if (elChatForm) {
-      elChatForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        if (elChatInput) {
-          const val = elChatInput.value;
-          handleSendMessage(val);
-        }
-      });
-    }
-
-    // Character counter
-    if (elChatInput && elChatCharCounter) {
-      elChatInput.addEventListener("input", () => {
-        const len = elChatInput.value.length;
-        elChatCharCounter.textContent = `${len}/500`;
-        if (len > 450) {
-          elChatCharCounter.classList.add("text-rose-500");
-        } else {
-          elChatCharCounter.classList.remove("text-rose-500");
-        }
-      });
-    }
-
-    // Quick chips click handler
-    function attachChipListeners() {
-      const chips = document.querySelectorAll(".chat-chip");
-      chips.forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const text = btn.textContent.trim();
-          handleSendMessage(text);
-        });
-      });
-    }
-    attachChipListeners();
-  }
-
-  // ==========================================================================
   // Foxico Interactive Hero Slider System
   // ==========================================================================
   const foxicoSlideData = [
@@ -1761,7 +1381,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initIslandGallery();
   initMap();
   initEventListeners();
-  initChatbot();
   fetchLiveNews();
   renderAll();
   lucide.createIcons();

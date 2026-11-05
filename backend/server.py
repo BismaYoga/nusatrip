@@ -82,7 +82,7 @@ if not API_KEY and os.path.exists("/root/PS_AI/.env"):
 gemini_client = None
 if genai and API_KEY:
     try:
-        http_opts = types.HttpOptions(timeout=4000) if types else None
+        http_opts = types.HttpOptions(timeout=8000) if types else None
         gemini_client = (
             genai.Client(api_key=API_KEY, http_options=http_opts)
             if http_opts
@@ -90,6 +90,8 @@ if genai and API_KEY:
         )
     except Exception:
         gemini_client = None
+
+from real_destinations_db import find_matched_region_key, build_itinerary_from_db, build_dynamic_region_itinerary
 
 # Cache for Weather & News & Photos & Full Itineraries
 NEWS_CACHE = {"timestamp": 0, "data": []}
@@ -446,6 +448,9 @@ def get_travel_news():
 def normalize_region_query(query: str) -> str:
     """Normalize user input to match regional clusters"""
     q = query.strip().lower()
+    matched = find_matched_region_key(q)
+    if matched:
+        return matched
     if any(k in q for k in ["bali", "denpasar", "kuta", "ubud", "seminyak", "nusa penida", "jimbaran"]):
         return "pulau bali"
     if any(k in q for k in ["bajo", "komodo", "padar", "labuan", "manggarai", "flores"]):
@@ -498,6 +503,29 @@ def generate_ai_itinerary(req: GenerateRequest):
                 "latency_ms": round((time.time() - t_start) * 1000, 2),
                 "data": data_copy
             }
+
+    # 2. Instant Real Regional Database Match (0ms latency, 100% verified authentic spots)
+    matched_key = find_matched_region_key(req.region)
+    if matched_key:
+        real_itinerary = build_itinerary_from_db(
+            matched_key,
+            days=days,
+            traveler_type=req.traveler_type,
+            pace=req.pace,
+            budget_tier=req.budget_tier,
+            custom_prompt=req.custom_prompt or ""
+        )
+        ITINERARY_CACHE[primary_cache_key] = {
+            "timestamp": t_start,
+            "data": real_itinerary
+        }
+        return {
+            "status": "success",
+            "cached": False,
+            "source": "verified_regional_database",
+            "latency_ms": round((time.time() - t_start) * 1000, 2),
+            "data": real_itinerary
+        }
 
     prompt = f"""
 Kamu adalah Kurator Perjalanan Indonesia paling ahli di GasTrip (standar industri Traveloka & Wanderlog).
@@ -564,7 +592,7 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
 }}
 """
 
-    models_to_try = ["gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-flash-latest"]
+    models_to_try = ["gemini-3.5-flash-lite"]
     raw_text = None
     last_err = None
 
@@ -582,79 +610,19 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
             continue
             
     if not raw_text:
-        # Dynamic fallback for ANY region (Never default to Bali!)
-        parsed_data = {
-            "region_name": req.region.title(),
-            "quick_desc": f"Jelajahi keindahan panorama alam, ragam kuliner khas, dan keramahan budaya lokal di {req.region.title()}.",
-            "center_lat": -7.0,
-            "center_lng": 110.0,
-            "zoom": 10,
-            "best_season": "Mei - Okt • Musim Kemarau & Cuaca Bersahabat",
-            "tips": [
-                f"Sewa transportasi lokal untuk fleksibilitas menjelajah {req.region.title()}",
-                "Siapkan uang tunai untuk transaksi di gerai lokal",
-                "Cicipi hidangan kuliner otentik khas daerah ini"
-            ],
-            "base_costs": {"stay": 450000, "transport": 300000, "food": 180000, "misc": 80000},
-            "days": [
-                {
-                    "day": d,
-                    "zone": f"Eksplorasi Ikonik {req.region.title()} - Hari {d}",
-                    "spots": [
-                        {
-                            "id": f"spot_{d}_1",
-                            "name": f"Pusat Landmark {req.region.title()}",
-                            "lat": -7.0 + (d * 0.02),
-                            "lng": 110.0 + (d * 0.02),
-                            "categories": ["alam", "budaya"],
-                            "ideal_time": "morning",
-                            "duration_hours": 2.0,
-                            "price": 25000,
-                            "rating": 4.8,
-                            "gmaps_reviews": "5.600+ ulasan",
-                            "gmaps_review_highlight": "Pemandangan sangat indah dan suasana asri menenangkan.",
-                            "desc": f"Destinasi wisata wajib dikunjungi saat berada di {req.region.title()}.",
-                            "tips": "Datang pagi hari untuk udara sejuk dan pencahayaan foto terbaik.",
-                            "image": DESTINATION_PHOTO_FALLBACKS[d % len(DESTINATION_PHOTO_FALLBACKS)]
-                        },
-                        {
-                            "id": f"spot_{d}_2",
-                            "name": f"Kawasan Wisata Alam {req.region.title()}",
-                            "lat": -7.02 + (d * 0.02),
-                            "lng": 110.03 + (d * 0.02),
-                            "categories": ["alam"],
-                            "ideal_time": "afternoon",
-                            "duration_hours": 2.5,
-                            "price": 20000,
-                            "rating": 4.7,
-                            "gmaps_reviews": "3.800+ ulasan",
-                            "gmaps_review_highlight": "Spot foto panorama yang menawan dengan fasilitas memadai.",
-                            "desc": f"Kawasan wisata alam favorit pengunjung di {req.region.title()}.",
-                            "tips": "Gunakan alas kaki yang nyaman untuk berjalan santai.",
-                            "image": DESTINATION_PHOTO_FALLBACKS[(d + 1) % len(DESTINATION_PHOTO_FALLBACKS)]
-                        },
-                        {
-                            "id": f"spot_{d}_3",
-                            "name": f"Pusat Kuliner & Sunset {req.region.title()}",
-                            "lat": -7.04 + (d * 0.02),
-                            "lng": 110.05 + (d * 0.02),
-                            "categories": ["kuliner", "sunset"],
-                            "ideal_time": "sunset",
-                            "duration_hours": 2.0,
-                            "price": 0,
-                            "rating": 4.8,
-                            "gmaps_reviews": "7.200+ ulasan",
-                            "gmaps_review_highlight": "Suasana petang yang syahdu dengan aneka sajian khas lezat.",
-                            "desc": f"Tempat berkumpul menikmati matahari terbenam dan santap malam di {req.region.title()}.",
-                            "tips": "Waktu terbaik datang menjelang jam 17.00.",
-                            "image": DESTINATION_PHOTO_FALLBACKS[(d + 2) % len(DESTINATION_PHOTO_FALLBACKS)]
-                        }
-                    ]
-                }
-                for d in range(1, days + 1)
-            ]
+        # Dynamic authentic fallback using geocoded region and Wikipedia landmarks (Never generic placeholder!)
+        parsed_data = build_dynamic_region_itinerary(
+            req.region,
+            days=days,
+            traveler_type=req.traveler_type,
+            pace=req.pace,
+            budget_tier=req.budget_tier
+        )
+        ITINERARY_CACHE[primary_cache_key] = {
+            "timestamp": t_start,
+            "data": parsed_data
         }
-        return {"status": "success", "cached": False, "data": parsed_data}
+        return {"status": "success", "cached": False, "source": "dynamic_authentic_fallback", "data": parsed_data}
         
     clean_json = raw_text.strip()
     if clean_json.startswith("```json"):
