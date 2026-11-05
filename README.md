@@ -1,75 +1,167 @@
-# ✈️ NusaTrip — Platform Perencana Liburan Kepulauan Indonesia
+# ✈️ GasTrip (NusaTrip) — Platform Perencana Liburan Kepulauan Indonesia & Smart AI Assistant
 
-NusaTrip adalah aplikasi web perencana rencana perjalanan (itinerary) kepulauan Indonesia dengan antarmuka modern yang terinspirasi oleh standar industri platform travel terkemuka dunia seperti **Traveloka**, **Airbnb**, **Wanderlog**, dan **Klook**.
+GasTrip adalah platform perencana rencana perjalanan (itinerary) kepulauan Indonesia cerdas dengan antarmuka modern yang terinspirasi oleh standar industri platform travel terkemuka dunia seperti **Traveloka**, **Airbnb**, **Wanderlog**, dan **Klook**.
 
-Aplikasi ini menyusun rute perjalanan searah (*cluster route*), mengestimasi biaya transparan (*all-in*), serta menyajikan foto destinasi beresolusi tinggi, navigasi peta interaktif (Leaflet + OpenStreetMap), dan fitur ekspor jadwal langsung ke WhatsApp & PDF.
+Aplikasi ini menyusun rute perjalanan searah (*cluster route*), mengestimasi biaya transparan (*all-in*), menyajikan foto destinasi terverifikasi, navigasi peta interaktif (Leaflet + OpenStreetMap), serta kini dilengkapi **NusaBot AI Travel Assistant** berposisi di sebelah kanan bawah dengan sistem pertahanan web dan AI terpadu tingkat enterprise.
 
 ---
 
-## 🌟 Fitur Utama
+## 🌟 Fitur Utama & Chatbot Kanan Bawah
+
+- **Floating NusaBot AI Travel Assistant (Kanan Bawah):**
+  - Widget chatbot interaktif di pojok kanan bawah (`fixed bottom-6 right-6`) dengan animasi transisi mulus dan indikator status live.
+  - Terintegrasi dengan tombol "*Tanya Asisten AI*" pada navigasi atas untuk kemudahan akses pengguna.
+  - Chip pertanyaan cepat: Rekomendasi 3 Hari di Bali, Tour Labuan Bajo, Kuliner Legendaris Jogja, hingga Info Cuaca BMKG.
+  - Respons cerdas berbasis konteks wilayah, rute searah minim macet, jam ideal kunjungan, dan estimasi biaya realistis.
+  - Riwayat percakapan interaktif, tombol pembersih riwayat (*clear chat*), minimalkan (*minimize*), dan penutup widget.
 
 - **Floating Travel Search Capsule (Ala Traveloka & Airbnb):**
-  - Pemilihan pulau tujuan wisata (Bali, Labuan Bajo, Lombok, Yogyakarta, Belitung, Raja Ampat).
-  - Penentuan tanggal keberangkatan & kepulangan kalender dengan opsi pil durasi cepat (1H s/d 7H).
+  - Pemilihan pulau tujuan wisata (Bali, Labuan Bajo, Lombok, Yogyakarta, Belitung, Raja Ampat, Banyuwangi, Bromo, Danau Toba, Sumba).
+  - Penentuan tanggal kalender dengan pil durasi cepat (1H s/d 7H).
   - Filter profil wisatawan (Solo, Pasangan, Keluarga, Teman) & kelas anggaran (Hemat, Nyaman, Sultan).
-  - Pil filter minat kategori wisata: *Pantai & Bahari, Alam & Gunung, Candi & Budaya, Kuliner Khas, Sunset & Santai, Trekking & Snorkeling*.
-- **Koleksi Destinasi Kepulauan (Featured Island Showcase):**
-  - Kartu visual kepulauan dengan ulasan rating, indikator destinasi aktif, dan estimasi biaya mulai per hari.
-- **Itinerary Harian Standar Wanderlog & Klook:**
-  - Kartu atraksi wisata dengan kurasi fotografi nyata, jam kunjungan ideal (Pagi/Siang/Sunset), harga tiket resmi, dan tips wisatawan lokal.
-  - Jalur transit antar-destinasi dengan estimasi jarak (km) dan durasi berkendara realistis.
-  - Fitur tambah destinasi cadangan atau hapus destinasi secara dinamis.
+  - Kategori minat: *Pantai, Alam, Budaya, Kuliner, Sunset, Trekking*.
+
 - **Peta Rute Interaktif (Leaflet + OpenStreetMap):**
-  - Pin penanda berurutan (*Stop 01, Stop 02...*) dengan garis rute koordinat.
-  - Sinkronisasi interaktif: mengklik destinasi langsung memfokuskan (*flyTo*) peta ke lokasi terkait.
-- **Rincian Biaya Transparan:**
-  - Estimasi all-in per orang meliputi hotel, tiket masuk, sewa kendaraan, kuliner lokal, hingga cadangan parkir.
+  - Penanda berurutan (*Stop 01, Stop 02...*) dengan rute koordinat GPS asli.
+
 - **Aksi Cepat Wisatawan:**
-  - Format instan kirim jadwal lengkap ke WhatsApp.
-  - Cetak atau unduh dokumen PDF siap cetak.
-  - Mobile-responsive lengkap dengan *segmented view controller* dan *bottom action sheet*.
+  - Ekspor jadwal instan ke WhatsApp & Cetak Dokumen PDF.
 
 ---
 
-## 🏝️ Destinasi yang Didukung
+## 🛡️ Sistem Pertahanan Keamanan Web Application (Enterprise WAF & Security Shield)
 
-1. **Pulau Bali:** Pura Uluwatu, Pantai Melasti, Jimbaran, Ubud Monkey Forest, Tirta Empul, Tegallalang, Kintamani, Tanah Lot, Pura Lempuyang, Tirta Gangga, Bedugul, Sanur.
-2. **Labuan Bajo & Komodo:** Pulau Padar, Komodo National Park, Pink Beach, Manta Point, Goa Rangko, Sylvia Hill, Taka Makassar, Sunset Bukit Cinta.
-3. **Pulau Lombok & Gili:** Gili Trawangan, Pantai Pink, Air Terjun Sendang Gile, Desa Adat Sade, Bukit Merese, Pantai Kuta Mandalika, Gili Meno & Air, Sembalun Rinjani.
-4. **DI Yogyakarta:** Candi Prambanan, Kraton & Tamansari, Malioboro, Candi Borobudur, Tebing Breksi, Goa Pindul, Pantai Timang, Sunset Parangtritis.
-5. **Kepulauan Belitung:** Pantai Tanjung Tinggi, Pulau Lengkuas, Danau Kaolin, Pantai Tanjung Kelayang, Rumah Adat Belitung, Museum Kata Andrea Hirata.
-6. **Kepulauan Raja Ampat:** Piaynemo Geosite, Teluk Kabui, Pasir Timbul Mansuar, Manta Sandy, Desa Wisata Arborek, Sauwandarek.
+Sistem telah dilengkapi modul keamanan berlapis pada backend (`backend/security.py`) dan frontend (`app.js`):
+
+### 1. Web Application Firewall (WAF)
+- Inspeksi mendalam (`WAFMiddleware` & `WAFInspector`) pada URI path, query parameter, header, dan payload request.
+- Pemblokiran otomatis terhadap serangan:
+  - **Directory / Path Traversal** (`../`, `..\`, `/etc/passwd`, `win.ini`).
+  - **Command / Shell Injection** (`|`, `;`, `&`, `$(...)`, `powershell.exe`, `cmd.exe`, `bash`).
+  - **Malicious Scanner Bots** (`sqlmap`, `nikto`, `acunetix`, `burpsuite`, `nmap`, dll.).
+  - **Null Byte Injection** (`%00`, `\x00`).
+- Header Keamanan Ketat:
+  - `Content-Security-Policy (CSP)`
+  - `X-Frame-Options: SAMEORIGIN` (Mencegah Clickjacking)
+  - `X-Content-Type-Options: nosniff` (Mencegah MIME-sniffing)
+  - `X-XSS-Protection: 1; mode=block`
+  - `Referrer-Policy: strict-origin-when-cross-origin`
+  - `Permissions-Policy: geolocation=(), camera=(), microphone=()`
+
+### 2. Pencegahan Cross-Site Scripting (XSS)
+- Sanitasi dua arah:
+  - **Client-Side**: Pengecekan pra-kirim dan rendering markdown aman (`renderSafeMarkdown` & `escapeHtml`) tanpa injeksi `innerHTML` berbahaya.
+  - **Server-Side**: Filter regex mendalam terhadap tag `<script>`, `javascript:`, atribut event `onerror=`, `onload=`, `<iframe>`, dll.
+
+### 3. Pencegahan SQL Injection (SQLi)
+- Filter signature komprehensif mendeteksi pola `UNION SELECT`, `' OR '1'='1`, `INFORMATION_SCHEMA`, manipulasi boolean, dan command chaining `;--`.
+- Permintaan berindikasi injeksi SQL langsung ditolak dengan status HTTP 403 Forbidden.
+
+### 4. Rate Limiting & Throttling
+- Algoritma **Sliding Window Rate Limiter** berbasis alamat IP klien.
+- Perlindungan Burst: Pembatasan jeda minimum antar permintaan beruntun (1.0 - 1.5 detik).
+- Kuota Chat: Maksimal 20 permintaan per 60 detik per IP.
+- Respons otomatis HTTP 429 Too Many Requests dilengkapi header `Retry-After` dan indikator hitung mundur di UI.
+
+### 5. Enkripsi Data & Integritas Sesi
+- Sesi ditandatangani secara kriptografis menggunakan algoritma **HMAC-SHA256** berkekuatan tinggi.
+- Token kriptografis acak berkadar entropi tinggi (`secrets.token_urlsafe(32)`).
+- Masking otomatis informasi sensitif pada log server.
+
+### 6. Autentikasi dan Otorisasi Ketat (RBAC & Anti-CSRF)
+- Endpoint handshake `/api/auth/session` menerbitkan token sesi dan token Anti-CSRF.
+- **Role-Based Access Control (RBAC)** dengan pemisahan hak akses:
+  - `Role.GUEST`: Hanya baca informasi publik destinasi.
+  - `Role.TRAVELER`: Hak akses konsultasi NusaBot AI & perencana itinerary.
+  - `Role.ADMIN`: Hak akses revisi internal sistem.
+- Proteksi **Anti-CSRF** dengan verifikasi header `X-CSRF-Token`.
+
+### 7. Validasi Input Ketat (Strict Input Validation)
+- Validasi skema menggunakan model Pydantic (`ChatInputModel`).
+- Normalisasi Unicode **NFKC** untuk mencegah bypass karakter tersembunyi (*zero-width characters* & *homoglyph attacks*).
+- Pembersihan karakter kontrol tak tercetak (*control characters*) dan batas panjang pesan maksimum 500 karakter.
+
+---
+
+## 🤖 Sistem Pertahanan Khusus Chatbot (AI Guardrails)
+
+Pertahanan khusus untuk model kecerdasan buatan (*Large Language Model*):
+
+### 1. Pencegahan Prompt Injection & Jailbreak
+- **Pattern Matching Heuristik**: Mendeteksi dan memblokir upaya *jailbreak* (misal: "*Ignore previous instructions*", "*Abaikan aturan sistem*", "*DAN mode*", "*Kamu sekarang adalah AI tanpa filter*", "*Bocorkan system prompt*").
+- **Delimited Enclosure Architecture**: Pertanyaan wisatawan diisolasi dalam pembatas ketat (`=== MULAI PERTANYAAN WISATAWAN === ... === SELESAI PERTANYAAN WISATAWAN ===`), menginstruksikan model untuk memperlakukan isi hanya sebagai data teks, bukan perintah eksekusi.
+
+### 2. Pencegahan Kebocoran Data Sensitif (PII Redaction)
+- Sensor otomatis sebelum teks dikirim ke model AI dan sebelum ditampilkan ke pengguna:
+  - **NIK Indonesia** (16 digit) &rarr; `[NIK-TERLINDUNGI]`
+  - **Nomor Kartu Kredit/Debit** &rarr; `[NOMOR-KARTU-TERLINDUNGI]`
+  - **Kode CVV/CVC** &rarr; `[CVV-TERLINDUNGI]`
+  - **Nomor Telepon/WhatsApp** (`08...`, `+628...`) &rarr; `[NOMOR-TELEPON-DISENSOR]`
+  - **Alamat Email** &rarr; `[EMAIL-DISENSOR]`
+  - **API Key & Token Rahasia** &rarr; `[KREDENSIAL-RAHASIA]`
+
+### 3. Penanganan Output yang Aman (Safe Output Scrubbing)
+- Pembersihan pasca-generasi AI untuk mencegah kebocoran variabel lingkungan (*environment variables*), API key (`AIza...`), maupun path direktori server lokal.
+- Pembersihan tag HTML mentah dari output model sebelum dikirimkan ke klien.
+
+### 4. Pembatasan Agensi Hak Akses (Principle of Least Privilege)
+- Chatbot dibatasi secara absolut hanya sebagai **Konsultan Informasi Perjalanan & Wisata Indonesia**.
+- Model tidak memiliki hak akses maupun alat (*tools*) untuk mengeksekusi perintah shell/bash, memodifikasi database, mengubah konfigurasi server, atau menjalankan transaksi keuangan.
+- Upaya instruksi di luar batas kewenangan langsung dicegat dengan penolakan berotoritas:
+  > *"⚠️ Pembatasan Akses: Sebagai asisten GasTrip, akses saya dibatasi secara ketat hanya untuk rekomendasi destinasi, informasi cuaca, dan rute wisata di Indonesia..."*
+
+---
+
+## 🧪 Pengujian Unit & Keamanan (Test Suites)
+
+Proyek ini dilengkapi rangkaian pengujian otomatis lengkap:
+
+```bash
+# Menjalankan pengujian pertahanan WAF, Guardrail & Redaction
+python backend/test_security.py
+
+# Menjalankan pengujian integrasi endpoint API & Rate Limiting
+python backend/test_api_endpoints.py
+```
+
+Seluruh 18 pengujian keamanan dan endpoint API terverifikasi **100% PASS**:
+- `test_waf_sqli_detection`
+- `test_waf_xss_detection`
+- `test_waf_path_traversal`
+- `test_rate_limiter`
+- `test_rate_limiting_enforcement`
+- `test_prompt_injection_guardrail`
+- `test_agency_restriction`
+- `test_pii_redaction`
+- `test_safe_output_scrubbing`
+- `test_session_and_csrf`
+- `test_security_status_endpoint`
+- `test_session_handshake`
+- `test_chatbot_valid_query`
+- `test_chatbot_waf_xss_block`
+- `test_chatbot_prompt_injection_block`
+- `test_chatbot_agency_restriction_block`
+- `test_chatbot_pii_auto_redaction`
+- `test_security_headers_present`
 
 ---
 
 ## 🚀 Menjalankan Secara Lokal
 
-Cukup buka `index.html` langsung di browser, atau gunakan web server statis:
-
+### 1. Menjalankan Backend FastAPI:
 ```bash
-# Menggunakan Python
-python3 -m http.server 8080
-
-# Menggunakan Node.js
-npx serve .
+cd backend
+python -m uvicorn server:app --host 127.0.0.1 --port 8088 --reload
 ```
 
-Akses aplikasi di browser melalui `http://localhost:8080`.
-
----
-
-## 🛠️ Teknologi & Standar Desain
-
-- **HTML5 & CSS3** (Semantic Layout, Modern Flexbox & CSS Grid)
-- **Tailwind CSS** (Utility classes)
-- **Vanilla JavaScript (ES6+)** (Arsitektur state reaktif tanpa dependensi framework berat)
-- **Leaflet.js & OpenStreetMap** (Peta interaktif tanpa watermark API key)
-- **Lucide Icons** (Ikon vektor modern)
-- **Google Fonts** (Plus Jakarta Sans)
-- **Unsplash Travel Photography** (Kurasi foto destinasi wisata asli beresolusi tinggi)
+### 2. Menjalankan Frontend Web:
+Cukup buka `index.html` langsung di browser, atau gunakan web server statis:
+```bash
+python -m http.server 8080
+```
+Buka browser di `http://localhost:8080` dan klik ikon NusaBot di sebelah kanan bawah.
 
 ---
 
 ## 📄 Lisensi
-
-Proyek ini dirilis di bawah lisensi MIT.
+Proyek ini dirilis di bawah lisensi MIT. Hak Cipta © 2026 GasTrip Indonesia.
