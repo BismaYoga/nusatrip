@@ -37,7 +37,11 @@ export default function RecommendationCard({ spot, number, meta, mapsUrl, onRemo
 
       <div className="flex-1 p-6 flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          {meta && <Typography variant="note" className="text-secondary">{meta}</Typography>}
+          {(spot.kecamatan || meta) && (
+            <Typography variant="note" className="text-secondary font-semibold">
+              {spot.kecamatan ? `Kec. ${spot.kecamatan}, ${spot.kabupaten.startsWith('Kota') ? '' : 'Kab. '}${spot.kabupaten}` : meta}
+            </Typography>
+          )}
           <Typography variant="h2" as="h3" className="text-primary">{spot.name}</Typography>
           <StarRating value={spot.rating || 4.8} />
         </div>

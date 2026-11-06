@@ -7,18 +7,24 @@ import FormField from '../molecules/FormField.jsx';
 import RangeField from '../molecules/RangeField.jsx';
 
 export const LOCATION_OPTIONS = [
-  'Pulau Bali',
-  'Karangasem',
-  'Pacitan',
-  'Kebumen',
+  'Pulau Bali (Semua Wilayah)',
+  'Nusa Penida, Lembongan & Ceningan (Klungkung)',
+  'Badung (Kuta, Seminyak, Canggu & Uluwatu)',
+  'Gianyar & Ubud (Tegallalang & Tampaksiring)',
+  'Tabanan (Bedugul, Tanah Lot & Jatiluwih)',
+  'Bangli & Kintamani (Gunung Batur & Penglipuran)',
+  'Karangasem (Besakih, Amed, Lempuyang & Sidemen)',
+  'Buleleng & Lovina (Sekumpul, Gitgit & Menjangan)',
+  'Kota Denpasar (Sanur, Renon & Kumbasari)',
+  'Jembrana & Medewi (Bunut Bolong & Bali Barat)',
   'Labuan Bajo & Komodo',
   'Pulau Lombok & Gili',
   'DI Yogyakarta',
   'Kepulauan Belitung',
   'Kepulauan Raja Ampat',
   'Banyuwangi & Kawah Ijen',
-  'Danau Toba & Samosir',
   'Bromo & Kota Malang',
+  'Danau Toba & Samosir',
   'Pulau Sumba',
   'Bandung & Lembang'
 ].map((name) => ({ value: name, label: name }));
