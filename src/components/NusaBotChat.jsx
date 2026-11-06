@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, X, Minus, Trash2, Send, Lock, ShieldAlert } from 'lucide-react';
+import { apiFetch } from '../utils/api.js';
 
 const CHAT_STORAGE_KEY = 'gastrip_chat_history';
 const CHAT_SESSION_KEY = 'gastrip_chat_session_id';
@@ -69,7 +70,7 @@ export default function NusaBotChat() {
 
   async function fetchSession() {
     try {
-      const res = await fetch('/api/auth/session');
+      const res = await apiFetch('/api/auth/session');
       if (res.ok) {
         const data = await res.json();
         if (data.status === 'success' && data.data?.session_id) {
@@ -107,7 +108,7 @@ export default function NusaBotChat() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await apiFetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -9,6 +9,7 @@ import {
   MapPanel
 } from '../components/index.js';
 import { LOCATION_OPTIONS } from '../components/organisms/ItineraryForm.jsx';
+import { apiFetch } from '../utils/api.js';
 
 const HERO_IMAGE = 'assets/hero_raja_ampat.jpg';
 
@@ -117,7 +118,7 @@ export default function Itinerary() {
     let plan = null;
 
     try {
-      const res = await fetch('/api/ai/generate', {
+      const res = await apiFetch('/api/ai/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
