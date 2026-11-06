@@ -16,3 +16,8 @@ export { default as RecommendationCard } from './organisms/RecommendationCard.js
 export { default as MapPanel } from './organisms/MapPanel.jsx';
 export { default as Navbar } from './Navbar.jsx';
 export { default as Footer } from './Footer.jsx';
+export { default as Section } from './organisms/Section.jsx';
+export { default as DestinationCard } from './organisms/DestinationCard.jsx';
+export { default as DestinationGallery } from './organisms/DestinationGallery.jsx';
+export { default as SectionHeader } from './molecules/SectionHeader.jsx';
+export { default as Accordion } from './molecules/Accordion.jsx';

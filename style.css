@@ -82,7 +82,7 @@ body {
 .hero-slider-wrap {
   position: relative;
   width: 100%;
-  height: calc(100vh - 72px);
+  height: calc(100vh - 4rem);
   min-height: 560px;
   overflow: hidden;
   background-color: #000000;

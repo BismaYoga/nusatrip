@@ -6,36 +6,21 @@ import { Input, Select } from '../atoms/Input.jsx';
 import FormField from '../molecules/FormField.jsx';
 import RangeField from '../molecules/RangeField.jsx';
 
-export const LOCATION_OPTIONS = [
-  'Pulau Bali',
-  'Karangasem',
-  'Pacitan',
-  'Kebumen',
-  'Labuan Bajo & Komodo',
-  'Pulau Lombok & Gili',
-  'DI Yogyakarta',
-  'Kepulauan Belitung',
-  'Kepulauan Raja Ampat',
-  'Banyuwangi & Kawah Ijen',
-  'Danau Toba & Samosir',
-  'Bromo & Kota Malang',
-  'Pulau Sumba',
-  'Bandung & Lembang'
-].map((name) => ({ value: name, label: name }));
-
 const PAX_OPTIONS = Array.from({ length: 20 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) }));
-
-export const INTEREST_OPTIONS = [
-  { value: 'pantai', label: 'Pantai' },
-  { value: 'alam', label: 'Dataran Tinggi' },
-  { value: 'budaya', label: 'Perkotaan' }
-];
 
 /**
  * Organism: ItineraryForm — form input destinasi.
- * onSubmit(values) dipanggil saat tombol Kirim ditekan.
+ * regionOptions        : [{ value, label }] lokasi dari dataset
+ * getCategoryOptions(k): jenis wisata yang tersedia di lokasi k (dari dataset)
+ * onSubmit(values)     : dipanggil saat tombol Kirim ditekan
  */
-export default function ItineraryForm({ initialValues = {}, onSubmit, loading = false }) {
+export default function ItineraryForm({
+  initialValues = {},
+  regionOptions = [],
+  getCategoryOptions = () => [],
+  onSubmit,
+  loading = false
+}) {
   const [values, setValues] = useState({
     region: '',
     startDate: '',
@@ -49,6 +34,18 @@ export default function ItineraryForm({ initialValues = {}, onSubmit, loading = 
 
   function set(key, val) {
     setValues((prev) => ({ ...prev, [key]: val }));
+  }
+
+  const categoryOptions = getCategoryOptions(values.region);
+
+  // Ganti lokasi → buang preferensi yang tidak tersedia di lokasi baru
+  function setRegion(region) {
+    const available = getCategoryOptions(region).map((o) => o.value);
+    setValues((prev) => ({
+      ...prev,
+      region,
+      interests: prev.interests.filter((i) => available.includes(i))
+    }));
   }
 
   function toggleInterest(val) {
@@ -76,8 +73,8 @@ export default function ItineraryForm({ initialValues = {}, onSubmit, loading = 
           required
           placeholder="—"
           value={values.region}
-          onChange={(e) => set('region', e.target.value)}
-          options={LOCATION_OPTIONS}
+          onChange={(e) => setRegion(e.target.value)}
+          options={regionOptions}
         />
       </FormField>
 
@@ -146,8 +143,8 @@ export default function ItineraryForm({ initialValues = {}, onSubmit, loading = 
       </FormField>
 
       <FormField label="Referensi Wisata (Opsional (bisa lebih dari 1))" group>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {INTEREST_OPTIONS.map((opt) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {categoryOptions.map((opt) => (
             <Chip
               key={opt.value}
               active={values.interests.includes(opt.value)}

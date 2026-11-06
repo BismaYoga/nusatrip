@@ -3,6 +3,7 @@ import React from 'react';
 /**
  * Atom: Button
  *   variant: primary (gelap) | secondary (outline terang) | accent (kuning) | ghost
+ *            | light (outline terang untuk di atas background gelap)
  *   size   : sm (32px) | md (40px) | lg (56px)
  *   icon   : komponen ikon lucide (opsional), tampil di kiri label
  */
@@ -10,7 +11,8 @@ const VARIANTS = {
   primary: 'bg-primary text-canvas border-primary hover:bg-secondary hover:border-secondary',
   secondary: 'bg-white text-primary border-line hover:border-secondary hover:text-secondary',
   accent: 'bg-accent text-ink border-accent hover:brightness-95',
-  ghost: 'bg-transparent text-primary border-transparent hover:text-secondary'
+  ghost: 'bg-transparent text-primary border-transparent hover:text-secondary',
+  light: 'bg-transparent text-canvas border-canvas/40 hover:bg-canvas/10'
 };
 
 const SIZES = {

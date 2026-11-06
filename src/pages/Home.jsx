@@ -1,4 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import {
+  Typography,
+  Button,
+  StarRating,
+  Section,
+  SectionHeader,
+  DestinationGallery
+} from '../components/index.js';
+import { getAllDestinations, CATEGORY_LABELS } from '../lib/recommendation.js';
 
 const HERO_SLIDES = [
   { name: 'Gunung Bromo — Jawa Timur', bg: 'assets/hero_bromo.jpg' },
@@ -8,25 +17,57 @@ const HERO_SLIDES = [
   { name: 'Kepulauan Raja Ampat — Papua Barat', bg: 'assets/hero_raja_ampat.jpg' },
 ];
 
+// Semua wisata dataset, diurutkan selang-seling antar lokasi agar bervariasi
+const DESTINATIONS = (() => {
+  const groups = {};
+  getAllDestinations().forEach((d) => (groups[d.regionKey] ||= []).push(d));
+  const lists = Object.values(groups);
+  const out = [];
+  for (let i = 0; out.length < lists.flat().length; i++) {
+    lists.forEach((l) => l[i] && out.push(l[i]));
+  }
+  return out;
+})();
+
+const FEATURES = [
+  {
+    title: 'Rute Searah Minim Bolak-Balik',
+    desc: 'Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.'
+  },
+  {
+    title: 'Estimasi Biaya Transparan',
+    desc: 'Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.'
+  },
+  {
+    title: 'Data Otentik 100% Nyata',
+    desc: 'Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.'
+  }
+];
+
 export default function Home({ setRoute }) {
   const [slideIdx, setSlideIdx] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setSlideIdx(prev => (prev + 1) % HERO_SLIDES.length);
+      setSlideIdx((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
 
+  function openDestination(d) {
+    try {
+      localStorage.setItem('gastrip_target_region', d.regionKey);
+    } catch {
+      /* storage tidak tersedia */
+    }
+    setRoute('itinerary');
+  }
+
   return (
     <div className="w-full flex flex-col">
-      
-      {/* ========================================== */}
-      {/* 1. FULLSCREEN HERO WITH ROTATING BG SLIDES */}
-      {/* ========================================== */}
+
+      {/* 1. HERO — slide background */}
       <section className="hero-slider-wrap" id="heroSection">
-        
-        {/* 5 Background Tourism Slides (100% Famous Indonesian Destinations) */}
         {HERO_SLIDES.map((slide, idx) => (
           <div
             key={idx}
@@ -34,235 +75,112 @@ export default function Home({ setRoute }) {
             style={{ backgroundImage: `url('${slide.bg}')` }}
           />
         ))}
+        <div className="hero-overlay-dark" />
 
-        {/* Dark Tint Scrim Overlay */}
-        <div className="hero-overlay-dark"></div>
+        <div className="hero-content-wrap max-w-7xl mx-auto px-4 sm:px-8 py-8">
+          <div />
 
-        {/* Inner Hero Content Container */}
-        <div className="hero-content-wrap max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          
-          {/* Top Spacer */}
-          <div></div>
-
-          {/* Center Typography & Call to Action */}
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <span className="text-xs font-bold tracking-widest uppercase text-[#e7e5e4] block">
+          <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-6 text-canvas">
+            <Typography variant="note" className="uppercase tracking-widest text-accent">
               Platform Perencana Perjalanan Indonesia
-            </span>
-
-            <h1 className="text-4xl sm:text-5xl font-bold text-[#ffffff] font-serif tracking-tight leading-tight">
+            </Typography>
+            <Typography variant="h1">
               Jelajahi Nusantara <br className="hidden sm:inline" />Sesuai Rencanamu
-            </h1>
-
-            <p className="text-base text-[#d6d3d1] leading-relaxed max-w-2xl mx-auto">
+            </Typography>
+            <Typography variant="body" className="max-w-2xl">
               Platform perencana liburan cerdas nomor satu. Temukan rute searah bebas macet, estimasi biaya transparan, dan rekomendasi destinasi otentik di seluruh pelosok Indonesia.
-            </p>
-
-            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                type="button"
-                onClick={() => setRoute('itinerary')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#ffd988] hover:bg-[#ffd988] text-[#07205b] font-bold text-sm transition shadow-md"
-              >
-                <span>Rancang Itinerary Sekarang</span>
-                <span>&rarr;</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setRoute('about')}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-none bg-transparent hover:bg-[#ffffff]/10 text-[#ffffff] font-semibold text-sm border border-[#ffffff]/40 transition"
-              >
+            </Typography>
+            <div className="w-full pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button variant="accent" size="lg" className="w-full sm:w-auto" onClick={() => setRoute('itinerary')}>
+                Rancang Itinerary Sekarang
+              </Button>
+              <Button variant="light" size="lg" className="w-full sm:w-auto" onClick={() => setRoute('about')}>
                 Pelajari Cara Kerja
-              </button>
+              </Button>
             </div>
           </div>
 
-          {/* Bottom Status Bar & Slide Navigation (No Icon Bulat, No 1/5 Total Slide) */}
-          <div className="flex items-center justify-between gap-4 pt-6 border-t border-[#ffffff]/15 text-xs text-[#d6d3d1]">
-            
-            {/* Current Slide Location Label */}
-            <div className="flex flex-col">
-              <span className="text-[11px] uppercase tracking-widest text-[#ffd988] font-bold">Destinasi</span>
-              <span id="heroSlideLocation" className="text-sm font-semibold text-[#ffffff] tracking-wide font-sans">
+          <div className="flex items-center justify-between gap-4 pt-6 border-t border-canvas/20">
+            <div className="flex flex-col gap-1">
+              <Typography variant="note" className="uppercase tracking-widest text-accent">Destinasi</Typography>
+              <Typography variant="body" as="span" id="heroSlideLocation" className="text-canvas font-semibold">
                 {HERO_SLIDES[slideIdx].name}
-              </span>
+              </Typography>
             </div>
-
-            {/* Slide Indicator Bars (Sharp, Zero Radius) */}
             <div className="flex items-center gap-2" id="heroSlideDots">
               {HERO_SLIDES.map((slide, dotIdx) => (
                 <button
                   key={dotIdx}
                   type="button"
                   onClick={() => setSlideIdx(dotIdx)}
-                  className={`${dotIdx === slideIdx ? 'w-8 bg-[#ffd988]' : 'w-4 bg-[#ffffff]/35 hover:bg-[#ffffff]/70'} h-[3px] rounded-none transition-all`}
-                  title={slide.name}
+                  aria-label={slide.name}
+                  className={`${dotIdx === slideIdx ? 'w-8 bg-accent' : 'w-4 bg-canvas/40 hover:bg-canvas/70'} h-1 transition-all`}
                 />
               ))}
             </div>
-
           </div>
-
         </div>
       </section>
 
-      {/* ========================================== */}
-      {/* 2. VALUE PROPOSITION & 3 FEATURED CARDS     */}
-      {/* ========================================== */}
-      <section className="py-20 border-b border-[#ededed] bg-[#f8f8f8]" id="sectionPhilosophy">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold tracking-widest uppercase text-[#1841a2] block">
-              Filosofi Kami
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#07205b] font-serif tracking-tight">
-              Kenapa NusaTrip Diciptakan?
-            </h2>
-            <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
-              Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget.
-            </p>
-          </div>
+      {/* 2. FILOSOFI + SEMUA TEMPAT WISATA DARI DATASET */}
+      <Section tone="canvas" id="sectionPhilosophy">
+        <SectionHeader
+          eyebrow="Filosofi Kami"
+          title="Kenapa NusaTrip Diciptakan?"
+          description="Menyusun rencana perjalanan di Indonesia seringkali melelahkan karena informasi yang tersebar dan rute yang tidak efisien. NusaTrip hadir memadukan kecerdasan buatan dan data geospasial riil agar liburanmu terencana sempurna, hemat waktu, dan sesuai budget."
+        />
+        <DestinationGallery
+          destinations={DESTINATIONS}
+          categoryLabels={CATEGORY_LABELS}
+          onSelect={openDestination}
+        />
+      </Section>
 
-          {/* 3 Featured Destination Cards (Wireframe Grid) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            
-            {/* Card 1: Karangasem Bali */}
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.setItem('gastrip_target_region', 'Karangasem');
-                setRoute('itinerary');
-              }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
-            >
-              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
-                <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Destinasi Budaya</span>
-                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pura Lempuyang</h3>
-                <p className="text-xs text-[#595959]">Karangasem, Bali</p>
-              </div>
-            </button>
-
-            {/* Card 2: Pantai Menganti Kebumen */}
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.setItem('gastrip_target_region', 'Kebumen');
-                setRoute('itinerary');
-              }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
-            >
-              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Wisata Pesisir</span>
-                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pantai Menganti</h3>
-                <p className="text-xs text-[#595959]">Kebumen, Jawa Tengah</p>
-              </div>
-            </button>
-
-            {/* Card 3: Labuan Bajo NTT */}
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.setItem('gastrip_target_region', 'Labuan Bajo & Komodo');
-                setRoute('itinerary');
-              }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
-            >
-              <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
-                <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
-              </div>
-              <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Taman Nasional Bahari</span>
-                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pulau Padar &amp; Komodo</h3>
-                <p className="text-xs text-[#595959]">Labuan Bajo, NTT</p>
-              </div>
-            </button>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ========================================== */}
-      {/* 3. SECTION ABOUT US (RINGKAS DI HOME)      */}
-      {/* ========================================== */}
-      <section className="py-20 border-b border-[#ededed] bg-[#ffffff]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Left Column: Narasi About Us & Manfaat */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-bold tracking-widest uppercase text-[#1841a2] block">
-                Tentang Kami
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#07205b] font-serif tracking-tight">
-                Kenapa NusaTrip Berbeda &amp; Layak Kamu Gunakan?
-              </h2>
-              <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
-                NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:
-              </p>
-              
-              <div className="space-y-4 pt-2">
-                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#07205b]">Rute Searah Minim Bolak-Balik</h4>
-                  <p className="text-xs text-[#595959]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
+      {/* 3. TENTANG KAMI (RINGKAS) */}
+      <Section tone="white">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+          <div className="lg:col-span-7 flex flex-col gap-6">
+            <SectionHeader
+              align="left"
+              eyebrow="Tentang Kami"
+              title="Kenapa NusaTrip Berbeda & Layak Kamu Gunakan?"
+              description="NusaTrip dirancang khusus untuk memecahkan kebingungan traveler saat menyusun agenda wisata di Indonesia. Bukan sekadar rekomendasi tempat umum, kami menghadirkan solusi menyeluruh untuk liburan efisien:"
+            />
+            <div className="flex flex-col gap-4">
+              {FEATURES.map((f) => (
+                <div key={f.title} className="border-l-2 border-primary pl-4 flex flex-col gap-1">
+                  <Typography variant="body" as="h3" className="text-primary font-semibold">{f.title}</Typography>
+                  <Typography variant="body" className="text-ink">{f.desc}</Typography>
                 </div>
-                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#07205b]">Estimasi Biaya Transparan</h4>
-                  <p className="text-xs text-[#595959]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
-                </div>
-                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#07205b]">Data Otentik 100% Nyata</h4>
-                  <p className="text-xs text-[#595959]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <button
-                  type="button"
-                  onClick={() => setRoute('about')}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#07205b] hover:text-[#1841a2] transition"
-                >
-                  <span>Baca Selengkapnya Tentang Kami</span>
-                  <span>&rarr;</span>
-                </button>
-              </div>
+              ))}
             </div>
+            <Button variant="secondary" className="self-start" onClick={() => setRoute('about')}>
+              Baca Selengkapnya Tentang Kami
+            </Button>
+          </div>
 
-            {/* Right Column: Reviewer Card Testimonial */}
-            <div className="lg:col-span-5">
-              <div className="bg-[#f8f8f8] rounded-[6px] p-8 border border-[#ededed] space-y-5">
-                <div className="text-xs font-bold uppercase tracking-wider text-[#1841a2]">
-                  Rating Wisatawan • 5.0 / 5.0
-                </div>
-
-                <blockquote className="text-sm text-[#282828] font-serif leading-relaxed italic">
+          <div className="lg:col-span-5">
+            <figure className="bg-canvas border border-line p-8 flex flex-col gap-6">
+              <div className="flex items-center gap-2">
+                <StarRating value="5.0" />
+                <Typography variant="note" className="uppercase tracking-widest text-secondary">Rating Wisatawan</Typography>
+              </div>
+              <blockquote>
+                <Typography variant="desc" className="italic text-ink">
                   &ldquo;Itinerary NusaTrip bikin liburan keluarga kami di Bali dan Karangasem teratur banget. Rutenya searah gak ada bolak-balik, estimasi biaya tiketnya pas di kantong, dan kami nemu spot tersembunyi yang otentik!&rdquo;
-                </blockquote>
-
-                <div className="pt-4 border-t border-[#ededed] flex items-center justify-between text-xs">
-                  <div>
-                    <h4 className="font-bold text-[#07205b]">Bisma Yoga &amp; Keluarga</h4>
-                    <p className="text-[#595959]">Wisatawan Terverifikasi • Jakarta</p>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-none bg-[#ffd988] text-[#07205b] font-bold text-[11px] border border-[#ffd988]">
-                    Terverifikasi
-                  </span>
+                </Typography>
+              </blockquote>
+              <figcaption className="pt-4 border-t border-line flex items-center justify-between gap-4">
+                <div className="flex flex-col">
+                  <Typography variant="body" as="span" className="text-primary font-semibold">Bisma Yoga &amp; Keluarga</Typography>
+                  <Typography variant="note" className="text-ink">Wisatawan Terverifikasi • Jakarta</Typography>
                 </div>
-              </div>
-            </div>
-
+                <span className="px-2 py-1 bg-accent text-ink font-sans font-medium text-note">Terverifikasi</span>
+              </figcaption>
+            </figure>
           </div>
-
         </div>
-      </section>
+      </Section>
 
     </div>
   );
