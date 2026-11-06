@@ -108,7 +108,7 @@ body {
 .hero-overlay-dark {
   position: absolute;
   inset: 0;
-  background-color: rgba(7, 32, 91, 0.62);
+  background-color: rgba(0, 0, 0, 0.65);
   z-index: 5;
 }
 
