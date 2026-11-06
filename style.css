@@ -85,7 +85,7 @@ body {
   height: calc(100vh - 72px);
   min-height: 560px;
   overflow: hidden;
-  background-color: var(--c-primary);
+  background-color: #000000;
 }
 
 .hero-slide-item {
