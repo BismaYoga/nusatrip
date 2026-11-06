@@ -11,7 +11,17 @@ export default function Navbar({ currentRoute, setRoute }) {
           onClick={() => setRoute('home')} 
           className="flex items-center gap-2.5 text-left group focus:outline-none"
         >
-          <div className="w-8 h-8 rounded-none bg-[#ffd988] text-[#07205b] flex items-center justify-center font-bold text-sm">
+          <img 
+            src="assets/logo.png" 
+            alt="NusaTrip Logo" 
+            className="h-9 w-auto max-h-9 object-contain" 
+            onError={(e) => {
+              e.currentTarget.style.display = 'none';
+              const fb = e.currentTarget.nextElementSibling;
+              if (fb) fb.style.display = 'flex';
+            }}
+          />
+          <div className="w-8 h-8 rounded-none bg-[#ffd988] text-[#07205b] hidden items-center justify-center font-bold text-sm">
             N
           </div>
           <div className="flex flex-col">

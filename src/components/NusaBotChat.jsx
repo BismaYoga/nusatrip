@@ -167,8 +167,8 @@ export default function NusaBotChat() {
           {/* Header */}
           <div className="px-4 py-3 bg-[#07205b] text-[#ffffff] flex items-center justify-between border-b border-[#1841a2]/30">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-[#1841a2] flex items-center justify-center text-[#ffd988]">
-                <Sparkles className="w-4 h-4" />
+              <div className="w-8 h-8 bg-[#1841a2] flex items-center justify-center p-1">
+                <img src="assets/logo.png" alt="NusaBot" className="w-6 h-6 object-contain" />
               </div>
               <div>
                 <h4 className="font-serif font-bold text-sm text-[#ffffff] flex items-center gap-1.5">
@@ -316,7 +316,7 @@ export default function NusaBotChat() {
         className="h-12 px-4 rounded-none bg-[#07205b] hover:bg-[#1841a2] text-[#ffd988] flex items-center justify-center gap-2 shadow-2xl transition border border-[#ffd988]/40 group"
         title="Tanya NusaBot AI"
       >
-        <Sparkles className="w-5 h-5 text-[#ffd988]" />
+        <img src="assets/logo.png" alt="NusaBot" className="w-5 h-5 object-contain" />
         <span className="text-xs font-bold text-[#ffffff] tracking-wide font-sans">Tanya NusaBot</span>
       </button>
 
