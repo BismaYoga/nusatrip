@@ -6,23 +6,47 @@
   <title>NusaTrip Indonesia — Platform Perencana Liburan Nusantara Cerdas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Serif: Libre Baskerville (H1, H2) · Sans: Instrument Sans (Deskripsi, Paragraf, Note) -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    /* Design tokens (Atomic Design) — dipakai lewat class Tailwind:
+       warna  : bg-primary, text-secondary, bg-accent, text-ink, bg-canvas, border-line
+       font   : font-serif, font-sans
+       ukuran : text-h1, text-h2, text-desc, text-body, text-note  (5 ukuran saja)
+       spacing: kelipatan 8px (p-2=8, p-4=16, p-6=24, p-8=32, p-12=48, p-16=64) */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#07205b',
+            secondary: '#1841a2',
+            accent: '#ffd988',
+            ink: '#282828',
+            canvas: '#f8f8f8',
+            line: '#e4e4e4'
+          },
+          fontFamily: {
+            serif: ['"Libre Baskerville"', 'Georgia', 'serif'],
+            sans: ['"Instrument Sans"', 'system-ui', 'sans-serif']
+          },
+          fontSize: {
+            h1: ['3rem', { lineHeight: '3.5rem' }],      /* 48 / 56 */
+            h2: ['2rem', { lineHeight: '2.5rem' }],      /* 32 / 40 */
+            desc: ['1.25rem', { lineHeight: '2rem' }],   /* 20 / 32 */
+            body: ['1rem', { lineHeight: '1.5rem' }],    /* 16 / 24 */
+            note: ['0.75rem', { lineHeight: '1rem' }],   /* 12 / 16 */
+            price: ['2rem', { lineHeight: '2.5rem' }]    /* 32 / 40 — sama dengan h2 */
+          }
+        }
+      }
+    };
+  </script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #f8f8f8;
-      color: #282828;
-    }
-    h1, h2, h3, h4, .font-serif {
-      font-family: 'Libre Baskerville', serif;
-    }
-  </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between selection:bg-[#fed988] selection:text-[#061e5a]">
+<body class="min-h-screen flex flex-col justify-between selection:bg-accent selection:text-primary">
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

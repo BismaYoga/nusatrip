@@ -29,10 +29,10 @@ export default function About() {
       {/* Hero Header */}
       <section className="py-16 sm:py-20 border-b border-[#ededed] bg-[#ffffff]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
-          <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
+          <span className="text-xs font-bold tracking-widest uppercase text-[#1841a2] block">
             Tentang NusaTrip
           </span>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#061e5a]">
+          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#07205b]">
             Dedikasi untuk Pariwisata Kepulauan Indonesia
           </h1>
           <p className="text-xs sm:text-sm text-[#595959] max-w-2xl mx-auto leading-relaxed">
@@ -47,10 +47,10 @@ export default function About() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#18409f]">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1841a2]">
                 Visi &amp; Misi
               </span>
-              <h2 className="text-2xl font-serif font-bold text-[#061e5a]">
+              <h2 className="text-2xl font-serif font-bold text-[#07205b]">
                 Menghadirkan Rencana Liburan Otentik &amp; Efisien
               </h2>
               <p className="text-xs text-[#595959] leading-relaxed">
@@ -62,18 +62,18 @@ export default function About() {
             </div>
 
             <div className="p-8 bg-[#ffffff] border border-[#ededed] space-y-4 rounded-none shadow-xs">
-              <h3 className="font-serif font-bold text-lg text-[#061e5a]">Tiga Komitmen Utama</h3>
+              <h3 className="font-serif font-bold text-lg text-[#07205b]">Tiga Komitmen Utama</h3>
               <ul className="space-y-3 text-xs text-[#595959]">
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#061e5a] mt-1.5 shrink-0"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#07205b] mt-1.5 shrink-0"></span>
                   <span><strong>Zero Kemacetan Berlebih:</strong> Mengutamakan rute searah per hari demi memaksimalkan waktu rekreasi.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#061e5a] mt-1.5 shrink-0"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#07205b] mt-1.5 shrink-0"></span>
                   <span><strong>Transparansi Biaya:</strong> Memberikan rincian harga tiket masuk resmi dan tarif sewa kendaraan yang wajar.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#061e5a] mt-1.5 shrink-0"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#07205b] mt-1.5 shrink-0"></span>
                   <span><strong>Keamanan &amp; Privasi:</strong> Data sesi percakapan Anda terlindungi aman di browser tanpa kebocoran data.</span>
                 </li>
               </ul>
@@ -88,7 +88,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-8">
           
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-serif font-bold text-[#061e5a]">Pertanyaan yang Sering Diajukan (FAQ)</h2>
+            <h2 className="text-2xl font-serif font-bold text-[#07205b]">Pertanyaan yang Sering Diajukan (FAQ)</h2>
             <p className="text-xs text-[#595959]">Semua hal yang perlu Anda ketahui mengenai platform NusaTrip.</p>
           </div>
 
@@ -98,10 +98,10 @@ export default function About() {
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === idx ? -1 : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-serif font-bold text-sm text-[#061e5a] hover:bg-[#ededed]/60 transition"
+                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-serif font-bold text-sm text-[#07205b] hover:bg-[#ededed]/60 transition"
                 >
                   <span>{faq.q}</span>
-                  {openFaq === idx ? <ChevronUp className="w-4 h-4 text-[#061e5a] shrink-0" /> : <ChevronDown className="w-4 h-4 text-[#595959] shrink-0" />}
+                  {openFaq === idx ? <ChevronUp className="w-4 h-4 text-[#07205b] shrink-0" /> : <ChevronDown className="w-4 h-4 text-[#595959] shrink-0" />}
                 </button>
                 {openFaq === idx && (
                   <div className="p-4 pt-0 text-xs text-[#595959] leading-relaxed border-t border-[#ededed]/50 bg-[#ffffff]">
@@ -118,7 +118,7 @@ export default function About() {
       {/* Privacy Policy Summary */}
       <section className="py-12 bg-[#f8f8f8]" id="policy">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 space-y-4">
-          <h2 className="text-lg font-serif font-bold text-[#061e5a]">Kebijakan Privasi (Privacy Policy)</h2>
+          <h2 className="text-lg font-serif font-bold text-[#07205b]">Kebijakan Privasi (Privacy Policy)</h2>
           <div className="p-6 bg-[#ffffff] border border-[#ededed] space-y-3 text-xs text-[#595959] leading-relaxed rounded-none">
             <p>
               NusaTrip berkomitmen menjaga integritas dan kerahasiaan data setiap pengguna. Sistem kami tidak memperjualbelikan informasi penelusuran liburan Anda kepada pihak ketiga mana pun.

@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function Footer({ setRoute }) {
   return (
-    <footer className="w-full bg-[#061e5a] text-[#ffffff] pt-12 pb-8 border-t border-[#18409f]/30">
+    <footer className="w-full bg-[#07205b] text-[#ffffff] pt-12 pb-8 border-t border-[#1841a2]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#18409f]/30 text-xs">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pb-8 border-b border-[#1841a2]/30 text-xs">
           
           {/* Left: Sosmed 1, Sosmed 2, Sosmed 3 */}
           <div className="flex items-center gap-6">
@@ -13,7 +13,7 @@ export default function Footer({ setRoute }) {
               href="https://instagram.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-[#fed988] transition"
+              className="hover:text-[#ffd988] transition"
             >
               Sosmed 1 (Instagram)
             </a>
@@ -21,7 +21,7 @@ export default function Footer({ setRoute }) {
               href="https://twitter.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-[#fed988] transition"
+              className="hover:text-[#ffd988] transition"
             >
               Sosmed 2 (X / Twitter)
             </a>
@@ -29,7 +29,7 @@ export default function Footer({ setRoute }) {
               href="https://tiktok.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-[#fed988] transition"
+              className="hover:text-[#ffd988] transition"
             >
               Sosmed 3 (TikTok)
             </a>
@@ -39,14 +39,14 @@ export default function Footer({ setRoute }) {
           <div className="flex items-center gap-6">
             <button 
               onClick={() => setRoute('about')} 
-              className="hover:text-[#fed988] transition"
+              className="hover:text-[#ffd988] transition"
             >
               FAQ
             </button>
             <span>•</span>
             <button 
               onClick={() => setRoute('about')} 
-              className="hover:text-[#fed988] transition"
+              className="hover:text-[#ffd988] transition"
             >
               Policy (Kebijakan Privasi)
             </button>
