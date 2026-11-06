@@ -7,6 +7,1215 @@ import json
 import re
 
 REAL_REGIONS_SPOTS = {
+    "bali": {
+        "region_name": "Pulau Bali (Semua Wilayah)",
+        "quick_desc": "Pulau Dewata lengkap mencakup 8 Kabupaten, 1 Kota Denpasar, serta gugusan pulau Nusa Penida, Nusa Lembongan, dan Nusa Ceningan.",
+        "center_lat": -8.4095, "center_lng": 115.1889, "zoom": 10,
+        "best_season": "Apr - Okt • Kemarau Tropis & Seluruh Rute Wisata Terbuka Optimal",
+        "tips": ["Sewa mobil dengan driver sangat disarankan untuk rute antar zona", "Kenakan pakaian sopan (kain sarung & selendang) saat memasuki area pura suci", "Untuk penyeberangan ke Nusa Penida, gunakan fast boat dari Pantai Sanur di pagi hari"],
+        "base_costs": {"stay": 650000, "transport": 450000, "food": 250000, "misc": 100000},
+        "all_spots": [
+            {
+                        "name": "Pantai Kelingking (T-Rex Cliff)",
+                        "lat": -8.7511,
+                        "lng": 115.4744,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 10000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "38.000+ ulasan",
+                        "gmaps_review_highlight": "Pemandangan tebing terindah di Indonesia! Air lautnya hijau toska dengan deburan ombak megah.",
+                        "desc": "Formasi tebing batu karang spektakuler menyerupai kepala dinosaurus T-Rex yang menjorok ke perairan toska Samudra Hindia.",
+                        "tips": "Jika turun ke bibir pantai di bawah tebing, pastikan fisik prima (butuh waktu 45 menit turun-naik tangga terjal).",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Broken Beach (Pasih Uug)",
+                        "lat": -8.7336,
+                        "lng": 115.4542,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 10000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "21.000+ ulasan",
+                        "gmaps_review_highlight": "Jembatan karang alaminya luar biasa megah. Dari atas tebing kita bisa melihat ikan pari manta berenang di laut lepas.",
+                        "desc": "Tebing melingkar dengan terowongan jembatan karang alami tempat air laut samudera mengalir keluar masuk teluk.",
+                        "tips": "Jalur setapak melingkari tebing sangat fotogenik, berhati-hatilah saat mengambil foto di tepi karang.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Angel's Billabong",
+                        "lat": -8.7348,
+                        "lng": 115.4517,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 10000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "19.000+ ulasan",
+                        "gmaps_review_highlight": "Gradasi warna air kolam karang antara hijau zamrud dan biru lautnya sangat memesona.",
+                        "desc": "Kolam renang alami muara tebing batu karang zamrud tepat di bibir tebing Samudra Hindia.",
+                        "tips": "Dilarang berenang saat air laut pasang atau ombak besar menerjang demi keselamatan.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Crystal Bay (Teluk Penida)",
+                        "lat": -8.7153,
+                        "lng": 115.4578,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 10000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "16.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat bersantai sore paling damai di Nusa Penida. Sunset tepat di balik pulau karang kecil di tengah teluk.",
+                        "desc": "Pantai teluk berpasir putih dikelilingi pohon kelapa rindang, tempat terbaik sunset dan snorkeling koral sehat.",
+                        "tips": "Sewa kacamata snorkel dan fin di warung pantai untuk melihat ikan badut dan koral sehat 15 meter dari bibir pantai.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Diamond (Diamond Beach)",
+                        "lat": -8.7842,
+                        "lng": 115.6186,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 15000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "27.000+ ulasan",
+                        "gmaps_review_highlight": "Tangga tebingnya salah satu spot foto terikonik di dunia. Pasir putih lembut dan air laut sangat bersih.",
+                        "desc": "Tebing karst megah berbentuk intan permata dengan tangga tebing batu pahatan tangan menuju hamparan pasir putih berkilau.",
+                        "tips": "Waktu foto terbaik pukul 08.00–11.00 pagi saat sinar matahari menyinari langsung seluruh dinding tebing putih.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Atuh (Atuh Beach)",
+                        "lat": -8.7831,
+                        "lng": 115.6208,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 10000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Teluk damai dengan batu karang berlubang di tengah laut. Suasana sangat eksotis dan asri.",
+                        "desc": "Teluk pasir putih tersembunyi berlatar pulau karang bolong alami dengan ombak tenang yang ramah untuk berenang.",
+                        "tips": "Tersedia deretan payung pantai dan kelapa muda segar di warung lokal tepi pantai.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Rumah Pohon Molenteng & Raja Lima",
+                        "lat": -8.7819,
+                        "lng": 115.6175,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 25000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Gugusan pulau karang hijau di tengah laut biru membuat pemandangan ini tampak seperti lukisan.",
+                        "desc": "Sudut pandang gugusan pulau karang seribu menyerupai panorama Raja Ampat dari anjungan rumah pohon kayu eksotis.",
+                        "tips": "Siapkan nomor antrean foto rumah pohon lebih awal untuk menghindari antrean di siang terik.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Snorkeling & Diving Pari Manta (Manta Point)",
+                        "lat": -8.7981,
+                        "lng": 115.495,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 3.0,
+                        "price": 175000,
+                        "rating": 4.9,
+                        "gmaps_reviews": "12.000+ ulasan",
+                        "gmaps_review_highlight": "Pengalaman magis seumur hidup! Melihat 4 ekor manta ray berenang anggun di bawah perahu kami.",
+                        "desc": "Spot penyelaman kelas dunia untuk berenang langsung berdampingan dengan kawanan ikan pari Manta raksasa liar.",
+                        "tips": "Gunakan operator boat berlisensi dan taati jarak aman (minimal 3 meter) saat pari Manta mendekat.",
+                        "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Devil's Tear Nusa Lembongan",
+                        "lat": -8.6872,
+                        "lng": 115.4311,
+                        "categories": [
+                                    "alam",
+                                    "pantai"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "15.000+ ulasan",
+                        "gmaps_review_highlight": "Tenaga ombaknya luar biasa spektakuler! Saat sunset tercipta pelangi air laut di udara.",
+                        "desc": "Deburan ombak Samudra Hindia raksasa yang menerjang celah karang menghasilkan semburan kabut air laut dan pelangi alami.",
+                        "tips": "Jangan berdiri terlalu dekat di tepi tebing licin basah karena ombak tak terduga bisa menyapu permukaan karang.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Dream Beach Nusa Lembongan",
+                        "lat": -8.6883,
+                        "lng": 115.435,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.0,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "11.000+ ulasan",
+                        "gmaps_review_highlight": "Salah satu pantai terindah di Lembongan. Pasir putih halus dan panorama tebing yang memukau.",
+                        "desc": "Pantai teluk berpasir putih lembut dengan air laut toska jernih dan deretan kafe tepi tebing menghadap samudera.",
+                        "tips": "Cocok untuk berjemur dan santai sore, namun perhatikan bendera peringatan bila ombak sedang tinggi.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Yellow Bridge (Jembatan Kuning Lembongan-Ceningan)",
+                        "lat": -8.6942,
+                        "lng": 115.4503,
+                        "categories": [
+                                    "budaya",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.0,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "9.000+ ulasan",
+                        "gmaps_review_highlight": "Ikon penghubung Lembongan dan Ceningan. Menyeberang dengan motor sambil melihat air laut jernih di bawahnya.",
+                        "desc": "Jembatan gantung kuning ikonik yang menghubungkan Nusa Lembongan dan Nusa Ceningan di atas selat laut biru tenang.",
+                        "tips": "Hanya dapat dilalui pejalan kaki dan sepeda motor roda dua. Spot foto khas kepulauan Nusa.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Blue Lagoon Nusa Ceningan",
+                        "lat": -8.7106,
+                        "lng": 115.4419,
+                        "categories": [
+                                    "alam",
+                                    "pantai"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.8,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Warna air lautnya benar-benar biru toska neon alami, pemandangan spektakuler yang wajib dikunjungi.",
+                        "desc": "Laguna teluk tebing kapur dengan warna air laut biru toska susu (milky turquoise) paling magis dan dramatis di Bali.",
+                        "tips": "Air laut di teluk ini sangat pekat toska karena pantulan dasar kapur putih murni.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Luhur Uluwatu & Tari Kecak",
+                        "lat": -8.8291,
+                        "lng": 115.0849,
+                        "categories": [
+                                    "budaya",
+                                    "relaksasi",
+                                    "pantai"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 50000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "82.000+ ulasan",
+                        "gmaps_review_highlight": "Magis dan sakral. Tari Kecak dengan latar belakang matahari terbenam di samudra lepas tidak tertandingi.",
+                        "desc": "Pura sakral di atas tebing karang 70 meter menghadap Samudra Hindia dengan pertunjukan Tari Kecak magis saat sunset.",
+                        "tips": "Amankan kacamata dan topi dari kera usil di sekitar jalan setapak tebing.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Melasti Ungasan",
+                        "lat": -8.8475,
+                        "lng": 115.1583,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.0,
+                        "price": 15000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "34.000+ ulasan",
+                        "gmaps_review_highlight": "Jalan membelah tebing kapurnya sangat megah. Pantainya luas, bersih, dan berair toska bening.",
+                        "desc": "Pantai berpasir putih bersih dengan akses jalan aspal spektakuler membelah tebing kapur putih tinggi.",
+                        "tips": "Waktu terbaik berenang adalah saat air laut pasang sedang (siang menjelang sore).",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Padang Padang (Labuan Sait)",
+                        "lat": -8.8111,
+                        "lng": 115.1039,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 15000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "29.000+ ulasan",
+                        "gmaps_review_highlight": "Melewati celah lorong batu karang untuk menuju pantainya memberi sensasi menemukan hidden paradise.",
+                        "desc": "Pantai pasir putih eksotis di balik celah sempit gua batu karang, terkenal sebagai lokasi syuting film Eat Pray Love.",
+                        "tips": "Akses masuk melewati celah batu unik satu arah; datang sebelum pukul 10.00 agar tidak terlalu ramai.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Suluban (Blue Point Uluwatu)",
+                        "lat": -8.8178,
+                        "lng": 115.0872,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 10000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Gua karang tempat masuknya pantai ini luar biasa eksotis. Pemandangan tebing dan ombaknya luar biasa.",
+                        "desc": "Akses unik menuruni celah gua karang sempit menuju deburan ombak selancar kelas dunia Samudra Hindia.",
+                        "tips": "Sangat cocok untuk menikmati kopi di kafe tebing Single Fin sambil menonton aksi peselancar profesional.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Pandawa",
+                        "lat": -8.8447,
+                        "lng": 115.1867,
+                        "categories": [
+                                    "pantai",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 15000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "42.000+ ulasan",
+                        "gmaps_review_highlight": "Sangat ramah keluarga dan anak-anak. Ombaknya tenang karena terhalang karang luar.",
+                        "desc": "Pantai pasir putih berombak tenang diapit tebing kapur berukir patung ksatria Panca Pandawa dan Dewi Kunti.",
+                        "tips": "Tersedia persewaan kano kano ganda lengkap dengan pelampung untuk menyusuri perairan jernih tepi pantai.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Santap Seafood Bakar Teluk Jimbaran",
+                        "lat": -8.7719,
+                        "lng": 115.1667,
+                        "categories": [
+                                    "kuliner",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.0,
+                        "price": 150000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "55.000+ ulasan",
+                        "gmaps_review_highlight": "Ikan kakap bakar bumbu jimbaran dan sambal matahnya legendaris. Suasana malam dengan lilin di pantai sangat syahdu.",
+                        "desc": "Sensasi makan malam ikan kakap bakar bumbu Bali dan udang madu segar langsung di atas hamparan pasir pantai Jimbaran.",
+                        "tips": "Pilih meja paling depan di dekat air pasang surut untuk suasana santap malam romantis bertabur lilin.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Taman Budaya Garuda Wisnu Kencana (GWK)",
+                        "lat": -8.8105,
+                        "lng": 115.1678,
+                        "categories": [
+                                    "budaya",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 3.0,
+                        "price": 125000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "64.000+ ulasan",
+                        "gmaps_review_highlight": "Patungnya luar biasa megah dan terlihat dari seluruh penjuru Bali Selatan. Teater budayanya sangat memukau.",
+                        "desc": "Taman budaya megah dengan monumen Patung Dewa Wisnu menunggang Garuda setinggi 121 meter karya maestro Nyoman Nuarta.",
+                        "tips": "Tonton pagelaran tarian tradisional Bali gratis yang diadakan berkala setiap jam di Lotus Pond.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Batu Bolong & Echo Beach (Canggu)",
+                        "lat": -8.6592,
+                        "lng": 115.1306,
+                        "categories": [
+                                    "pantai",
+                                    "kuliner",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "28.000+ ulasan",
+                        "gmaps_review_highlight": "Pusat nomad dan surfer. Sunset di pinggir pantai sambil mendengarkan musik akustik sangat menyenangkan.",
+                        "desc": "Sentra gaya hidup selancar, kafe kopi artisan, dan sunset beat pantai Canggu yang berdenyut dinamis.",
+                        "tips": "Sewa papan selancar pemula bersama instruktur lokal berlisensi saat air surut di pagi hari.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Taman Ayun Mengwi (UNESCO)",
+                        "lat": -8.5414,
+                        "lng": 115.1725,
+                        "categories": [
+                                    "budaya",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 30000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Pura peninggalan kerajaan yang terawat dengan sangat asri. Kolam teratai yang mengelilingi pura memberi ketenangan.",
+                        "desc": "Pura peninggalan Kerajaan Mengwi abad ke-17 yang dikelilingi kolam parit teratai indah dan deretan pelinggih meru bertingkat tinggi.",
+                        "tips": "Jelajahi jembatan taman melingkar untuk memotret jajaran meru bertingkat sebelas dari sudut terbaik.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Hutan Kera Sangeh (Sangeh Monkey Forest)",
+                        "lat": -8.4808,
+                        "lng": 115.2078,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 30000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "12.000+ ulasan",
+                        "gmaps_review_highlight": "Pohon-pohon pala raksasanya sangat teduh dan sakral. Kera di sini lebih tenang dibandingkan di tempat lain.",
+                        "desc": "Cagar alam hutan pohon pala raksasa berusia ratusan tahun yang dihuni kawanan kera abu-abu ekor panjang yang ramah.",
+                        "tips": "Beli pisang di loket resmi dan didampingi pemandu lokal jika ingin berfoto bersama kera.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Nungnung Petang",
+                        "lat": -8.3297,
+                        "lng": 115.23,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 20000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "8.500+ ulasan",
+                        "gmaps_review_highlight": "Gemuruh air terjunnya luar biasa bertenaga! Hawanya sejuk segar dan pemandangan lembahnya masih alami.",
+                        "desc": "Air terjun megah setinggi 50 meter dengan debit air deras di lembah hutan tropis sejuk dataran tinggi Badung Utara.",
+                        "tips": "Siapkan stamina untuk menuruni dan menaiki sekitar 500 anak tangga beton yang tertata rapi.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Hutan Monyet Ubud (Sacred Monkey Forest)",
+                        "lat": -8.5194,
+                        "lng": 115.2631,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 80000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "58.000+ ulasan",
+                        "gmaps_review_highlight": "Hutan purba dengan pohon beringin raksasa berakar gantung. Sangat magis dan asri di tengah kota Ubud.",
+                        "desc": "Cagar alam hutan hujan tropis lebat di jantung Ubud yang dihuni ribuan kera ekor panjang dan pura kuno abad ke-14.",
+                        "tips": "Hindari menatap mata kera langsung dan jangan membawa plastik kresek atau botol minuman terbuka.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Puri Saren Agung & Pasar Seni Ubud",
+                        "lat": -8.5069,
+                        "lng": 115.2625,
+                        "categories": [
+                                    "budaya",
+                                    "kuliner"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "32.000+ ulasan",
+                        "gmaps_review_highlight": "Arsitektur gerbang batu bata merah khas Bali yang sangat otentik. Pusat denyut seni dan sejarah Ubud.",
+                        "desc": "Istana peninggalan Kerajaan Ubud dengan arsitektur ukiran klasik Bali dan sentra cinderamata seni tepat di seberangnya.",
+                        "tips": "Di malam hari, halaman istana menggelar pertunjukan tari legong dan tari barong tradisional berkarcis.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Campuhan Ridge Walk (Bukit Cinta)",
+                        "lat": -8.5036,
+                        "lng": 115.2558,
+                        "categories": [
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.8,
+                        "gmaps_reviews": "24.000+ ulasan",
+                        "gmaps_review_highlight": "Jalur trekking paling damai. Pemandangan bukit hijau dan lembah sungainya menyegarkan mata dan pikiran.",
+                        "desc": "Jalur setapak pedestrian di atas punggungan bukit berilalang sejuk diapit dua lembah sungai asri Ubud.",
+                        "tips": "Datang pukul 06.00–07.00 pagi untuk menikmati kabut pagi tipis dan embun sejuk tanpa keramaian.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Terasering Sawah Ceking Tegallalang",
+                        "lat": -8.4319,
+                        "lng": 115.2792,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 25000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "46.000+ ulasan",
+                        "gmaps_review_highlight": "Sistem subak terasering yang luar biasa jenius dan fotogenik. Pemandangan hijau zamrud tiada duanya.",
+                        "desc": "Undakan sawah terasering beririgasi subak terdaftar warisan dunia UNESCO dengan pemandangan lembah hijau asri.",
+                        "tips": "Susuri pematang sawah di seberang jurang untuk mendapatkan sudut foto terasering sawah tanpa terhalang kafe.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Tirta Empul Tampaksiring",
+                        "lat": -8.415,
+                        "lng": 115.315,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 50000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "39.000+ ulasan",
+                        "gmaps_review_highlight": "Pengalaman spiritual melukat yang sangat menenangkan. Air pancurannya sangat segar bersumber langsung dari mata air dasar bumi.",
+                        "desc": "Pura mata air suci tempat ritual melukat (penyucian diri spiritual) dengan 30 pancuran air jernih alami sejak abad ke-10.",
+                        "tips": "Ganti pakaian dengan kain sarung khusus melukat di loket locker sebelum masuk ke kolam pancuran suci.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Candi Tebing Gunung Kawi Tampaksiring",
+                        "lat": -8.4233,
+                        "lng": 115.3125,
+                        "categories": [
+                                    "budaya",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 30000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "16.000+ ulasan",
+                        "gmaps_review_highlight": "Candi pahatan tebing batu purba yang sangat megah. Berada di dasar lembah sungai yang rindang dan sunyi.",
+                        "desc": "Kompleks monumen candi purba abad ke-11 setinggi 7 meter yang dipahat langsung di dinding tebing batu cadas Sungai Pakerisan.",
+                        "tips": "Menuruni sekitar 300 anak tangga berpagar sawah dan lembah sungai yang sangat menenangkan.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Tegenungan Kemenuh",
+                        "lat": -8.5753,
+                        "lng": 115.2889,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 20000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "31.000+ ulasan",
+                        "gmaps_review_highlight": "Air terjun yang aksesnya paling mudah dan tertata rapi. Pemandangannya indah dan banyak spot foto menarik.",
+                        "desc": "Air terjun berdebit deras di lembah hijau asri Kemenuh yang memiliki akses tangga semen paling mudah dijangkau dari Denpasar.",
+                        "tips": "Banyak kafe dan warung dengan dek ayunan bambu berlatar pemandangan air terjun.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Situs Cagar Budaya Goa Gajah",
+                        "lat": -8.5233,
+                        "lng": 115.2872,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 50000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "22.000+ ulasan",
+                        "gmaps_review_highlight": "Nilai sejarahnya sangat tinggi. Perpaduan peninggalan Hindu dan Buddha dalam satu kompleks suci.",
+                        "desc": "Gua meditasi bersejarah abad ke-11 dengan mulut gua berukir kepala raksasa Kala dan kolam pemandian kuno berpatung widyadara.",
+                        "tips": "Kunjungi lembah sungai di bagian belakang gua tempat reruntuhan stupa batu purba terbaring alami di antara aliran air.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Ulun Danu Beratan Bedugul",
+                        "lat": -8.275,
+                        "lng": 115.1656,
+                        "categories": [
+                                    "budaya",
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 40000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "68.000+ ulasan",
+                        "gmaps_review_highlight": "Pura paling indah dan sejuk di Bali. Kabut tipis di atas danau memberikan suasana magis yang sangat tenang.",
+                        "desc": "Ikon kebanggaan Indonesia di pecahan uang kertas Rp 50.000, pura terapung sakral di Danau Beratan berlatar perbukitan berkabut.",
+                        "tips": "Sewa perahu angsa kayuh atau boat cepat keliling danau untuk memotret pura dari sisi perairan.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Kebun Raya Bali (Eka Karya Bedugul)",
+                        "lat": -8.2833,
+                        "lng": 115.1558,
+                        "categories": [
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 30000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "25.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat piknik keluarga nomor satu di Bali. Udaranya sangat dingin dan pohon-pohon purbanya menakjubkan.",
+                        "desc": "Taman botani konservasi terluas di Indonesia (157 hektar) dengan koleksi anggrek liar, hutan pakis raksasa, dan bukit rumput piknik.",
+                        "tips": "Sewa sepeda listrik atau skuter di gerbang utama untuk berkeliling area kebun raya yang sangat luas.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Terasering Sawah Jatiluwih (UNESCO)",
+                        "lat": -8.3686,
+                        "lng": 115.1311,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 40000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "29.000+ ulasan",
+                        "gmaps_review_highlight": "Lansekap persawahan terindah yang pernah saya lihat di dunia. Skala sawah berundaknya sangat masif dan menakjubkan.",
+                        "desc": "Hamparan sawah terasering berundak seluas 600 hektar di lereng Gunung Batukaru yang menerapkan sistem irigasi subak UNESCO.",
+                        "tips": "Pilih rute jalan setapak jalur merah (jalur pendek 1.5 km) atau jalur biru untuk pemandangan terbaik tanpa lelah berlebih.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Tanah Lot & Batu Bolong",
+                        "lat": -8.6211,
+                        "lng": 115.0864,
+                        "categories": [
+                                    "budaya",
+                                    "pantai"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 60000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "92.000+ ulasan",
+                        "gmaps_review_highlight": "Matahari terbenam di balik Pura Tanah Lot adalah pemandangan ikonik yang wajib dilihat sekali seumur hidup.",
+                        "desc": "Pura sakral pemujaan dewa laut di atas bongkahan batu karang samudera dengan siluet matahari terbenam paling legendaris di Pulau Bali.",
+                        "tips": "Saat air laut surut sore hari, Anda dapat menyeberang mendekat ke kaki pura dan membasuh muka di sumber air tawar suci.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Leke Leke Baturiti",
+                        "lat": -8.3183,
+                        "lng": 115.2056,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 50000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "11.000+ ulasan",
+                        "gmaps_review_highlight": "Air terjun tersembunyi yang sangat cantik dan fotogenik. Jalur jalan kakinya menyenangkan dan tidak terlalu melelahkan.",
+                        "desc": "Air terjun ramping anggun yang jatuh di celah tebing batu berlumut hijau diapit kanopi hutan tropis lebat yang sunyi.",
+                        "tips": "Jalur trekking melewati jembatan bambu dan perkebunan kopi yang tertata sangat bersih dan alami.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Desa Tradisional Penglipuran",
+                        "lat": -8.4528,
+                        "lng": 115.3589,
+                        "categories": [
+                                    "budaya",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 25000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "41.000+ ulasan",
+                        "gmaps_review_highlight": "Desa adat yang luar biasa bersih, tertib, dan harmonis. Warga sangat ramah menyambut tamu di pekarangan rumahnya.",
+                        "desc": "Desa adat tercantik dan terbersih di dunia dengan tata ruang desa linear seragam berpagar bambu dan bebas dari polusi kendaraan bermotor.",
+                        "tips": "Coba minuman khas loloh cemcem herbal segar berkhasiat yang dibuat langsung oleh ibu-ibu warga desa.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Hutan Bambu Penglipuran",
+                        "lat": -8.4489,
+                        "lng": 115.3594,
+                        "categories": [
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.0,
+                        "price": 0,
+                        "rating": 4.8,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Lorong kanopi bambunya sangat rindang dan meneduhkan hati. Udara pegunungan yang sangat segar.",
+                        "desc": "Hutan lindung bambu alami seluas 45 hektar di ujung utara Desa Penglipuran dengan kanopi teduh dan udara sejuk berhembus.",
+                        "tips": "Jalur aspal mulus di tengah rimbunnya rumpun bambu sangat fotogenik dan tenang.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Gardu Pandang & Kafe Kopi Kintamani",
+                        "lat": -8.2778,
+                        "lng": 115.3458,
+                        "categories": [
+                                    "kuliner",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 0,
+                        "rating": 4.8,
+                        "gmaps_reviews": "36.000+ ulasan",
+                        "gmaps_review_highlight": "Pemandangan ngarai kaldera dan Gunung Batur terbentang sempurna di depan meja kopi. Tempat sarapan terbaik di Bali.",
+                        "desc": "Menikmati seduhan kopi Arabika Kintamani di deretan kafe berarsitektur modern dengan lanskap megah kaldera Gunung Batur dan Danau Batur.",
+                        "tips": "Datang antara pukul 08.00–10.00 pagi untuk pemandangan terjelas sebelum kabut gunung turun menyelimuti kaldera.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Sunrise Trekking & Kaldera Gunung Batur",
+                        "lat": -8.2417,
+                        "lng": 115.3789,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 4.0,
+                        "price": 250000,
+                        "rating": 4.9,
+                        "gmaps_reviews": "28.000+ ulasan",
+                        "gmaps_review_highlight": "Lautan awan saat matahari terbit adalah keajaiban visual. Kerja keras mendaki 2 jam terbayar lunas seketika.",
+                        "desc": "Pendakian dini hari menuju puncak 1.717 mdpl untuk menyaksikan matahari terbit emas spektakuler di atas lautan awan kaldera.",
+                        "tips": "Mulai mendaki pukul 03.30 dini hari dipandu pemandu lokal; nikmati sarapan telur rebus uap belerang alami di puncak.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pemandian Air Panas Alami Toya Devasya",
+                        "lat": -8.2611,
+                        "lng": 115.3956,
+                        "categories": [
+                                    "relaksasi",
+                                    "alam"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.5,
+                        "price": 100000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "19.000+ ulasan",
+                        "gmaps_review_highlight": "Berendam air hangat di tepi danau berhawa sejuk sambil memandangi danau dan gunung adalah relaksasi paripurna.",
+                        "desc": "Kolam renang air panas belerang alami hangat tepat di bibir Danau Batur berlatar dinding kaldera raksasa Gunung Abang.",
+                        "tips": "Sangat ideal untuk merelaksasi otot setelah mendaki Gunung Batur atau lelah berkendara jauh.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Tukad Cepung Tembuku",
+                        "lat": -8.4406,
+                        "lng": 115.3872,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 20000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "17.000+ ulasan",
+                        "gmaps_review_highlight": "Berkas cahaya matahari yang masuk ke dalam gua tebing air terjun sangat magis menyerupai pemandangan film fantasi.",
+                        "desc": "Air terjun tersembunyi di dalam gua tebing batu karang melingkar dengan berkas cahaya surga (sun rays) tembus dari atas gua.",
+                        "tips": "Datang pukul 09.30–11.30 saat posisi matahari tepat tegak lurus menyinari gua untuk berkas cahaya terindah.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Agung Besakih (The Mother Temple of Bali)",
+                        "lat": -8.3739,
+                        "lng": 115.4517,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 60000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "42.000+ ulasan",
+                        "gmaps_review_highlight": "Pura Ibu paling sakral dan megah di Bali. Berdiri di kaki Gunung Agung yang menjulang tinggi memberikan aura kekaguman.",
+                        "desc": "Kompleks pura terbesar dan paling disucikan di seluruh Bali, berdiri megah di lereng Gunung Agung dengan 86 pura bertingkat.",
+                        "tips": "Tiket sudah termasuk peminjaman kain sarung kamen dan jasa pengantaran mobil golf listrik menuju pelataran utama.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Penataran Agung Lempuyang (Gates of Heaven)",
+                        "lat": -8.3917,
+                        "lng": 115.6292,
+                        "categories": [
+                                    "budaya",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 55000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "36.000+ ulasan",
+                        "gmaps_review_highlight": "Candi bentar berlatar Gunung Agung adalah pemandangan paling spektakuler di Bali Timur.",
+                        "desc": "Candi Bentar legendaris gerbang surga dengan panorama bingkai simetris Gunung Agung yang menjulang megah di antara awan.",
+                        "tips": "Ambil nomor antrean foto di gerbang surga sejak pukul 06.30 pagi untuk pencahayaan terbaik bebas awan tebal.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Istana Air Tirta Gangga",
+                        "lat": -8.4122,
+                        "lng": 115.5873,
+                        "categories": [
+                                    "budaya",
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.0,
+                        "price": 50000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "48.000+ ulasan",
+                        "gmaps_review_highlight": "Kolam ikan koi dengan batu pijakan melingkarnya sangat cantik dan menyejukkan. Sangat terawat dan fotogenik.",
+                        "desc": "Taman air peninggalan Raja Karangasem dengan kolam air mata air alami bertingkat, patung dewa klasik, dan ribuan ikan koi jinak.",
+                        "tips": "Beli pelet pakan ikan di warung luar loket untuk pengalaman memberi makan kawanan koi raksasa di batu pijakan kolam.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Taman Ujung Soekasada",
+                        "lat": -8.4631,
+                        "lng": 115.6306,
+                        "categories": [
+                                    "budaya",
+                                    "alam"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.0,
+                        "price": 35000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "23.000+ ulasan",
+                        "gmaps_review_highlight": "Perpaduan arsitektur istana air yang luar biasa megah dan tenang. Jauh dari hiruk pikuk keramaian kota.",
+                        "desc": "Istana peristirahatan raja berpadu arsitektur kolonial Eropa dan Bali dengan jembatan pilar megah menghadap ke Selat Lombok.",
+                        "tips": "Naiki tangga pilar pilar tanpa atap di bukit untuk mendapatkan sudut pandang 360 derajat istana air dan laut.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Amed (Snorkeling & Siluet Gunung Agung)",
+                        "lat": -8.3486,
+                        "lng": 115.6569,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "19.000+ ulasan",
+                        "gmaps_review_highlight": "Suasana pantai santai paling damai. Duduk di kafe tepi bukit sambil melihat sunset di balik Gunung Agung tak terlupakan.",
+                        "desc": "Teluk pasir hitam vulkanik dengan jajaran perahu jukung warna-warni, terumbu karang pesisir dangkal, dan siluet sunset Gunung Agung.",
+                        "tips": "Bisa langsung snorkeling 10 meter dari bibir pantai di Jemeluk Bay untuk melihat patung bawah air dan terumbu karang.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Lembah Asri & Sawah Sidemen",
+                        "lat": -8.4722,
+                        "lng": 115.4472,
+                        "categories": [
+                                    "alam",
+                                    "budaya",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 0,
+                        "rating": 4.8,
+                        "gmaps_reviews": "12.000+ ulasan",
+                        "gmaps_review_highlight": "Seperti Ubud di masa 30 tahun lalu. Sangat asri, tenang, dengan pemandangan sawah dan Gunung Agung yang menyejukkan hati.",
+                        "desc": "Pedesaan Bali autentik di lembah berhawa sejuk yang dikelilingi petak sawah hijau, sungai jernih, dan sentra kerajinan tenun endek tradisional.",
+                        "tips": "Sewa sepeda atau berjalan kaki di sepanjang jalur pedesaan Bukit Ceeng saat pagi berkabut.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Lovina (Dolphin Tour Fajar)",
+                        "lat": -8.1583,
+                        "lng": 115.025,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.5,
+                        "price": 100000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "34.000+ ulasan",
+                        "gmaps_review_highlight": "Melihat puluhan lumba-lumba melompat bebas tepat di samping perahu saat matahari terbit adalah momen magis!",
+                        "desc": "Menyusuri perairan laut tenang Bali Utara dengan jukung tradisional untuk melihat kawanan lumba-lumba liar melompat di fajar matahari terbit.",
+                        "tips": "Datang ke dermaga pukul 05.30 pagi; setelah lumba-lumba Anda bisa berenang snorkeling koral karang Lovina.",
+                        "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Sekumpul & Air Terjun Fiji",
+                        "lat": -8.1747,
+                        "lng": 115.1814,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 3.0,
+                        "price": 30000,
+                        "rating": 4.9,
+                        "gmaps_reviews": "22.000+ ulasan",
+                        "gmaps_review_highlight": "Air terjun terindah di seluruh pulau Bali tanpa tanding. Kemegahan 7 air terjun bertingkatnya luar biasa spektakuler.",
+                        "desc": "Gugusan air terjun tertinggi dan terindah di Bali (80 meter) dengan 7 tirai air jatuh megah diapit dinding tebing hijau hutan perawan.",
+                        "tips": "Tersedia pilihan trekking pendek (viewpoint) atau trekking lengkap turun ke dasar kolam air terjun.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Banyumala Twin Waterfalls",
+                        "lat": -8.2178,
+                        "lng": 115.1486,
+                        "categories": [
+                                    "alam",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 30000,
+                        "rating": 4.8,
+                        "gmaps_reviews": "16.000+ ulasan",
+                        "gmaps_review_highlight": "Air terjun kembar yang sangat menenangkan. Kolamnya jernih kebiruan dan airnya sangat menyegarkan.",
+                        "desc": "Dua tirai air terjun kembar mengalir lembut menuruni dinding tebing bebatuan berselimut lumut ke dalam kolam alami jernih sejuk.",
+                        "tips": "Kolam alaminya sangat tenang dan aman untuk berenang menyegarkan diri di air pegunungan alami.",
+                        "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Air Terjun Gitgit Sukasada",
+                        "lat": -8.1917,
+                        "lng": 115.1389,
+                        "categories": [
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 20000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Air terjun bersejarah yang sangat mudah diakses saat perjalanan dari Bedugul menuju Singaraja.",
+                        "desc": "Air terjun legendaris setinggi 35 meter di jalur lintas Bedugul-Singaraja dengan jalur jalan setapak rindang perkebunan cengkih.",
+                        "tips": "Jalur jalan kaki berundak tertata rapi di antara deretan pohon cengkih dan warung kerajinan lokal.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pemandian Air Panas Alami Banjar",
+                        "lat": -8.2106,
+                        "lng": 114.9667,
+                        "categories": [
+                                    "relaksasi",
+                                    "alam"
+                        ],
+                        "ideal_time": "afternoon",
+                        "duration_hours": 2.0,
+                        "price": 20000,
+                        "rating": 4.6,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Air panas belerangnya sangat alami dan manjur untuk merelaksasi badan. Suasana taman tropisnya sangat damai.",
+                        "desc": "Tiga kolam air panas belerang alami yang memancar dari mulut patung naga batu di tengah rimbunnya taman tropis perbukitan Banjar.",
+                        "tips": "Pancuran air hangat bertingkat di kolam atas sangat nikmat untuk memijat punggung dan pundak yang pegal.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Taman Nasional Bali Barat & Pulau Menjangan",
+                        "lat": -8.0933,
+                        "lng": 114.5167,
+                        "categories": [
+                                    "pantai",
+                                    "alam"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 4.0,
+                        "price": 200000,
+                        "rating": 4.9,
+                        "gmaps_reviews": "15.000+ ulasan",
+                        "gmaps_review_highlight": "Terumbu karang paling sehat dan air paling jernih di seluruh Bali! Berenang bersama kawanan penyu dan ikan karang warna-warni.",
+                        "desc": "Surga dinding terumbu karang (wall diving) terbaik di Indonesia dengan kejernihan air laut hingga kedalaman 30 meter dan habitat rusa jinak.",
+                        "tips": "Naik boat carter dari Labuhan Lalang (30 menit menyeberang) lengkap dengan sewa alat snorkeling dan pelampung.",
+                        "image": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Sanur & Pelabuhan Fast Boat",
+                        "lat": -8.6833,
+                        "lng": 115.2639,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "46.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat terbaik melihat matahari terbit di Bali. Suasana pagi sangat damai dengan perahu jukung tradisional mengapung tenang.",
+                        "desc": "Pantai berpasir putih dengan ombak tenang yang terkenal sebagai spot sunrise terbaik dan pelabuhan penyeberangan kapal cepat ke Nusa Penida.",
+                        "tips": "Sewa sepeda santai di pinggir pantai seharga Rp 20.000/jam untuk menikmati jalan setapak tepi laut.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Monumen Bajra Sandhi Renon",
+                        "lat": -8.6717,
+                        "lng": 115.2339,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 25000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "28.000+ ulasan",
+                        "gmaps_review_highlight": "Arsitektur batunya sangat megah dan berkarakter kuat. Diorama sejarah di dalamnya sangat informatif dan mendidik.",
+                        "desc": "Monumen megah berarsitektur genta pendeta suci Hindu (Bajra) dengan 33 diorama sejarah perjuangan rakyat Bali dari zaman purba hingga kemerdekaan.",
+                        "tips": "Naiki tangga melingkar di ruang tengah monumen untuk mencapai puncak gardu pandang lantai 3 dengan pemandangan 360 derajat Kota Denpasar.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pasar Badung & Pasar Seni Kumbasari Heritage",
+                        "lat": -8.6575,
+                        "lng": 115.215,
+                        "categories": [
+                                    "kuliner",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Pasar tradisional yang sangat modern dan bersih. Belanja oleh-oleh seni di Kumbasari harganya jauh lebih ramah di kantong.",
+                        "desc": "Pusat heritage pasar tradisional terbesar di Bali di tepi bantaran Sungai Tukad Badung yang tertata bersih dengan jembatan lampu malam.",
+                        "tips": "Datang malam hari untuk menikmati street food kuliner khas Bali di bantaran sungai Tukad Badung (Korea-nya Denpasar).",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pantai Medewi (Left-Hand Point Break)",
+                        "lat": -8.4183,
+                        "lng": 114.9083,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat selancar legendaris dengan suasana pedesaan yang tenang. Jauh dari kebisingan kota dan sunsetnya sangat indah.",
+                        "desc": "Pantai berbatu hitam eksotis yang terkenal di kalangan peselancar internasional karena memiliki ombak kiri yang panjang dan konsisten.",
+                        "tips": "Nikmati kelapa muda bakar dan santap ikan laut segar di warung tebing tepi pantai sambil menikmati sunset tenang.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pohon Suci Bunut Bolong Pekutatan",
+                        "lat": -8.3611,
+                        "lng": 114.8875,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.0,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "7.500+ ulasan",
+                        "gmaps_review_highlight": "Fenomena alam yang sangat unik dan sakral. Jalan aspal yang menembus batang pohon raksasa sungguh luar biasa.",
+                        "desc": "Pohon beringin purba raksasa suci dengan lubang terowongan alami di bagian dasarnya yang dilewati jalan raya aspal.",
+                        "tips": "Kendaraan roda empat dapat melintas tepat di bawah rongga akar pohon yang dinaungi kanopi hijau rindang.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Dang Kahyangan Rambut Siwi",
+                        "lat": -8.3889,
+                        "lng": 114.7611,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 1.5,
+                        "price": 20000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "9.000+ ulasan",
+                        "gmaps_review_highlight": "Salah satu pura tebing tepi laut terindah di Bali Barat. Pemandangan samudera dan siluet puranya sangat mengesankan.",
+                        "desc": "Pura tebing karang megah peninggalan Dang Hyang Nirartha menghadap langsung ke Samudra Hindia dengan panorama pantai pasir hitam membentang.",
+                        "tips": "Suasana saat senja sangat damai dengan deburan ombak membentur tebing karang di bawah pelataran pura.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            }
+]
+    },
+    "denpasar": {
+        "region_name": "Kota Denpasar, Bali",
+        "quick_desc": "Pusat heritage dan denyut sejarah ibu kota Bali: keindahan fajar Pantai Sanur, monumen perjuangan rakyat Bajra Sandhi, dan sentra kuliner tradisional.",
+        "center_lat": -8.6700, "center_lng": 115.2300, "zoom": 12,
+        "best_season": "Sepanjang Tahun • Akses Fast Boat Terlengkap ke Nusa Penida",
+        "tips": ["Jalur pedestrian paving tepi Pantai Sanur sepanjang 5 km sangat cocok untuk bersepeda santai saat sunrise", "Kunjungi Monumen Bajra Sandhi Renon di pagi hari untuk menjelajahi museum diorama"],
+        "base_costs": {"stay": 550000, "transport": 350000, "food": 200000, "misc": 70000},
+        "all_spots": [
+            {
+                        "name": "Pantai Sanur & Pelabuhan Fast Boat",
+                        "lat": -8.6833,
+                        "lng": 115.2639,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 2.0,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "46.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat terbaik melihat matahari terbit di Bali. Suasana pagi sangat damai dengan perahu jukung tradisional mengapung tenang.",
+                        "desc": "Pantai berpasir putih dengan ombak tenang yang terkenal sebagai spot sunrise terbaik dan pelabuhan penyeberangan kapal cepat ke Nusa Penida.",
+                        "tips": "Sewa sepeda santai di pinggir pantai seharga Rp 20.000/jam untuk menikmati jalan setapak tepi laut.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Monumen Bajra Sandhi Renon",
+                        "lat": -8.6717,
+                        "lng": 115.2339,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 25000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "28.000+ ulasan",
+                        "gmaps_review_highlight": "Arsitektur batunya sangat megah dan berkarakter kuat. Diorama sejarah di dalamnya sangat informatif dan mendidik.",
+                        "desc": "Monumen megah berarsitektur genta pendeta suci Hindu (Bajra) dengan 33 diorama sejarah perjuangan rakyat Bali dari zaman purba hingga kemerdekaan.",
+                        "tips": "Naiki tangga melingkar di ruang tengah monumen untuk mencapai puncak gardu pandang lantai 3 dengan pemandangan 360 derajat Kota Denpasar.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pasar Badung & Pasar Seni Kumbasari Heritage",
+                        "lat": -8.6575,
+                        "lng": 115.215,
+                        "categories": [
+                                    "kuliner",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.5,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "18.000+ ulasan",
+                        "gmaps_review_highlight": "Pasar tradisional yang sangat modern dan bersih. Belanja oleh-oleh seni di Kumbasari harganya jauh lebih ramah di kantong.",
+                        "desc": "Pusat heritage pasar tradisional terbesar di Bali di tepi bantaran Sungai Tukad Badung yang tertata bersih dengan jembatan lampu malam.",
+                        "tips": "Datang malam hari untuk menikmati street food kuliner khas Bali di bantaran sungai Tukad Badung (Korea-nya Denpasar).",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            }
+]
+    },
+    "jembrana": {
+        "region_name": "Jembrana & Bali Barat",
+        "quick_desc": "Bali barat yang tenang dan alami: ombak kidal legendaris peselancar dunia di Medewi, pohon suci berlubang jalan raya, dan sabana pesisir.",
+        "center_lat": -8.3500, "center_lng": 114.7500, "zoom": 11,
+        "best_season": "Mei - Okt • Musim Angin Lepas Terbaik untuk Selancar Medewi",
+        "tips": ["Medewi terkenal sebagai salah satu spot point break kiri terpanjang di Indonesia", "Sempatkan berfoto di Bunut Bolong yang dilewati jalan raya aspal"],
+        "base_costs": {"stay": 450000, "transport": 350000, "food": 180000, "misc": 60000},
+        "all_spots": [
+            {
+                        "name": "Pantai Medewi (Left-Hand Point Break)",
+                        "lat": -8.4183,
+                        "lng": 114.9083,
+                        "categories": [
+                                    "pantai",
+                                    "relaksasi"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 2.5,
+                        "price": 0,
+                        "rating": 4.7,
+                        "gmaps_reviews": "14.000+ ulasan",
+                        "gmaps_review_highlight": "Tempat selancar legendaris dengan suasana pedesaan yang tenang. Jauh dari kebisingan kota dan sunsetnya sangat indah.",
+                        "desc": "Pantai berbatu hitam eksotis yang terkenal di kalangan peselancar internasional karena memiliki ombak kiri yang panjang dan konsisten.",
+                        "tips": "Nikmati kelapa muda bakar dan santap ikan laut segar di warung tebing tepi pantai sambil menikmati sunset tenang.",
+                        "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pohon Suci Bunut Bolong Pekutatan",
+                        "lat": -8.3611,
+                        "lng": 114.8875,
+                        "categories": [
+                                    "alam",
+                                    "budaya"
+                        ],
+                        "ideal_time": "morning",
+                        "duration_hours": 1.0,
+                        "price": 0,
+                        "rating": 4.6,
+                        "gmaps_reviews": "7.500+ ulasan",
+                        "gmaps_review_highlight": "Fenomena alam yang sangat unik dan sakral. Jalan aspal yang menembus batang pohon raksasa sungguh luar biasa.",
+                        "desc": "Pohon beringin purba raksasa suci dengan lubang terowongan alami di bagian dasarnya yang dilewati jalan raya aspal.",
+                        "tips": "Kendaraan roda empat dapat melintas tepat di bawah rongga akar pohon yang dinaungi kanopi hijau rindang.",
+                        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                        "name": "Pura Dang Kahyangan Rambut Siwi",
+                        "lat": -8.3889,
+                        "lng": 114.7611,
+                        "categories": [
+                                    "budaya"
+                        ],
+                        "ideal_time": "sunset",
+                        "duration_hours": 1.5,
+                        "price": 20000,
+                        "rating": 4.7,
+                        "gmaps_reviews": "9.000+ ulasan",
+                        "gmaps_review_highlight": "Salah satu pura tebing tepi laut terindah di Bali Barat. Pemandangan samudera dan siluet puranya sangat mengesankan.",
+                        "desc": "Pura tebing karang megah peninggalan Dang Hyang Nirartha menghadap langsung ke Samudra Hindia dengan panorama pantai pasir hitam membentang.",
+                        "tips": "Suasana saat senja sangat damai dengan deburan ombak membentur tebing karang di bawah pelataran pura.",
+                        "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=600&q=80"
+            }
+]
+    },
     "karangasem": {
         "region_name": "Karangasem, Bali",
         "quick_desc": "Pesona istana air peninggalan kerajaan Bali Timur, pura agung lereng Gunung Agung, dan ketenangan teluk bawah laut Amed.",
@@ -503,13 +1712,17 @@ REAL_REGIONS_SPOTS = {
 
 # Regional Synonym Lookup Mapping
 SYNONYM_MAP = {
-    "karangasem": "karangasem", "besakih": "karangasem", "tirta gangga": "karangasem", "lempuyang": "karangasem", "amed": "karangasem", "tulamben": "karangasem",
-    "buleleng": "buleleng", "singaraja": "buleleng", "lovina": "buleleng", "sekumpul": "buleleng",
-    "gianyar": "gianyar", "ubud": "gianyar", "sukawati": "gianyar", "tegallalang": "gianyar", "tirta empul": "gianyar",
-    "tabanan": "tabanan", "bedugul": "tabanan", "tanah lot": "tabanan", "jatiluwih": "tabanan", "beratan": "tabanan",
-    "bangli": "bangli", "kintamani": "bangli", "penglipuran": "bangli", "batur": "bangli",
-    "badung": "badung", "kuta": "badung", "seminyak": "badung", "canggu": "badung", "uluwatu": "badung", "jimbaran": "badung", "melasti": "badung",
-    "klungkung": "klungkung", "nusa penida": "klungkung", "penida": "klungkung", "kelingking": "klungkung",
+    "bali": "bali", "pulau bali": "bali", "semua bali": "bali",
+    "nusa penida": "klungkung", "penida": "klungkung", "lembongan": "klungkung", "ceningan": "klungkung", "kelingking": "klungkung", "diamond beach": "klungkung",
+    "karangasem": "karangasem", "besakih": "karangasem", "tirta gangga": "karangasem", "lempuyang": "karangasem", "amed": "karangasem", "tulamben": "karangasem", "sidemen": "karangasem",
+    "buleleng": "buleleng", "singaraja": "buleleng", "lovina": "buleleng", "sekumpul": "buleleng", "menjangan": "buleleng", "gitgit": "buleleng",
+    "gianyar": "gianyar", "ubud": "gianyar", "sukawati": "gianyar", "tegallalang": "gianyar", "tirta empul": "gianyar", "campuhan": "gianyar",
+    "tabanan": "tabanan", "bedugul": "tabanan", "tanah lot": "tabanan", "jatiluwih": "tabanan", "beratan": "tabanan", "leke leke": "tabanan",
+    "bangli": "bangli", "kintamani": "bangli", "penglipuran": "bangli", "batur": "bangli", "toya devasya": "bangli", "cepung": "bangli",
+    "badung": "badung", "kuta": "badung", "seminyak": "badung", "canggu": "badung", "uluwatu": "badung", "jimbaran": "badung", "melasti": "badung", "pandawa": "badung", "sangeh": "badung", "mengwi": "badung",
+    "denpasar": "denpasar", "sanur": "denpasar", "renon": "denpasar", "bajra sandhi": "denpasar", "kumbasari": "denpasar",
+    "jembrana": "jembrana", "medewi": "jembrana", "gilimanuk": "jembrana", "negara": "jembrana", "bunut bolong": "jembrana",
+    "klungkung": "klungkung",
     "banda neira": "banda neira", "bandaneira": "banda neira", "maluku tengah": "banda neira",
     "sabang": "sabang", "pulau weh": "sabang", "weh": "sabang"
 }

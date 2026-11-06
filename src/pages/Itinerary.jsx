@@ -9,6 +9,10 @@ import {
   MapPanel
 } from '../components/index.js';
 import { LOCATION_OPTIONS } from '../components/organisms/ItineraryForm.jsx';
+<<<<<<< HEAD
+=======
+import { apiFetch } from '../utils/api.js';
+>>>>>>> aaad2af3631b1e21c06b25818edea37bcc00f1a9
 
 const HERO_IMAGE = 'assets/hero_raja_ampat.jpg';
 
@@ -32,6 +36,18 @@ function formatDateIndo(dateStr) {
 function resolveRegionKey(query) {
   if (!query) return 'bali';
   const q = query.toLowerCase().trim();
+
+  // Smart mapping for all Bali regencies, districts, and islands
+  if (q.includes('penida') || q.includes('lembongan') || q.includes('ceningan')) return 'nusa-penida';
+  if (q.includes('badung') || q.includes('kuta') || q.includes('seminyak') || q.includes('canggu') || q.includes('uluwatu') || q.includes('jimbaran') || q.includes('mengwi') || q.includes('petang') || q.includes('sangeh') || q.includes('melasti') || q.includes('pandawa')) return 'badung';
+  if (q.includes('gianyar') || q.includes('ubud') || q.includes('tegallalang') || q.includes('tampaksiring') || q.includes('sukawati') || q.includes('blahbatuh') || q.includes('tirta empul')) return 'gianyar';
+  if (q.includes('tabanan') || q.includes('bedugul') || q.includes('tanah lot') || q.includes('jatiluwih') || q.includes('beratan') || q.includes('baturiti') || q.includes('penebel')) return 'tabanan';
+  if (q.includes('bangli') || q.includes('kintamani') || q.includes('batur') || q.includes('penglipuran') || q.includes('cepung') || q.includes('devasya')) return 'bangli';
+  if (q.includes('karangasem') || q.includes('besakih') || q.includes('amed') || q.includes('lempuyang') || q.includes('tirta gangga') || q.includes('sidemen') || q.includes('tulamben') || q.includes('ujung')) return 'karangasem';
+  if (q.includes('buleleng') || q.includes('lovina') || q.includes('sekumpul') || q.includes('menjangan') || q.includes('singaraja') || q.includes('gitgit') || q.includes('banyumala')) return 'buleleng';
+  if (q.includes('denpasar') || q.includes('sanur') || q.includes('renon') || q.includes('bajra sandhi') || q.includes('kumbasari')) return 'denpasar';
+  if (q.includes('jembrana') || q.includes('medewi') || q.includes('gilimanuk') || q.includes('negara') || q.includes('bunut bolong')) return 'jembrana';
+
   for (const [key, reg] of Object.entries(REGIONS_DATA)) {
     const name = reg.name.toLowerCase();
     if (name.includes(q) || q.includes(name) || key.includes(q) || q.includes(key)) {

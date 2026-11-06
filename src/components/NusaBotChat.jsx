@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, X, Minus, Trash2, Send, Lock, ShieldAlert } from 'lucide-react';
+import { apiFetch } from '../utils/api.js';
+import MarkdownMessage from './atoms/MarkdownMessage.jsx';
 
 const CHAT_STORAGE_KEY = 'gastrip_chat_history';
 const CHAT_SESSION_KEY = 'gastrip_chat_session_id';
@@ -69,7 +71,7 @@ export default function NusaBotChat() {
 
   async function fetchSession() {
     try {
-      const res = await fetch('/api/auth/session');
+      const res = await apiFetch('/api/auth/session');
       if (res.ok) {
         const data = await res.json();
         if (data.status === 'success' && data.data?.session_id) {
@@ -107,7 +109,7 @@ export default function NusaBotChat() {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/chat', {
+      const res = await apiFetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -221,8 +223,8 @@ export default function NusaBotChat() {
                       <Sparkles className="w-4 h-4" />
                     </div>
                     <div className="space-y-1.5 max-w-[85%]">
-                      <div className="bg-[#ffffff] text-[#282828] p-3 border border-[#ededed] text-xs leading-relaxed shadow-xs whitespace-pre-wrap">
-                        {m.text}
+                      <div className="bg-[#ffffff] text-[#282828] p-3 border border-[#ededed] text-xs leading-relaxed shadow-xs">
+                        <MarkdownMessage content={m.text} />
                         {m.wasRedacted && (
                           <div className="mt-2 px-2 py-1 bg-sky-50 border border-sky-100 rounded-none text-[10px] text-sky-800 flex items-center gap-1 font-medium">
                             <Lock className="w-3 h-3 text-sky-600 shrink-0" />
