@@ -163,9 +163,9 @@ export default function NusaBotChat() {
         <div className="flex flex-col w-[350px] sm:w-[400px] h-[520px] max-h-[82vh] bg-[#ffffff] border border-[#ededed] shadow-2xl overflow-hidden mb-3.5 transition-all">
           
           {/* Header */}
-          <div className="px-4 py-3 bg-[#061e5a] text-[#ffffff] flex items-center justify-between border-b border-[#18409f]/30">
+          <div className="px-4 py-3 bg-[#07205b] text-[#ffffff] flex items-center justify-between border-b border-[#1841a2]/30">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-[#18409f] flex items-center justify-center text-[#fed988]">
+              <div className="w-8 h-8 bg-[#1841a2] flex items-center justify-center text-[#ffd988]">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
@@ -180,7 +180,7 @@ export default function NusaBotChat() {
               <button 
                 type="button" 
                 onClick={handleClearChat} 
-                className="p-1.5 hover:text-[#fed988] text-[#c8ccd7] transition" 
+                className="p-1.5 hover:text-[#ffd988] text-[#c8ccd7] transition" 
                 title="Bersihkan Riwayat Chat"
               >
                 <Trash2 className="w-4 h-4" />
@@ -188,7 +188,7 @@ export default function NusaBotChat() {
               <button 
                 type="button" 
                 onClick={() => setIsOpen(false)} 
-                className="p-1.5 hover:text-[#fed988] text-[#c8ccd7] transition" 
+                className="p-1.5 hover:text-[#ffd988] text-[#c8ccd7] transition" 
                 title="Tutup"
               >
                 <Minus className="w-4 h-4" />
@@ -210,14 +210,14 @@ export default function NusaBotChat() {
               <div key={idx}>
                 {m.type === 'user' ? (
                   <div className="flex flex-col items-end space-y-1">
-                    <div className="bg-[#061e5a] text-[#ffffff] px-3.5 py-2.5 rounded-none text-xs leading-relaxed max-w-[85%] shadow-xs">
+                    <div className="bg-[#07205b] text-[#ffffff] px-3.5 py-2.5 rounded-none text-xs leading-relaxed max-w-[85%] shadow-xs">
                       {m.text}
                     </div>
                     <span className="text-[9px] text-[#595959] px-1">{m.time}</span>
                   </div>
                 ) : (
                   <div className="flex items-start gap-2.5">
-                    <div className="w-7 h-7 bg-[#061e5a] text-[#fed988] flex items-center justify-center shrink-0 shadow-xs mt-0.5">
+                    <div className="w-7 h-7 bg-[#07205b] text-[#ffd988] flex items-center justify-center shrink-0 shadow-xs mt-0.5">
                       <Sparkles className="w-4 h-4" />
                     </div>
                     <div className="space-y-1.5 max-w-[85%]">
@@ -232,7 +232,7 @@ export default function NusaBotChat() {
                       </div>
                       <div className="flex items-center justify-between px-1">
                         {m.badge ? (
-                          <span className="text-[10px] font-semibold text-[#18409f] bg-[#f0f4ff] border border-[#d0deff] px-1.5 py-0.5 rounded-none">
+                          <span className="text-[10px] font-semibold text-[#1841a2] bg-[#f0f4ff] border border-[#d0deff] px-1.5 py-0.5 rounded-none">
                             {m.badge}
                           </span>
                         ) : null}
@@ -251,7 +251,7 @@ export default function NusaBotChat() {
                   <button
                     key={cIdx}
                     onClick={() => handleSendMessage(chip)}
-                    className="px-2.5 py-1 bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#061e5a] text-[11px] font-medium transition"
+                    className="px-2.5 py-1 bg-[#ffffff] hover:bg-[#ededed] border border-[#ededed] text-[#07205b] text-[11px] font-medium transition"
                   >
                     {chip}
                   </button>
@@ -262,9 +262,9 @@ export default function NusaBotChat() {
             {isLoading && (
               <div className="flex items-center gap-2 pl-9 text-[11px] text-[#595959]">
                 <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-[#061e5a] rounded-full animate-bounce"></span>
-                  <span className="w-1.5 h-1.5 bg-[#061e5a] rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                  <span className="w-1.5 h-1.5 bg-[#061e5a] rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                  <span className="w-1.5 h-1.5 bg-[#07205b] rounded-full animate-bounce"></span>
+                  <span className="w-1.5 h-1.5 bg-[#07205b] rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                  <span className="w-1.5 h-1.5 bg-[#07205b] rounded-full animate-bounce [animation-delay:0.4s]"></span>
                 </div>
                 <span>NusaBot sedang meracik jawaban...</span>
               </div>
@@ -275,7 +275,7 @@ export default function NusaBotChat() {
           {/* Input Form */}
           <div className="p-3 bg-[#ffffff] border-t border-[#ededed]">
             <div className="flex items-center justify-between text-[10px] text-[#595959] mb-1.5 px-0.5">
-              <span className="font-medium text-[#18409f]">{quota} kuota/mnt</span>
+              <span className="font-medium text-[#1841a2]">{quota} kuota/mnt</span>
               <span>{inputVal.length}/500</span>
             </div>
             <form 
@@ -291,12 +291,12 @@ export default function NusaBotChat() {
                 onChange={(e) => setInputVal(e.target.value)}
                 maxLength={500} 
                 placeholder="Tanyakan rekomendasi liburan..." 
-                className="flex-1 px-3 py-2 bg-[#f8f8f8] border border-[#ededed] text-xs text-[#282828] placeholder:text-[#8c8c8c] focus:border-[#061e5a] outline-none transition" 
+                className="flex-1 px-3 py-2 bg-[#f8f8f8] border border-[#ededed] text-xs text-[#282828] placeholder:text-[#8c8c8c] focus:border-[#07205b] outline-none transition" 
               />
               <button 
                 type="submit" 
                 disabled={isLoading || !inputVal.trim()}
-                className="px-3.5 py-2 bg-[#061e5a] hover:bg-[#18409f] disabled:opacity-50 text-[#ffffff] text-xs font-semibold transition" 
+                className="px-3.5 py-2 bg-[#07205b] hover:bg-[#1841a2] disabled:opacity-50 text-[#ffffff] text-xs font-semibold transition" 
                 title="Kirim"
               >
                 <Send className="w-3.5 h-3.5" />
@@ -311,10 +311,10 @@ export default function NusaBotChat() {
       <button 
         type="button" 
         onClick={() => setIsOpen(!isOpen)} 
-        className="h-12 px-4 rounded-none bg-[#061e5a] hover:bg-[#18409f] text-[#fed988] flex items-center justify-center gap-2 shadow-2xl transition border border-[#fed988]/40 group"
+        className="h-12 px-4 rounded-none bg-[#07205b] hover:bg-[#1841a2] text-[#ffd988] flex items-center justify-center gap-2 shadow-2xl transition border border-[#ffd988]/40 group"
         title="Tanya NusaBot AI"
       >
-        <Sparkles className="w-5 h-5 text-[#fed988]" />
+        <Sparkles className="w-5 h-5 text-[#ffd988]" />
         <span className="text-xs font-bold text-[#ffffff] tracking-wide font-sans">Tanya NusaBot</span>
       </button>
 

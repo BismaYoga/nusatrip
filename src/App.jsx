@@ -35,7 +35,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#f8f8f8] text-[#282828] selection:bg-[#fed988] selection:text-[#061e5a]">
+    <div className="min-h-screen flex flex-col justify-between bg-[#f8f8f8] text-[#282828] selection:bg-[#ffd988] selection:text-[#07205b]">
       
       {/* Top Navbar */}
       <Navbar currentRoute={route} setRoute={navigateTo} />

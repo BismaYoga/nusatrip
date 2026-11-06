@@ -1,63 +1,66 @@
 /* ==========================================================================
-   NusaTrip — Elegant Architectural Travel Design System
-   Typography: Libre Baskerville (700) + Montserrat (400, 500, 600)
-   Variants: Strictly 4 Font Variants Across Entire System
-   Sizes: Strictly 5 Font Sizes (Display, Title, Sub, Body, Caption)
-   Buttons: Strictly 0px Radius (Sharp Clean Geometry)
-   Official Palette (from Realtime Colors):
-   - Background: #f8f8f8
+   NusaTrip — Design System (Atomic Design)
+   Font   : Libre Baskerville (serif) + Instrument Sans (sans)
+   Varian : 5 varian, 5 ukuran
+     1. H1        — Libre Baskerville 700 · 48/56
+     2. H2        — Libre Baskerville 700 · 32/40
+     3. Deskripsi — Instrument Sans 500   · 20/32
+     4. Paragraf  — Instrument Sans 400   · 16/24
+     5. Note      — Instrument Sans 500   · 12/16
+   Spacing: kelipatan 8px
+   Palette:
+   - Primary:    #07205b
+   - Secondary:  #1841a2
+   - Accent:     #ffd988
    - Text:       #282828
-   - Primary:    #061e5a
-   - Secondary:  #18409f
-   - Accent:     #fed988
-   - Border:     #ededed
-   - Surface:    #ffffff
+   - Background: #f8f8f8
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:wght@400;500;600&display=swap');
-
 :root {
-  --font-serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: 'Libre Baskerville', Georgia, serif;
+  --font-sans: 'Instrument Sans', system-ui, sans-serif;
 
-  /* Realtime Colors Official 5-Color System */
-  --c-bg: #f8f8f8;        /* 1. Background: Clean Soft Canvas */
-  --c-surface: #ffffff;   /* Pure White Card Surface */
-  --c-border: #ededed;    /* Architectural Neutral Border */
-  --c-text: #282828;      /* 2. Text: Deep Charcoal Ink */
-  --c-primary: #061e5a;   /* 3. Primary: Deep Midnight Navy */
-  --c-secondary: #18409f; /* 4. Secondary: Sapphire Vibrant Blue */
-  --c-accent: #fed988;    /* 5. Accent: Sunlit Gold / Warm Sand */
-  
-  --c-dark: #061e5a;      /* Primary Navy Anchor */
+  --c-bg: #f8f8f8;
+  --c-surface: #ffffff;
+  --c-border: #e4e4e4;
+  --c-text: #282828;
+  --c-primary: #07205b;
+  --c-secondary: #1841a2;
+  --c-accent: #ffd988;
+
+  --c-dark: #07205b;
   --c-text-main: #282828;
   --c-text-muted: #595959;
   --c-text-subtle: #8c8c8c;
 
-  /* Strictly 5 Font Sizes */
-  --fs-display: 2.5rem;    /* 40px: H1 / Main Hero Title */
-  --fs-title: 1.5rem;      /* 24px: H2 / Section Headings */
-  --fs-sub: 1.125rem;      /* 18px: H3 / Card Titles / Subheadings */
-  --fs-body: 0.9375rem;    /* 15px: Standard Body / Inputs / Buttons */
-  --fs-caption: 0.75rem;   /* 12px: Small labels / Badges / Metadata */
+  /* 5 ukuran font */
+  --fs-h1: 3rem;        /* 48px */
+  --fs-h2: 2rem;        /* 32px */
+  --fs-desc: 1.25rem;   /* 20px */
+  --fs-body: 1rem;      /* 16px */
+  --fs-note: 0.75rem;   /* 12px */
 
-  /* Strict Consistent Subtle Radius for Cards (Buttons strictly 0px) */
-  --radius: 6px;
-  --radius-sm: 4px;
+  /* alias lama agar halaman lain tetap jalan */
+  --fs-display: var(--fs-h1);
+  --fs-title: var(--fs-h2);
+  --fs-sub: var(--fs-desc);
+  --fs-caption: var(--fs-note);
 
-  /* Atomic Spacing */
+  --radius: 0px;
+  --radius-sm: 0px;
+
+  /* Spacing kelipatan 8 */
   --space-xxs: 4px;
   --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 32px;
-  --space-2xl: 48px;
-  --space-3xl: 64px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  --space-3xl: 96px;
 
-  /* Shadows (Discreet, subtle) */
-  --shadow-subtle: 0 1px 3px rgba(6, 30, 90, 0.05);
-  --shadow-card: 0 2px 6px -1px rgba(6, 30, 90, 0.06), 0 1px 3px -1px rgba(6, 30, 90, 0.04);
+  --shadow-subtle: 0 1px 2px rgba(7, 32, 91, 0.06);
+  --shadow-card: 0 2px 8px rgba(7, 32, 91, 0.08);
 }
 
 *, *::before, *::after {
@@ -67,10 +70,10 @@
 body {
   font-family: var(--font-sans);
   background-color: var(--c-bg);
-  color: var(--c-text-main);
+  color: var(--c-text);
   font-size: var(--fs-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -105,7 +108,7 @@ body {
 .hero-overlay-dark {
   position: absolute;
   inset: 0;
-  background-color: rgba(6, 30, 90, 0.62);
+  background-color: rgba(7, 32, 91, 0.62);
   z-index: 5;
 }
 
@@ -119,63 +122,27 @@ body {
 }
 
 /* ==========================================================================
-   Typographic Scale (Strictly 5 Sizes, Max 4 Variants)
-   Variant 1: Libre Baskerville 700 (Bold Serif)
-   Variant 2: Montserrat 400 (Regular Sans)
-   Variant 3: Montserrat 500 (Medium Sans)
-   Variant 4: Montserrat 600 (SemiBold Sans)
+   Typographic Scale — 5 varian (ukuran diatur via class text-h1 / text-h2 /
+   text-desc / text-body / text-note dari tailwind.config di index.html)
    ========================================================================== */
 
-h1, .font-h1, .text-display {
-  font-family: var(--font-serif) !important;
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  color: var(--c-text);
-}
-
-@media (min-width: 768px) {
-  h1, .font-h1, .text-display {
-    font-size: var(--fs-display) !important;
-  }
-}
-
+h1, .font-h1, .text-display,
 h2, .font-h2, .text-title {
-  font-family: var(--font-serif) !important;
-  font-size: var(--fs-title) !important;
-  font-weight: 700 !important;
-  line-height: 1.35;
-  letter-spacing: -0.015em;
-  color: var(--c-text);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 h3, h4, .font-h3, .text-sub {
-  font-family: var(--font-serif) !important;
-  font-size: var(--fs-sub) !important;
-  font-weight: 700 !important;
-  line-height: 1.4;
-  color: var(--c-text);
-}
-
-.font-serif, .heading-serif {
-  font-family: var(--font-serif) !important;
-  font-weight: 700 !important;
-}
-
-p, .font-body, .text-body {
   font-family: var(--font-sans);
-  font-size: var(--fs-body);
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--c-text-muted);
+  font-weight: 500;
 }
 
 .text-meta-label, .text-caption, small {
   font-family: var(--font-sans);
-  font-size: var(--fs-caption);
+  font-size: var(--fs-note);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1rem;
 }
 
 /* ==========================================================================
@@ -322,7 +289,7 @@ textarea:focus {
   background-color: var(--c-accent);
   color: var(--c-primary);
   font-weight: 700;
-  border: 1px solid #ebd080;
+  border: 1px solid #ffd988;
 }
 
 /* Day Tabs in Timeline */
@@ -407,7 +374,7 @@ textarea:focus {
   font-size: 12px;
   font-weight: 700;
   border: 2px solid #ffffff;
-  box-shadow: 0 2px 6px rgba(6, 30, 90, 0.35);
+  box-shadow: 0 2px 6px rgba(7, 32, 91, 0.35);
 }
 
 /* Scrollbar Cleanliness */
@@ -431,7 +398,7 @@ textarea:focus {
 
 /* Chatbot Custom Styles */
 .chat-bubble-user {
-  background-color: #061e5a;
+  background-color: #07205b;
   color: #ffffff;
   padding: 10px 14px;
   border-radius: 0px;
@@ -453,7 +420,7 @@ textarea:focus {
 .chat-security-badge {
   font-size: 10px;
   font-weight: 600;
-  color: #18409f;
+  color: #1841a2;
   background-color: #f0f4ff;
   border: 1px solid #d0deff;
   padding: 2px 6px;
@@ -468,4 +435,29 @@ textarea:focus {
   border: 1px solid #fef3c7;
   padding: 2px 6px;
   border-radius: 0px;
+}
+
+/* Map pin (MapPanel) */
+.map-pin {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--c-primary);
+  color: var(--c-bg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-note);
+  font-weight: 500;
+  border: 2px solid var(--c-bg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.32);
+}
+
+.map-pin--active {
+  background-color: var(--c-accent);
+  color: var(--c-text);
+}
+
+.leaflet-container {
+  font-family: var(--font-sans);
 }

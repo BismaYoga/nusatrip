@@ -62,7 +62,7 @@ export default function Home({ setRoute }) {
               <button
                 type="button"
                 onClick={() => setRoute('itinerary')}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#fed988] hover:bg-[#fdd887] text-[#061e5a] font-bold text-sm transition shadow-md"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-none bg-[#ffd988] hover:bg-[#ffd988] text-[#07205b] font-bold text-sm transition shadow-md"
               >
                 <span>Rancang Itinerary Sekarang</span>
                 <span>&rarr;</span>
@@ -82,7 +82,7 @@ export default function Home({ setRoute }) {
             
             {/* Current Slide Location Label */}
             <div className="flex flex-col">
-              <span className="text-[11px] uppercase tracking-widest text-[#fed988] font-bold">Destinasi</span>
+              <span className="text-[11px] uppercase tracking-widest text-[#ffd988] font-bold">Destinasi</span>
               <span id="heroSlideLocation" className="text-sm font-semibold text-[#ffffff] tracking-wide font-sans">
                 {HERO_SLIDES[slideIdx].name}
               </span>
@@ -95,7 +95,7 @@ export default function Home({ setRoute }) {
                   key={dotIdx}
                   type="button"
                   onClick={() => setSlideIdx(dotIdx)}
-                  className={`${dotIdx === slideIdx ? 'w-8 bg-[#fed988]' : 'w-4 bg-[#ffffff]/35 hover:bg-[#ffffff]/70'} h-[3px] rounded-none transition-all`}
+                  className={`${dotIdx === slideIdx ? 'w-8 bg-[#ffd988]' : 'w-4 bg-[#ffffff]/35 hover:bg-[#ffffff]/70'} h-[3px] rounded-none transition-all`}
                   title={slide.name}
                 />
               ))}
@@ -113,10 +113,10 @@ export default function Home({ setRoute }) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
+            <span className="text-xs font-bold tracking-widest uppercase text-[#1841a2] block">
               Filosofi Kami
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#07205b] font-serif tracking-tight">
               Kenapa NusaTrip Diciptakan?
             </h2>
             <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
@@ -134,14 +134,14 @@ export default function Home({ setRoute }) {
                 localStorage.setItem('gastrip_target_region', 'Karangasem');
                 setRoute('itinerary');
               }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
             >
               <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
                 <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" alt="Pura Lempuyang Karangasem" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
               <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Destinasi Budaya</span>
-                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pura Lempuyang</h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Destinasi Budaya</span>
+                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pura Lempuyang</h3>
                 <p className="text-xs text-[#595959]">Karangasem, Bali</p>
               </div>
             </button>
@@ -153,14 +153,14 @@ export default function Home({ setRoute }) {
                 localStorage.setItem('gastrip_target_region', 'Kebumen');
                 setRoute('itinerary');
               }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
             >
               <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Pantai Menganti Kebumen" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
               <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Wisata Pesisir</span>
-                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pantai Menganti</h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Wisata Pesisir</span>
+                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pantai Menganti</h3>
                 <p className="text-xs text-[#595959]">Kebumen, Jawa Tengah</p>
               </div>
             </button>
@@ -172,14 +172,14 @@ export default function Home({ setRoute }) {
                 localStorage.setItem('gastrip_target_region', 'Labuan Bajo & Komodo');
                 setRoute('itinerary');
               }}
-              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#18409f] transition-all"
+              className="group block text-left rounded-[6px] overflow-hidden bg-[#ffffff] border border-[#ededed] shadow-xs hover:border-[#1841a2] transition-all"
             >
               <div className="relative h-64 overflow-hidden bg-[#f8f8f8]">
                 <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=600&q=80" alt="Taman Nasional Komodo Labuan Bajo" className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300" />
               </div>
               <div className="p-5 space-y-1">
-                <span className="text-xs font-semibold uppercase tracking-wider text-[#18409f]">Taman Nasional Bahari</span>
-                <h3 className="text-lg font-bold text-[#061e5a] font-serif">Pulau Padar &amp; Komodo</h3>
+                <span className="text-xs font-semibold uppercase tracking-wider text-[#1841a2]">Taman Nasional Bahari</span>
+                <h3 className="text-lg font-bold text-[#07205b] font-serif">Pulau Padar &amp; Komodo</h3>
                 <p className="text-xs text-[#595959]">Labuan Bajo, NTT</p>
               </div>
             </button>
@@ -199,10 +199,10 @@ export default function Home({ setRoute }) {
             
             {/* Left Column: Narasi About Us & Manfaat */}
             <div className="lg:col-span-7 space-y-6">
-              <span className="text-xs font-bold tracking-widest uppercase text-[#18409f] block">
+              <span className="text-xs font-bold tracking-widest uppercase text-[#1841a2] block">
                 Tentang Kami
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#061e5a] font-serif tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#07205b] font-serif tracking-tight">
                 Kenapa NusaTrip Berbeda &amp; Layak Kamu Gunakan?
               </h2>
               <p className="text-sm sm:text-base text-[#595959] leading-relaxed">
@@ -210,16 +210,16 @@ export default function Home({ setRoute }) {
               </p>
               
               <div className="space-y-4 pt-2">
-                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#061e5a]">Rute Searah Minim Bolak-Balik</h4>
+                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#07205b]">Rute Searah Minim Bolak-Balik</h4>
                   <p className="text-xs text-[#595959]">Algoritma klaster cerdas mengurutkan destinasi agar searah, menghemat waktu di jalan hingga 35%.</p>
                 </div>
-                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#061e5a]">Estimasi Biaya Transparan</h4>
+                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#07205b]">Estimasi Biaya Transparan</h4>
                   <p className="text-xs text-[#595959]">Kalkulasi rinci tiket masuk resmi, sewa armada, penginapan, dan konsumsi tanpa biaya siluman.</p>
                 </div>
-                <div className="border-l-2 border-[#061e5a] pl-4 space-y-1">
-                  <h4 className="text-sm font-bold text-[#061e5a]">Data Otentik 100% Nyata</h4>
+                <div className="border-l-2 border-[#07205b] pl-4 space-y-1">
+                  <h4 className="text-sm font-bold text-[#07205b]">Data Otentik 100% Nyata</h4>
                   <p className="text-xs text-[#595959]">Terintegrasi langsung dengan koordinat GPS OpenStreetMap dan ulasan riil Google Maps di setiap daerah.</p>
                 </div>
               </div>
@@ -228,7 +228,7 @@ export default function Home({ setRoute }) {
                 <button
                   type="button"
                   onClick={() => setRoute('about')}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#061e5a] hover:text-[#18409f] transition"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#07205b] hover:text-[#1841a2] transition"
                 >
                   <span>Baca Selengkapnya Tentang Kami</span>
                   <span>&rarr;</span>
@@ -239,7 +239,7 @@ export default function Home({ setRoute }) {
             {/* Right Column: Reviewer Card Testimonial */}
             <div className="lg:col-span-5">
               <div className="bg-[#f8f8f8] rounded-[6px] p-8 border border-[#ededed] space-y-5">
-                <div className="text-xs font-bold uppercase tracking-wider text-[#18409f]">
+                <div className="text-xs font-bold uppercase tracking-wider text-[#1841a2]">
                   Rating Wisatawan • 5.0 / 5.0
                 </div>
 
@@ -249,10 +249,10 @@ export default function Home({ setRoute }) {
 
                 <div className="pt-4 border-t border-[#ededed] flex items-center justify-between text-xs">
                   <div>
-                    <h4 className="font-bold text-[#061e5a]">Bisma Yoga &amp; Keluarga</h4>
+                    <h4 className="font-bold text-[#07205b]">Bisma Yoga &amp; Keluarga</h4>
                     <p className="text-[#595959]">Wisatawan Terverifikasi • Jakarta</p>
                   </div>
-                  <span className="px-2.5 py-1 rounded-none bg-[#fed988] text-[#061e5a] font-bold text-[11px] border border-[#ebd080]">
+                  <span className="px-2.5 py-1 rounded-none bg-[#ffd988] text-[#07205b] font-bold text-[11px] border border-[#ffd988]">
                     Terverifikasi
                   </span>
                 </div>
