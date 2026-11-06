@@ -91,8 +91,9 @@ if genai and API_KEY:
     except Exception:
         gemini_client = None
 
-from real_destinations_db import find_matched_region_key, build_itinerary_from_db, build_dynamic_region_itinerary
+from real_destinations_db import find_matched_region_key, build_dynamic_region_itinerary, REAL_REGIONS_SPOTS
 from osm_engine import generate_osm_itinerary
+from itinerary_builder import build_personalized_itinerary, interpret_note, SPOTS_PER_DAY
 
 # Cache for Weather & News & Photos & Full Itineraries
 NEWS_CACHE = {"timestamp": 0, "data": []}
@@ -354,6 +355,9 @@ class GenerateRequest(BaseModel):
     interests: List[str] = ["pantai", "budaya", "kuliner"]
     custom_prompt: Optional[str] = None
     start_date: Optional[str] = None
+    pax_count: Optional[int] = None
+    budget_min: Optional[int] = None
+    budget_max: Optional[int] = None
 
 @app.get("/api/regions")
 def get_regions():
@@ -476,57 +480,97 @@ def normalize_region_query(query: str) -> str:
         return "bandung & lembang"
     return q
 
+def load_curated_region(region: str, norm_region: str):
+    """Return (meta, spots) for a region from the verified database or the bundled itineraries."""
+    matched_key = find_matched_region_key(region)
+    if matched_key:
+        data = REAL_REGIONS_SPOTS[matched_key]
+        return data, list(data["all_spots"])
+
+    meta = None
+    spots_by_name = {}
+    prefix = f"{norm_region}::"
+    for key, entry in ITINERARY_CACHE.items():
+        if not key.startswith(prefix):
+            continue
+        meta = meta or entry["data"]
+        for day in entry["data"].get("days", []):
+            for spot in day.get("spots", []):
+                spots_by_name.setdefault(spot["name"], {**spot, "zone": day.get("zone")})
+    return meta, list(spots_by_name.values())
+
+
+def build_fallback_itinerary(req: GenerateRequest, norm_region: str, days: int) -> tuple[dict, str]:
+    """Build an itinerary from local data and OpenStreetMap when Gemini is unavailable."""
+    note_interests, note_pace = interpret_note(req.custom_prompt)
+    interests = list(dict.fromkeys([*req.interests, *note_interests]))
+    pace = note_pace or req.pace
+    needed = days * SPOTS_PER_DAY.get(pace, SPOTS_PER_DAY["balanced"])
+
+    meta, pool = load_curated_region(req.region, norm_region)
+    source = "curated_database"
+    if len(pool) < needed:
+        osm = generate_osm_itinerary(req.region, days=7, pace="packed", budget_tier="comfort")
+        known_names = {spot["name"] for spot in pool}
+        for day in osm["days"]:
+            for spot in day["spots"]:
+                if spot["name"] not in known_names:
+                    known_names.add(spot["name"])
+                    pool.append(spot)
+        if meta is None:
+            meta = osm
+            source = "openstreetmap_live_geospatial"
+
+    return build_personalized_itinerary(meta, pool, days, pace, req.budget_tier, interests), source
+
+
 @app.post("/api/ai/generate")
 def generate_ai_itinerary(req: GenerateRequest):
     """
-    Generate complete, realistic, geographically clustered travel itinerary
-    using Google Gemini AI for ANY Indonesian region with Google Maps metadata.
-    Optimized with In-Memory + Disk Caching and Concurrent Multi-Threaded Asset Resolving.
+    Generate an itinerary for ANY Indonesian region from the traveler's form input.
+    Gemini is used when configured; otherwise spots are picked from local data and OpenStreetMap.
     """
     t_start = time.time()
     days = max(1, min(req.days, 7))
     custom_instruction = f"Catatan Tambahan Pengguna: {req.custom_prompt}" if req.custom_prompt else ""
-    
-    # 1. High-Speed Deterministic Cache Check (< 2ms response time)
     norm_region = normalize_region_query(req.region)
-    primary_cache_key = f"{norm_region}::{days}::{req.traveler_type}::{req.pace}::{req.budget_tier}"
 
-    if primary_cache_key in ITINERARY_CACHE:
-        cached_entry = ITINERARY_CACHE[primary_cache_key]
-        if t_start - cached_entry.get("timestamp", 0) < 604800: # 7 days TTL
-            data_copy = dict(cached_entry["data"])
-            # Ensure the response title matches what the user typed if they typed something specific
-            if req.region.lower() not in norm_region:
-                data_copy["region_name"] = req.region.title()
-            return {
-                "status": "success",
-                "cached": True,
-                "latency_ms": round((time.time() - t_start) * 1000, 2),
-                "data": data_copy
-            }
-
-    # 2. Instant Real Regional Database Match (0ms latency, 100% verified authentic spots)
-    matched_key = find_matched_region_key(req.region)
-    if matched_key:
-        real_itinerary = build_itinerary_from_db(
-            matched_key,
-            days=days,
-            traveler_type=req.traveler_type,
-            pace=req.pace,
-            budget_tier=req.budget_tier,
-            custom_prompt=req.custom_prompt or ""
-        )
-        ITINERARY_CACHE[primary_cache_key] = {
-            "timestamp": t_start,
-            "data": real_itinerary
+    # 1. Reuse a Gemini result only when every input is identical.
+    interests_key = ",".join(sorted(req.interests))
+    note_key = (req.custom_prompt or "").strip().lower()
+    cache_key = (
+        f"v2::{norm_region}::{days}::{req.traveler_type}::{req.pace}::{req.budget_tier}"
+        f"::{interests_key}::{note_key}::{req.pax_count}::{req.budget_min}::{req.budget_max}"
+    )
+    cached_entry = ITINERARY_CACHE.get(cache_key)
+    if cached_entry and t_start - cached_entry.get("timestamp", 0) < 604800:  # 7 days TTL
+        return {
+            "status": "success",
+            "cached": True,
+            "source": "gemini",
+            "latency_ms": round((time.time() - t_start) * 1000, 2),
+            "data": cached_entry["data"]
         }
+
+    def fallback_response():
+        data, source = build_fallback_itinerary(req, norm_region, days)
         return {
             "status": "success",
             "cached": False,
-            "source": "verified_regional_database",
+            "source": source,
             "latency_ms": round((time.time() - t_start) * 1000, 2),
-            "data": real_itinerary
+            "data": data
         }
+
+    # 2. Without Gemini, build directly from local data.
+    if not gemini_client:
+        return fallback_response()
+
+    budget_range = ""
+    if req.budget_min is not None and req.budget_max is not None:
+        budget_range = f"Rentang Budget per Orang: Rp {req.budget_min:,} - Rp {req.budget_max:,}".replace(",", ".")
+    pax_line = f"Jumlah Peserta: {req.pax_count} orang" if req.pax_count else ""
+    start_line = f"Tanggal Mulai: {req.start_date}" if req.start_date else ""
 
     prompt = f"""
 Kamu adalah Kurator Perjalanan Indonesia paling ahli di GasTrip (standar industri Traveloka & Wanderlog).
@@ -537,7 +581,10 @@ Durasi: {days} Hari
 Tipe Traveler: {req.traveler_type} (couple, family, friends, solo)
 Ritme: {req.pace} (relaxed = 3 spot/hari, balanced = 4 spot/hari, packed = 5 spot/hari)
 Kelas Anggaran: {req.budget_tier} (budget, comfort, luxury)
-Minat Utama: {", ".join(req.interests)}
+Minat Utama: {", ".join(req.interests) or "bebas"}
+{budget_range}
+{pax_line}
+{start_line}
 {custom_instruction}
 
 ATURAN WAJIB:
@@ -611,27 +658,8 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
             continue
             
     if not raw_text:
-        # Live OpenStreetMap Geospatial Query Engine (100% authentic landmarks, zero placeholder!)
-        parsed_data = generate_osm_itinerary(
-            req.region,
-            days=days,
-            traveler_type=req.traveler_type,
-            pace=req.pace,
-            budget_tier=req.budget_tier,
-            custom_prompt=req.custom_prompt or ""
-        )
-        ITINERARY_CACHE[primary_cache_key] = {
-            "timestamp": t_start,
-            "data": parsed_data
-        }
-        return {
-            "status": "success",
-            "cached": False,
-            "source": "openstreetmap_live_geospatial",
-            "latency_ms": round((time.time() - t_start) * 1000, 2),
-            "data": parsed_data
-        }
-        
+        return fallback_response()
+
     clean_json = raw_text.strip()
     if clean_json.startswith("```json"):
         clean_json = clean_json[7:]
@@ -643,7 +671,9 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
     
     try:
         parsed_data = json.loads(clean_json)
-        
+        if not parsed_data.get("days"):
+            return fallback_response()
+
         # 2. Ultra-Fast Parallel Photo & Maps Resolution (Concurrent Threads)
         spot_tasks = []
         photo_idx = 0
@@ -681,11 +711,12 @@ Berikan jawaban HANYA dalam format JSON valid murni (tanpa tanda kutip markdown 
         return {
             "status": "success",
             "cached": False,
+            "source": "gemini",
             "latency_ms": round((time.time() - t_start) * 1000, 2),
             "data": parsed_data
         }
-    except Exception as parse_err:
-        raise HTTPException(status_code=500, detail=f"Gagal mem-parsing output AI JSON: {parse_err}. Raw: {clean_json[:300]}")
+    except json.JSONDecodeError:
+        return fallback_response()
 
 REVISIONS_FILE = "/var/www/html/gastrip/halodev_revisions.json"
 
